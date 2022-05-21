@@ -86,6 +86,7 @@ class Subscribe(models.Model):
         on_delete=models.CASCADE,
         related_name='subs'
     )
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
@@ -107,6 +108,7 @@ class Like(models.Model):
         on_delete=models.CASCADE,
         related_name='liked'
     )
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
@@ -115,6 +117,9 @@ class Like(models.Model):
                 name='unique_like',
             )
         ]
+
+    def __str__(self):
+        return f'{self.user.username} like {self.entry.pk}'
 
 
 class Bookmark(models.Model):
@@ -128,6 +133,7 @@ class Bookmark(models.Model):
         on_delete=models.CASCADE,
         related_name='marked'
     )
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
