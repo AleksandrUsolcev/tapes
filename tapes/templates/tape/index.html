@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/post.css' %}">
+{% endblock %}
+{% block title %}
+  тайтл
+{% endblock %}
+{% block content %}
+  {% for entry in entries  %}
+    {% include '../includes/entry.html' %}
+  {% endfor %}
+{% endblock %}
