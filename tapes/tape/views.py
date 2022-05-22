@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from tape.models import Entry, Like, Bookmark
+from tape.models import Entry, Like, Bookmark, User
 from tape.utils import pagination
 
 
@@ -14,8 +14,15 @@ def index(request):
     return render(request, 'tape/index.html', context)
 
 
-def profile(request):
-    pass
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    entries = Entry.objects.filter(author=user)
+    entries = pagination(request, entries)
+    context = {
+        'user': user,
+        'entries': entries,
+    }
+    return render(request, 'tape/profile.html', context)
 
 
 def tape(request):

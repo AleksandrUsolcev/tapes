@@ -1,0 +1,31 @@
+a {
+  color: #9d276d;
+  transition: 0.3s;
+  text-decoration: none;
+}
+a:hover {
+  transition: 0.3s !important;
+}
+.btn {
+  background-color: #9d276d;
+  border: none;
+  font-size: 1rem;
+}
+.profile {
+  margin-bottom: 3rem;
+}
+.profile .full-name {
+  color: #888;
+}
+.profile .tilda {
+  color: #9d276d;
+  margin-right: 0.3rem;
+  font-weight: bold;
+}
+.profile .subscribe {
+  margin-top: .4rem;
+}
+.profile .notice {
+  margin-right: .8rem;
+  color: #888;
+}

@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Satisfy-Regular';
+    src: url('../fonts/Satisfy-Regular.ttf');
+}
+.sidebar {
+  background-color: #0e062b;
+  background-image: url('../img/sidebar-bg.png');
+  background-size: 200%;
+  -webkit-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.2);
+}
+.logo {
+  font-family: 'Satisfy-Regular';
+  font-size: 4rem;
+  color: #b3adc5;
+  padding: 0 1.5rem 0 1.5rem;
+}
+.logo a {
+  text-decoration: none;
+}
+.logo .tilda {
+  color: #9d276d;
+  margin-right: 0.3rem;
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+.logo .logo-text {
+  background: #E7ACEB;
+  background: repeating-linear-gradient(to right, #E7ACEB 0%, #E2E6F5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sidebar .menu {
+  margin-top: 3rem;
+  margin-left: 0.7rem;
+}
+.sidebar .menu a {
+  color: #b3adc5;
+  letter-spacing: 0.1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  margin-bottom: .7rem;
+  padding: .3rem .5rem;
+}
+.sidebar .menu .nav-txt,
+.sidebar .menu .nav-img {
+  padding: 0;
+  margin: 0;
+}
+.sidebar .menu .nav-txt {
+  padding-left: .4rem;
+}
+.sidebar .menu .nav-img {
+  vertical-align: middle;
+  text-align: right;
+  color: #9d276d;
+}
