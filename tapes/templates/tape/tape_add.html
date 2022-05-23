@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+  {% if is_edit %}
+    Редактирование ленты
+  {% else %}
+    Новая лента
+  {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <h2>
+    {% if is_edit %}
+      Редактирование ленты
+    {% else %}
+      Новая лента
+    {% endif %}
+  </h2>
+  <div class="card-body">
+    {% load user_filters %}
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group row my-3 p-3">
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+          {{ field|addclass:'form-control' }}
+          <p class="fst-italic fw-lighter">
+            {{ field.help_text }}
+          </p>
+        </div>
+      {% endfor %}
+      <div class="col-md-12 text-center">
+        <button type="submit" class="btn btn-primary">
+          {% if is_edit %}
+            Сохранить
+          {% else %}
+            Создать
+          {% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

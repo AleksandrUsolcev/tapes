@@ -1,9 +1,9 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.conf import settings
 
-from tape.forms import CommentForm
-from tape.models import Entry, Like, Bookmark, User, Comment
+from tape.forms import CommentForm, EntryForm, TapeForm
+from tape.models import Entry, Like, Bookmark, User
 from tape.utils import pagination
 
 
@@ -33,7 +33,13 @@ def tape(request):
 
 @login_required
 def tape_add(request):
-    pass
+    form = TapeForm(request.POST or None, files=request.FILES or None, )
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = request.user
+        form.save()
+        return redirect('tape:profile', username=request.user)
+    return render(request, 'tape/tape_add.html', {'form': form})
 
 
 @login_required
@@ -56,7 +62,34 @@ def entry_detail(request, entry_id):
 
 @login_required
 def entry_add(request):
-    pass
+    form = EntryForm(request.POST or None, files=request.FILES or None, )
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = request.user
+        form.save()
+        return redirect('tape:profile', username=request.user)
+    return render(request, 'tape/entry_add.html', {'form': form})
+
+
+@login_required
+def entry_edit(request, entry_id):
+    entry = get_object_or_404(Entry, id=entry_id)
+    form = EntryForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=entry
+    )
+    if entry.author != request.user:
+        return redirect('tape:entry_detail', entry_id=entry_id)
+    if form.is_valid():
+        form.save()
+        return redirect('tape:entry_detail', entry_id=entry_id)
+    context = {
+        'is_edit': True,
+        'entry': entry,
+        'form': form,
+    }
+    return render(request, 'tape/entry_add.html', context)
 
 
 @login_required

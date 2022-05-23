@@ -16,6 +16,7 @@ urlpatterns = [
         views.entry_detail,
         name='entry_detail'
     ),
+    path('entries/<int:entry_id>/edit', views.entry_edit, name='entry_edit'),
     path(
         'entries/<int:entry_id>/comment',
         views.comment_add,
