@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from tape.forms import CommentForm, EntryForm, TapeForm
-from tape.models import Entry, Like, Bookmark, User
+from tape.models import Entry, Like, Bookmark, User, Subscribe, Tape
 from tape.utils import pagination
 
 
@@ -20,15 +20,35 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     entries = Entry.objects.filter(author=user)
     entries = pagination(request, entries, settings.ENTRIES_COUNT)
+    author = get_object_or_404(User, username=username)
+    subs_count = User.objects.get(username=author).subs.count()
+    if request.user.is_authenticated:
+        is_sub = Subscribe.objects.filter(
+            user=request.user,
+            author=author
+        ).exists()
+    else:
+        is_sub = False
     context = {
         'user': user,
+        'author': author,
         'entries': entries,
+        'is_sub': is_sub,
+        'subs_count': subs_count,
     }
     return render(request, 'tape/profile.html', context)
 
 
-def tape(request):
-    pass
+def tape(request, username, slug):
+    author = get_object_or_404(User, username=username)
+    tape = get_object_or_404(Tape, slug=slug, author=author)
+    entries = tape.entries.all()
+    entries = pagination(request, entries, settings.ENTRIES_COUNT)
+    context = {
+        'tape': tape,
+        'entries': entries,
+    }
+    return render(request, 'tape/feed.html', context)
 
 
 @login_required
@@ -44,7 +64,13 @@ def tape_add(request):
 
 @login_required
 def feed(request):
-    pass
+    user = request.user
+    entries = Entry.objects.filter(author__subs__user=user)
+    entries = pagination(request, entries, settings.ENTRIES_COUNT)
+    context = {
+        'entries': entries,
+    }
+    return render(request, 'tape/feed.html', context)
 
 
 def entry_detail(request, entry_id):
@@ -139,3 +165,20 @@ def unmark(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
     Bookmark.objects.filter(user=user, entry=entry).delete()
     return redirect('tape:index')
+
+
+@login_required
+def subscribe(request, username):
+    user = request.user
+    author = get_object_or_404(User, username=username)
+    if user != author:
+        Subscribe.objects.get_or_create(user=user, author=author)
+    return redirect('tape:profile', username)
+
+
+@login_required
+def unsubscribe(request, username):
+    user = request.user
+    author = get_object_or_404(User, username=username)
+    Subscribe.objects.filter(user=user, author=author).delete()
+    return redirect('tape:profile', username)

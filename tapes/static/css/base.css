@@ -24,6 +24,13 @@ a:hover {
   background-color: #9d276d;
   border: none;
   font-size: 1rem;
+  color: #fff;
+}
+.btn.sub-true {
+  background-color: #aaa;
+}
+.btn.sub-true:hover {
+  color: #555;
 }
 .full-name {
   color: #777;

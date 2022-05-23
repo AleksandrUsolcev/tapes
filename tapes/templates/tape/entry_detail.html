@@ -31,7 +31,7 @@
             <span class="fw-light">он же</span>
             <span class="fw-bold full_name">{{ comment.author.get_full_name }}</span>
           {% endif %}
-          <span class="fw-light">прокомментировал
+          <span class="fw-light">
             {% if today_time == comment.created.date %}
               {{ comment.created|naturaltime }}:
             {% else %}

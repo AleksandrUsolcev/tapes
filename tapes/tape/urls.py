@@ -7,7 +7,6 @@ app_name = 'tape'
 urlpatterns = [
     path('', views.index, name='index'),
     path('~<str:username>', views.profile, name='profile'),
-    path('~<str:username>/<slug:slug>', views.tape, name='tape'),
     path('feed', views.feed, name='feed'),
     path('new-tape', views.tape_add, name='tape_add'),
     path('new', views.entry_add, name='entry_add'),
@@ -42,4 +41,15 @@ urlpatterns = [
         views.unmark,
         name='unmark'
     ),
+    path(
+        '~<str:username>/subscribe',
+        views.subscribe,
+        name='subscribe'
+    ),
+    path(
+        '~<str:username>/unsubscribe',
+        views.unsubscribe,
+        name='unsubscribe'
+    ),
+    path('~<str:username>/<slug:slug>', views.tape, name='tape'),
 ]

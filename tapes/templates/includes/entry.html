@@ -6,13 +6,17 @@
       </h3>
     {% endif %}
     <div class="col-8 entry-names">
-      <a class="text-decoration-none">
         <a href="{% url 'tape:profile' entry.author %}">
           <span class="fw-bold">
             ~{{ entry.author }}
           </span>
+          {% if entry.author.username == 'hexen' %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+            </svg>
+          {% endif %}
         </a>
-      </a>
+
       {% if entry.author.get_full_name %}
         <span class="fw-bold full-name">{{ entry.author.get_full_name }}</span>
       {% endif %}
@@ -26,6 +30,14 @@
           {% endif %}
         </span>
     </div>
+    {% if entry.tape %}
+    <div class="col-12 tape">
+      <span class="fw-bolder">
+        <a href="{% url 'tape:tape' entry.author.username entry.tape.slug %}">
+        {{ entry.tape.title }}</a>
+      </span>
+    </div>
+    {% endif %}
   </div>
   {% if entry.text %}
     <p class="py-3 m-0">
