@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+{% load user_filters %}
+<div class="row justify-content-center auth">
+  <div class="col-md-10 auth-col">
+    <h2>
+      Регистрация
+    </h2>
+      <div class="card-body">
+        <form method="post" action="../users/signup.html">
+          <input type="hidden" name="csrfmiddlewaretoken" value="">
+          <div class="form-group row my-3 p-3">
+            <label for="id_first_name">Имя</label>
+            <input type="text" name="first_name" maxlength="30" class="form-control" id="id_first_name">
+          </div>
+          <div class="form-group row my-3 p-3">
+            <label for="id_last_name">Фамилия</label>
+            <input type="text" name="last_name" maxlength="150" class="form-control" id="id_last_name">
+          </div>
+          <div class="form-group row my-3 p-3">
+            <label for="id_username">
+              Имя пользователя
+              <span class="required text-danger">*</span>
+            </label>
+            <input type="text" name="username" maxlength="150" autofocus class="form-control" required id="id_username">
+              <small id="id_username-help" class="form-text text-muted">
+                Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
+              </small>
+          </div>
+          <div class="form-group row my-3 p-3">
+            <label for="id_email">Адрес электронной почты</label>
+            <input type="email" name="email" maxlength="254" class="form-control" id="id_email">
+          </div>
+          <div class="form-group row my-3 p-3">
+            <label for="id_password1">
+              Пароль
+              <span class="required text-danger">*</span>
+            </label>
+            <input type="password" name="password1" class="form-control" required id="id_password1">
+            <small id="id_password1-help" class="form-text text-muted">
+              <ul><li>Ваш пароль не должен совпадать с вашим именем или другой персональной информацией или быть слишком похожим на неё.</li><li>Ваш пароль должен содержать как минимум 8 символов.</li><li>Ваш пароль не может быть одним из широко распространённых паролей.</li><li>Ваш пароль не может состоять только из цифр.</li></ul>
+            </small>
+          </div>
+          <div class="form-group row my-3 p-3">
+            <label for="id_password2">
+              Подтверждение пароля
+              <span class="required text-danger">*</span>
+            </label>
+            <input type="password" name="password2" class="form-control" required id="id_password2">
+            <small id="id_password2-help" class="form-text text-muted">
+              Для подтверждения введите, пожалуйста, пароль ещё раз.
+            </small>
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary">
+              Зарегистрироваться
+            </button>
+          </div>
+        </form>
+      </div> <!-- card body -->
+    </div>
+  <div class="col-md-2 auth-col-img"></div>
+</div> <!-- row -->
+{% endblock %}

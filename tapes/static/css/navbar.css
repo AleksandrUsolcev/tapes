@@ -1,0 +1,6 @@
+.navbar-main {
+  background: #dbd5df;
+}
+.navbar-main .form-control {
+  width: 20rem !important;
+}

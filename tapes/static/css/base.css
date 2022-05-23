@@ -1,3 +1,17 @@
+body {
+  background: #eae9f5;
+}
+.container-fluid.main {
+  margin: 0;
+  padding: 0;
+}
+.container-fluid .content {
+  margin-top: 3rem;
+  background: #ffffff;
+}
+.container-fluid .right-content {
+  background: #eae9f5;
+}
 a {
   color: #9d276d;
   transition: 0.3s;
@@ -11,19 +25,31 @@ a:hover {
   border: none;
   font-size: 1rem;
 }
+.full-name {
+  color: #777;
+}
+.entry-names {
+  font-size: 1.1rem;
+}
+.entry-names .full-name {
+  margin-left: .5rem;
+}
 .profile {
   margin-bottom: 3rem;
-}
-.profile .full-name {
-  color: #888;
 }
 .profile .tilda {
   color: #9d276d;
   margin-right: 0.3rem;
   font-weight: bold;
 }
+.profile .btn {
+  font-size: .7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+}
 .profile .subscribe {
-  margin-top: .4rem;
+  margin-top: .5rem;
 }
 .profile .notice {
   margin-right: .8rem;

@@ -1,21 +1,21 @@
 {% load humanize %}
   <div class="head row">
-    <div class="col-8">
-      {% if entry.title %}
-        <h3>
-          {{ entry.title }}
-        </h3>
-      {% endif %}
-        <a class="text-decoration-none">
-          <a href="{% url 'tape:profile' entry.author %}">
-            <span class="fw-bold">
-              ~{{ entry.author }}
-            </span>
-          </a>
+    {% if entry.title %}
+      <h3>
+        {{ entry.title }}
+      </h3>
+    {% endif %}
+    <div class="col-8 entry-names">
+      <a class="text-decoration-none">
+        <a href="{% url 'tape:profile' entry.author %}">
+          <span class="fw-bold">
+            ~{{ entry.author }}
+          </span>
         </a>
-        {% if entry.author.get_full_name %}
-          {{ entry.author.get_full_name }}
-        {% endif %}
+      </a>
+      {% if entry.author.get_full_name %}
+        <span class="fw-bold full-name">{{ entry.author.get_full_name }}</span>
+      {% endif %}
     </div>
     <div class="col-4 text-end">
         <span class="fw-light">

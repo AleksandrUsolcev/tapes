@@ -1,29 +1,32 @@
 @font-face {
-    font-family: 'Satisfy-Regular';
-    src: url('../fonts/Satisfy-Regular.ttf');
+    font-family: 'DancingScript-SemiBold';
+    src: url('../fonts/DancingScript-SemiBold.ttf');
 }
 .sidebar {
   background-color: #0e062b;
   background-image: url('../img/sidebar-bg.png');
   background-size: 200%;
-  -webkit-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.2);
-  box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  -webkit-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.4);
+  -moz-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.4);
+  box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.4);
+  z-index: 100;
 }
 .logo {
-  font-family: 'Satisfy-Regular';
-  font-size: 4rem;
+  font-family: 'DancingScript-SemiBold';
+  font-size: 5.7vw;
+  white-space: nowrap;
   color: #b3adc5;
-  padding: 0 1.5rem 0 1.5rem;
+  padding: 0 2rem 0 .1rem;
+  margin-top: -1rem;
 }
 .logo a {
   text-decoration: none;
 }
 .logo .tilda {
   color: #9d276d;
-  margin-right: 0.3rem;
-  font-size: 3.5rem;
-  font-weight: bold;
+  margin-right: 0;
+  font-size: 7rem;
+  font-weight: bolder;
 }
 .logo .logo-text {
   background: #E7ACEB;
@@ -32,15 +35,15 @@
   -webkit-text-fill-color: transparent;
 }
 .sidebar .menu {
-  margin-top: 3rem;
-  margin-left: 0.7rem;
+  margin-top: 2rem;
+  margin-left: 1.2rem;
 }
 .sidebar .menu a {
   color: #b3adc5;
   letter-spacing: 0.1rem;
   text-align: left;
-  font-size: 0.8rem;
-  margin-bottom: .7rem;
+  font-size: .9rem;
+  margin-bottom: .9rem;
   padding: .3rem .5rem;
 }
 .sidebar .menu .nav-txt,
@@ -49,10 +52,26 @@
   margin: 0;
 }
 .sidebar .menu .nav-txt {
-  padding-left: .4rem;
+  padding-left: .8rem;
 }
 .sidebar .menu .nav-img {
   vertical-align: middle;
   text-align: right;
   color: #9d276d;
+}
+.sidebar .credits {
+  padding: 1rem 1rem 1rem 1.6rem;
+  color: #746c8c;
+  font-size: .85rem;
+}
+.sidebar .credits p {
+  margin: 0;
+  padding: 0;
+  padding-top: 1rem;
+  margin-right: 4rem;
+  position: relative;
+}
+.sidebar .credits-links a {
+  padding-right: .7rem;
+  color: #746c8c;
 }
