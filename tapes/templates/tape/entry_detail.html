@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  {{ entry.text|slice:":30" }}
+{% endblock %}
+{% block content %}
+  <div class="entry_detail">
+    {% include '../includes/entry.html' %}
+
+    {% load user_filters %}
+    {% if user.is_authenticated %}
+        <h5>Комментировать:</h5>
+          <form method="post" action="{% url 'tape:comment_add' entry.id %}">
+            {% csrf_token %}
+              <div class="form-group mb-2">
+                {{ form.text|addclass:"form-control" }}
+              </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+          </form>
+    {% endif %}
+
+    <div class="infinite-container">
+      {% for comment in comments %}
+      <div class="media mb-4 comment-list infinite-item">
+        <div class="media-body">
+          <span class="fw-bold username">
+            <a href="{% url 'tape:profile' entry.author %}">~{{ comment.author }}</a>
+          </span>
+          {% if comment.author.get_full_name %}
+            <span class="fw-light">он же</span>
+            <span class="fw-bold full_name">{{ comment.author.get_full_name }}</span>
+          {% endif %}
+          <span class="fw-light">прокомментировал
+            {% if today_time == comment.created.date %}
+              {{ comment.created|naturaltime }}:
+            {% else %}
+              {{ comment.created|naturalday }}:
+            {% endif %}
+          </span>
+            <p>
+             {{ comment.text }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if comments.has_next %}
+      <a class="infinite-more-link" href="?page={{ comments.next_page_number }}">Дальше</a>
+    {% endif %}
+  </div>
+
+
+  <script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0]
+    });
+  </script>
+{% endblock %}

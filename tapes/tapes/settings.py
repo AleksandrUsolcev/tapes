@@ -24,7 +24,12 @@ SECRET_KEY = 'django-insecure-jvxh09$w184g0&mw-*arp8(i#ybs8@x-ni*-^vqo_#w2^0dw8q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'testserver',
+]
 
 # Application definition
 
@@ -128,3 +133,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ENTRIES_COUNT = 5
+COMMENTS_COUNT = 10
+
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'tape:index'
+
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'

@@ -12,7 +12,7 @@ urlpatterns = [
     path('new-tape', views.tape_add, name='tape_add'),
     path('new', views.entry_add, name='entry_add'),
     path(
-        '~<str:username>/<int:entry_id>',
+        'entries/<int:entry_id>',
         views.entry_detail,
         name='entry_detail'
     ),
