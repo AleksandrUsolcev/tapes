@@ -1,0 +1,9 @@
+{% if entries.has_next %}
+  <a class="infinite-more-link" href="?page={{ entries.next_page_number }}">Дальше</a>
+{% endif %}
+
+  <script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0]
+    });
+  </script>

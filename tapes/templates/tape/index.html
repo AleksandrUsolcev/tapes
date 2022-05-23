@@ -6,18 +6,8 @@
 {% block content %}
   <div class="infinite-container">
     {% for entry in entries %}
-      <div class="infinite-item">
         {% include '../includes/entry.html' %}
-      </div>
     {% endfor %}
   </div>
-  {% if entries.has_next %}
-    <a class="infinite-more-link" href="?page={{ entries.next_page_number }}">Дальше</a>
-  {% endif %}
-
-  <script>
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0]
-    });
-  </script>
+  {% include '../includes/infinite-scroll.html' %}
 {% endblock %}

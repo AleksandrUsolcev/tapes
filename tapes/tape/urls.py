@@ -10,6 +10,8 @@ urlpatterns = [
     path('feed', views.feed, name='feed'),
     path('new-tape', views.tape_add, name='tape_add'),
     path('new', views.entry_add, name='entry_add'),
+    path('saved', views.saved, name='saved'),
+    path('liked', views.liked, name='liked'),
     path(
         'entries/<int:entry_id>',
         views.entry_detail,

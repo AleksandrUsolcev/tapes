@@ -12,7 +12,11 @@ class Tape(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200, verbose_name='Название ленты')
-    slug = models.SlugField(max_length=48, verbose_name='Ссылка')
+    slug = models.SlugField(
+        unique=False,
+        max_length=48,
+        verbose_name='Ссылка'
+    )
     description = models.TextField(
         blank=True,
         null=True,

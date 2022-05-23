@@ -41,11 +41,10 @@ def profile(request, username):
 
 def tape(request, username, slug):
     author = get_object_or_404(User, username=username)
-    tape = get_object_or_404(Tape, slug=slug, author=author)
-    entries = tape.entries.all()
+    tapes = get_object_or_404(Tape, slug=slug, author=author)
+    entries = tapes.entries.all()
     entries = pagination(request, entries, settings.ENTRIES_COUNT)
     context = {
-        'tape': tape,
         'entries': entries,
     }
     return render(request, 'tape/feed.html', context)
@@ -71,6 +70,28 @@ def feed(request):
         'entries': entries,
     }
     return render(request, 'tape/feed.html', context)
+
+
+@login_required
+def saved(request):
+    user = request.user
+    entries = Entry.objects.filter(marked__user=user)
+    entries = pagination(request, entries, settings.ENTRIES_COUNT)
+    context = {
+        'entries': entries,
+    }
+    return render(request, 'tape/saved.html', context)
+
+
+@login_required
+def liked(request):
+    user = request.user
+    entries = Entry.objects.filter(liked__user=user)
+    entries = pagination(request, entries, settings.ENTRIES_COUNT)
+    context = {
+        'entries': entries,
+    }
+    return render(request, 'tape/liked.html', context)
 
 
 def entry_detail(request, entry_id):
