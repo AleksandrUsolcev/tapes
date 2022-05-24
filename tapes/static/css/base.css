@@ -62,3 +62,9 @@ a:hover {
   margin-right: .8rem;
   color: #888;
 }
+.profile-name .bi {
+  color: #9d276d;
+}
+.profile-counters {
+  margin-top: 1rem;
+}

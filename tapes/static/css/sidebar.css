@@ -60,6 +60,9 @@
   text-align: right;
   color: #9d276d;
 }
+.sidebar .menu a:hover .nav-img {
+  color: #b3adc5 !important;
+}
 .sidebar .credits {
   padding: 1rem 1rem 1rem 1.6rem;
   color: #746c8c;

@@ -5,9 +5,14 @@
 {% endblock %}
 {% block content %}
 <div class="row profile">
-  <div class="col-7">
+  <div class="col-7 profile-name">
     <h1 class="fw-bolder">
       <span class="tilda">~</span>{{ user.username }}
+      {% if user.username == 'hexen' or user.username == 'RussiMax' %}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+          <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+        </svg>
+      {% endif %}
     </h1>
   </div>
   <div class="col-5 subscribe text-end align-items-center">
@@ -43,6 +48,50 @@
         </h4>
       </div>
     {% endif %}
+    <div class="col-12 profile-counters">
+      {% if user.subs.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.subs.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.subs.count < 2 %}
+            подписчик
+          {% elif user.subs.count < 5 %}
+            подписчика
+          {% else %}
+            подписчиков
+          {% endif %}
+        </span>
+      {% endif %}
+      {% if user.entries.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.entries.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.entries.count < 2 %}
+            запись
+          {% elif user.entries.count < 5 %}
+            записи
+          {% else %}
+            записей
+          {% endif %}
+        </span>
+      {% endif %}
+      {% if user.comments.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.comments.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.comments.count < 2 %}
+            комментарий
+          {% elif user.comments.count < 5 %}
+            комментария
+          {% else %}
+            комментариев
+          {% endif %}
+        </span>
+      {% endif %}
+    </div>
 </div>
 
 <div class="infinite-container">
