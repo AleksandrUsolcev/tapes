@@ -17,6 +17,7 @@ def index(request):
 
 
 def profile(request, username):
+    username.lower()
     user = get_object_or_404(User, username=username)
     entries = Entry.objects.filter(author=user)
     entries = pagination(request, entries, settings.ENTRIES_COUNT)
@@ -38,6 +39,8 @@ def profile(request, username):
 
 
 def tape(request, username, slug):
+    username.lower()
+    slug.lower()
     author = get_object_or_404(User, username=username)
     tapes = get_object_or_404(Tape, slug=slug, author=author)
     entries = tapes.entries.all()

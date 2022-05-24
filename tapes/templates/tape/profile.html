@@ -16,6 +16,11 @@
     </h1>
   </div>
   <div class="col-5 subscribe text-end align-items-center">
+    {% if request.user.is_staff and request.user != author %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+      </svg>
+    {% endif %}
     {% if request.user != author %}
       {% if is_sub %}
         <a href="#" class="notice">
@@ -37,20 +42,30 @@
             Подписаться
           </a>
        {% endif %}
+    {% else %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+      </svg>
+      <a
+        class="btn btn-lg btn-primary"
+        href="{% url 'users:user_edit' %}" role="button"
+      >
+        Редактировать
+      </a>
     {% endif %}
   </div>
-    {% if user.get_full_name %}
+    {% if user.full_name %}
       <div class="col-12">
         <h4>
           <span class="full-name">
-            {{ user.get_full_name }}
+            {{ user.full_name }}
           </span>
         </h4>
       </div>
     {% endif %}
 
     {% if user.about %}
-      <div class="col-12">
+      <div class="col-7 about-me">
         {{ user.about }}
       </div>
     {% endif %}

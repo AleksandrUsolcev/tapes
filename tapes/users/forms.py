@@ -19,4 +19,4 @@ class CustomUserChangeForm(UserChangeForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('about',)
+        fields = ('full_name', 'about',)

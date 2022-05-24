@@ -17,11 +17,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         null=False
     )
     about = models.TextField(max_length=200, blank=True, null=True)
+    full_name = models.CharField(max_length=64, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
     objects = CustomUserManager()
 
     def __str__(self):

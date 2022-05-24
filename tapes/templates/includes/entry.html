@@ -19,8 +19,8 @@
             {% endif %}
           </a>
 
-        {% if entry.author.get_full_name %}
-          <span class="fw-bold full-name">{{ entry.author.get_full_name }}</span>
+        {% if entry.author.full_name %}
+          <span class="fw-bold full-name">{{ entry.author.full_name }}</span>
         {% endif %}
       </div>
       <div class="col-4 text-end">

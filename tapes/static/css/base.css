@@ -32,8 +32,10 @@ a:hover {
 .btn.sub-true:hover {
   color: #555;
 }
-.full-name {
-  color: #777;
+.full-name,
+.about-me {
+  color: #636363;
+  margin: 1rem 0 1.5rem 0;
 }
 .entry-names {
   font-size: 1.1rem;
@@ -58,8 +60,9 @@ a:hover {
 .profile .subscribe {
   margin-top: .5rem;
 }
-.profile .notice {
-  margin-right: .8rem;
+.profile .notice,
+.profile .bi-sliders {
+  margin-right: .6rem;
   color: #888;
 }
 .profile-name .bi {

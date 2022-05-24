@@ -14,14 +14,13 @@ class SignUp(CreateView):
 
 @login_required
 def user_edit(request):
-    about = request.user.about
     form = UserEditForm(
         request.POST or None,
-        instance=about
+        instance=request.user
     )
     if form.is_valid():
         form.save()
-        return redirect('tape:profile')
+        return redirect('tape:profile', username=request.user.username)
     context = {
         'form': form
     }
