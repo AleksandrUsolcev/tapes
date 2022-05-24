@@ -48,6 +48,13 @@
         </h4>
       </div>
     {% endif %}
+
+    {% if user.about %}
+      <div class="col-12">
+        {{ user.about }}
+      </div>
+    {% endif %}
+
     <div class="col-12 profile-counters">
       {% if user.subs.count > 0 %}
         <span class="fw-bolder">

@@ -21,7 +21,6 @@ def profile(request, username):
     entries = Entry.objects.filter(author=user)
     entries = pagination(request, entries, settings.ENTRIES_COUNT)
     author = get_object_or_404(User, username=username)
-    subs_count = User.objects.get(username=author).subs.count()
     if request.user.is_authenticated:
         is_sub = Subscribe.objects.filter(
             user=request.user,
@@ -34,7 +33,6 @@ def profile(request, username):
         'author': author,
         'entries': entries,
         'is_sub': is_sub,
-        'subs_count': subs_count,
     }
     return render(request, 'tape/profile.html', context)
 
@@ -57,7 +55,7 @@ def tape_add(request):
         form = form.save(commit=False)
         form.author = request.user
         form.save()
-        return redirect('tape:profile', username=request.user)
+        return redirect('tape:profile', username=request.user.username)
     return render(request, 'tape/tape_add.html', {'form': form})
 
 
@@ -114,7 +112,7 @@ def entry_add(request):
         form = form.save(commit=False)
         form.author = request.user
         form.save()
-        return redirect('tape:profile', username=request.user)
+        return redirect('tape:profile', username=request.user.username)
     return render(request, 'tape/entry_add.html', {'form': form})
 
 

@@ -8,9 +8,9 @@
         </h3>
       {% endif %}
       <div class="col-8 entry-names">
-          <a href="{% url 'tape:profile' entry.author %}">
+          <a href="{% url 'tape:profile' entry.author.username %}">
             <span class="fw-bold">
-              ~{{ entry.author }}
+              ~{{ entry.author.username }}
             </span>
             {% if entry.author.username == 'hexen' %}
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">

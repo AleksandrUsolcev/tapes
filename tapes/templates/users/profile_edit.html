@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Регистрация{% endblock %}
+{% block title %}Редактирование профиля{% endblock %}
 {% block content %}
 {% load user_filters %}
 <h2>
-  Регистрация
+  Редактировать профиль
 </h2>
 <form method="post">
   {% csrf_token %}
   {{ form }}
   <button type="submit" class="btn btn-primary">
-    Зарегистрироваться
+    Редактировать
   </button>
 </form>
 {% endblock %}
