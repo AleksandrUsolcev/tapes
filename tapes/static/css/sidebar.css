@@ -4,8 +4,6 @@
 }
 .sidebar {
   background-color: #0e062b;
-  background-image: url('../img/sidebar-bg.png');
-  background-size: 200%;
   -webkit-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.4);
   -moz-box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.4);
   box-shadow: 4px 0px 8px 0px rgba(34, 60, 80, 0.4);

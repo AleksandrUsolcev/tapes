@@ -26,7 +26,7 @@ class UserEditForm(forms.ModelForm):
             'avatar': ClientsideCroppingWidget(
                 width=300,
                 height=300,
-                preview_width=100,
-                preview_height=100,
+                preview_width=150,
+                preview_height=150,
             )
         }

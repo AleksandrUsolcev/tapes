@@ -1,7 +1,8 @@
 body {
   background: #eae9f5;
 }
-.container-fluid.main {
+.container-fluid.main,
+.container-fluid.profile-top {
   margin: 0;
   padding: 0;
 }
@@ -38,7 +39,7 @@ a:hover {
   margin: 1rem 0 1rem 0;
 }
 .entry-names {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 .entry-names .full-name {
   margin-left: .5rem;
@@ -77,13 +78,14 @@ a:hover {
 }
 .profile-avatar {
   border-radius: 0.7rem;
-  border: solid 3px #fff;
+  border: solid 5px #fff;
   margin-bottom: 1rem;
   overflow-wrap: break-word;
   z-index: 100;
 }
 .profile-avatar-mini {
-  border-radius: 0.1rem;
+  border-radius: 5rem;
+  padding: 2px;
   border: solid 1px #9d276d;
 }
 .profile-background-img {
@@ -91,7 +93,7 @@ a:hover {
   background: #9678c6 url('../img/profile-bg.png') repeat;
   background-size: 60%;
   z-index: 1;
-  -webkit-box-shadow: 4px -6px 8px 0px rgba(34, 60, 80, 0.3) inset;
-  -moz-box-shadow: 4px -6px 8px 0px rgba(34, 60, 80, 0.3) inset;
-  box-shadow: 4px -6px 8px 0px rgba(34, 60, 80, 0.3) inset;
+  -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.25) inset;
+  -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.25) inset;
+  box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.25) inset;
 }
