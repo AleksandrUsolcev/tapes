@@ -18,7 +18,7 @@ urlpatterns = [
         name='logout'
     ),
     path('signup/',
-         views.SignUp.as_view(),
+         views.user_create,
          name='signup'),
     path(
         'login/',

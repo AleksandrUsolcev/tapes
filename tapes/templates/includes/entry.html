@@ -10,7 +10,7 @@
       <div class="col-8 entry-names">
           <a href="{% url 'tape:profile' entry.author.username %}">
             <span class="fw-bold">
-              ~{{ entry.author.username }}
+              ~{% if entry.author.display_username %}{{ entry.author.display_username }}{% else %}{{ entry.author.username }}{% endif %}
             </span>
             {% if entry.author.username == 'hexen' %}
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
@@ -19,7 +19,7 @@
             {% endif %}
           </a>
 
-        {% if entry.author.full_name %}
+        {% if entry.author.full_name and entry.author.show_full_name %}
           <span class="fw-bold full-name">{{ entry.author.full_name }}</span>
         {% endif %}
       </div>

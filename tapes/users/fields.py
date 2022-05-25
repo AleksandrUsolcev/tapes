@@ -18,16 +18,9 @@ class LowercaseEmailField(models.EmailField):
 
 
 class LowercaseCharField(models.CharField):
-    """
-    Override EmailField to convert emails to lowercase before saving.
-    """
 
     def to_python(self, value):
-        """
-        Convert email to lowercase.
-        """
         value = super(LowercaseCharField, self).to_python(value)
-        # Value can be None so check that it's a string before lowercasing.
         if isinstance(value, str):
             return value.lower()
         return value

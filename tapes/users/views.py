@@ -1,15 +1,24 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
 
 from .forms import CustomUserCreationForm, UserEditForm
+from tape.models import User
 
 
-class SignUp(CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('tape:index')
-    template_name = 'users/signup.html'
+def user_create(request):
+    form = CustomUserCreationForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        form.save()
+        new_user = User.objects.get(username=username.lower())
+        if new_user:
+            new_user.display_username = username
+            new_user.save()
+        return redirect('tape:index')
+    context = {
+        'form': form
+    }
+    return render(request, 'users/signup.html', context)
 
 
 @login_required

@@ -141,3 +141,5 @@ LOGIN_REDIRECT_URL = 'tape:index'
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+APPEND_SLASH = True

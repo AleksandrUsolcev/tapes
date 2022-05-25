@@ -12,12 +12,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = LowercaseEmailField(_('email address'), unique=True)
     username = LowercaseCharField(
         unique=True,
-        max_length=32,
+        max_length=24,
         blank=False,
         null=False
     )
     about = models.TextField(max_length=200, blank=True, null=True)
-    full_name = models.CharField(max_length=64, blank=True, null=True)
+    display_username = models.CharField(max_length=24, blank=True, null=True)
+    full_name = models.CharField(max_length=48, blank=True, null=True)
+    show_full_name = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
