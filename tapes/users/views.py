@@ -25,6 +25,7 @@ def user_create(request):
 def user_edit(request):
     form = UserEditForm(
         request.POST or None,
+        files=request.FILES or None,
         instance=request.user
     )
     if form.is_valid():

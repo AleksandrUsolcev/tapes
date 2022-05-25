@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+from client_side_image_cropping import ClientsideCroppingWidget
+
 from .models import CustomUser
 
 
@@ -19,4 +21,12 @@ class CustomUserChangeForm(UserChangeForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('full_name', 'show_full_name', 'about',)
+        fields = ('full_name', 'show_full_name', 'about', 'avatar')
+        widgets = {
+            'avatar': ClientsideCroppingWidget(
+                width=300,
+                height=300,
+                preview_width=100,
+                preview_height=100,
+            )
+        }

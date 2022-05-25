@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load thumbnail %}
 <div class="infinite-item">
   <div class="entry-content">
     <div class="head row">
@@ -9,6 +10,9 @@
       {% endif %}
       <div class="col-8 entry-names">
           <a href="{% url 'tape:profile' entry.author.username %}">
+            {% thumbnail entry.author.avatar "20x20" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
+            {% endthumbnail %}
             <span class="fw-bold">
               ~{% if entry.author.display_username %}{{ entry.author.display_username }}{% else %}{{ entry.author.username }}{% endif %}
             </span>

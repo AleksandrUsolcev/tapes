@@ -6,7 +6,6 @@ body {
   padding: 0;
 }
 .container-fluid .content {
-  margin-top: 3rem;
   background: #ffffff;
   padding: 3rem 6rem 5rem 6rem;
 }
@@ -47,6 +46,9 @@ a:hover {
 .profile {
   margin-bottom: 3rem;
   padding-bottom: 1.2rem;
+  margin-top: -10rem;
+  position: relative;
+  z-index: 5;
 }
 .profile .tilda {
   color: #9d276d;
@@ -60,7 +62,7 @@ a:hover {
   letter-spacing: .1rem;
 }
 .profile .subscribe {
-  margin-top: .5rem;
+  padding-bottom: .85rem;
 }
 .profile .notice,
 .profile .bi-sliders {
@@ -72,4 +74,24 @@ a:hover {
 }
 .profile-counters {
   margin-top: 1rem;
+}
+.profile-avatar {
+  border-radius: 0.7rem;
+  border: solid 3px #fff;
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+  z-index: 100;
+}
+.profile-avatar-mini {
+  border-radius: 0.1rem;
+  border: solid 1px #9d276d;
+}
+.profile-background-img {
+  height: 270px;
+  background: #9678c6 url('../img/profile-bg.png') repeat;
+  background-size: 60%;
+  z-index: 1;
+  -webkit-box-shadow: 4px -6px 8px 0px rgba(34, 60, 80, 0.3) inset;
+  -moz-box-shadow: 4px -6px 8px 0px rgba(34, 60, 80, 0.3) inset;
+  box-shadow: 4px -6px 8px 0px rgba(34, 60, 80, 0.3) inset;
 }

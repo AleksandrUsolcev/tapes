@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 {% load static %}
 {% block title %}
   тайтл
 {% endblock %}
+{% block before-content %}
+  <div class="col-8 profile-background-img">
+  </div>
+{% endblock %}
 {% block content %}
 <div class="row profile">
   <div class="col-6 profile-name">
+    {% thumbnail user.avatar "150x150" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+    {% endthumbnail %}
     <h1 class="fw-bolder">
       <span class="tilda">~</span>{% if user.display_username %}{{ user.display_username }}{% else %}{{ user.username }}{% endif %}
-      {% if user.username == 'hexen' or user.username == 'RussiMax' %}
+      {% if user.username == 'hexen' or user.username == 'russimax' %}
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
         </svg>
       {% endif %}
     </h1>
   </div>
-  <div class="col-6 subscribe text-end align-items-center">
+  <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
     {% if request.user.is_staff and request.user != author %}
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
@@ -115,6 +123,7 @@
       {% endif %}
     </div>
 </div>
+
 
 <div class="infinite-container">
   {% for entry in entries %}

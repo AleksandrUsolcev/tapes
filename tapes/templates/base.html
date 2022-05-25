@@ -4,6 +4,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static "client_side_image_cropping/croppie.css" %}">
+    <link rel="stylesheet" href="{% static "client_side_image_cropping/cropping_widget.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static "client_side_image_cropping/croppie.min.js" %}"></script>
+    <script src="{% static "client_side_image_cropping/cropping_widget.js" %}"></script>
     <link rel="icon" href="{% static 'img/fav/fav.ico' %}" type="image">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
@@ -11,8 +16,10 @@
     <meta name="msapplication-TileColor" content="#000">
     <meta name="theme-color" content="#ffffff">
     <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'js/infinite.min.js' %}"></script>
+    <script src="{% static 'js/cropper.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block links %}{% endblock %}
@@ -21,8 +28,8 @@
   <body>
       {% include 'includes/sidebar.html' %}
       {% include 'includes/navbar.html' %}
-      {% block before-content %}{% endblock %}
     <main>
+      {% block before-content %}{% endblock %}
       <div class="container-fluid main row">
         <div class="col-2">
 
@@ -37,4 +44,6 @@
       </div>
     </main>
     {% include 'includes/footer.html' %}
+    {% block javascript %}
+    {% endblock %}
   </body>
