@@ -8,6 +8,7 @@ body {
 .container-fluid .content {
   margin-top: 3rem;
   background: #ffffff;
+  padding: 3rem 6rem 5rem 6rem;
 }
 .container-fluid .right-content {
   background: #eae9f5;
@@ -35,7 +36,7 @@ a:hover {
 .full-name,
 .about-me {
   color: #636363;
-  margin: 1rem 0 1.5rem 0;
+  margin: 1rem 0 1rem 0;
 }
 .entry-names {
   font-size: 1.1rem;
@@ -45,6 +46,7 @@ a:hover {
 }
 .profile {
   margin-bottom: 3rem;
+  padding-bottom: 1.2rem;
 }
 .profile .tilda {
   color: #9d276d;
