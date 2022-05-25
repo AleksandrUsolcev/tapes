@@ -31,7 +31,7 @@ a:hover {
   background-color: #aaa;
 }
 .btn.sub-true:hover {
-  color: #555;
+  color: #333;
 }
 .full-name,
 .about-me {
@@ -47,7 +47,6 @@ a:hover {
 .profile {
   margin-bottom: 3rem;
   padding-bottom: 1.2rem;
-  margin-top: -10rem;
   position: relative;
   z-index: 5;
 }
@@ -82,18 +81,21 @@ a:hover {
   margin-bottom: 1rem;
   overflow-wrap: break-word;
   z-index: 100;
+  margin-top: -10rem;
 }
 .profile-avatar-mini {
-  border-radius: 5rem;
-  padding: 2px;
-  border: solid 1px #9d276d;
+  border-radius: .2rem;
+  margin-top: -4px;
 }
 .profile-background-img {
   height: 270px;
   background: #9678c6 url('../img/profile-bg.png') repeat;
   background-size: 60%;
   z-index: 1;
-  -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.25) inset;
-  -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.25) inset;
-  box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.25) inset;
+  -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
+  -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
+  box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
+}
+.dcsic_dialog {
+  background: none;
 }

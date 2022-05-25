@@ -10,7 +10,7 @@
       {% endif %}
       <div class="col-8 entry-names">
           <a href="{% url 'tape:profile' entry.author.username %}">
-            {% thumbnail entry.author.avatar "32x32" crop="center" as im %}
+            {% thumbnail entry.author.avatar "24x24" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
             {% endthumbnail %}
             <span class="fw-bold">

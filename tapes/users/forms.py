@@ -21,12 +21,19 @@ class CustomUserChangeForm(UserChangeForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('full_name', 'show_full_name', 'about', 'avatar')
+        fields = ('full_name', 'show_full_name', 'about', 'avatar',
+                  'background')
         widgets = {
             'avatar': ClientsideCroppingWidget(
                 width=300,
                 height=300,
                 preview_width=150,
                 preview_height=150,
+            ),
+            'background': ClientsideCroppingWidget(
+                width=1000,
+                height=300,
+                preview_width=1000,
+                preview_height=300,
             )
         }

@@ -5,14 +5,22 @@
   тайтл
 {% endblock %}
 {% block before-content %}
-<div class="row container-fluid profile-top">
-  <div class="col-3">
-
+{% if user.background %}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+      {{ user.background }}
+    </div>
+    <div class="col-6 profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
+    </div>
   </div>
-  <div class="col-6 profile-background-img">
+{% else %}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-img">
+    </div>
   </div>
-</div>
-
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="row profile">
