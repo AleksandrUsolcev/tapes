@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load markdownify %}
 {% load thumbnail %}
 <div class="infinite-item">
   <div class="entry-content">
@@ -47,7 +48,7 @@
     </div>
     {% if entry.text %}
       <p class="py-3 m-0">
-        {{ entry.text }}
+        {{ entry.text|markdownify }}
       </p>
     {% endif %}
 

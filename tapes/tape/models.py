@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from markdownx.models import MarkdownxField
+
 User = get_user_model()
 
 
@@ -37,7 +39,7 @@ class Entry(models.Model):
         null=True,
         verbose_name='Заголовок',
     )
-    text = models.TextField(verbose_name='Текст')
+    text = MarkdownxField()
     created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         User,

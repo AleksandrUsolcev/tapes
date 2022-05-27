@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'sorl.thumbnail',
     'client_side_image_cropping',
+    'markdownx',
+    'markdownify',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +150,22 @@ CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 APPEND_SLASH = True
+
+MARKDOWNIFY = {
+    "default": {
+        "WHITELIST_TAGS": [
+            "a", "p", "h1", "h2", "img", "src", "a", "image",
+            "src",
+        ],
+        "WHITELIST_ATTRS": [
+            'href',
+            'src',
+            'alt',
+        ]
+    },
+
+    "alternative": {
+        "WHITELIST_TAGS": ["a", "p", ],
+        "MARKDOWN_EXTENSIONS": ["markdown.extensions.fenced_code", ]
+    }
+}

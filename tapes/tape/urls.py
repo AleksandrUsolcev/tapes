@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -58,4 +58,5 @@ urlpatterns = [
          views.tape_edit,
          name='tape_edit'
          ),
+    path('markdownx/', include('markdownx.urls')),
 ]
