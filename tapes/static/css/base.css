@@ -1,6 +1,13 @@
 body {
   background: #eae9f5;
 }
+.pad-1 {
+  padding: 0 7rem 0 7rem;
+}
+.pad-1 p img {
+  margin: 0 -7rem 0 -7rem;
+  display: block;
+}
 .container-fluid.main,
 .container-fluid.profile-top {
   margin: 0;
@@ -8,7 +15,8 @@ body {
 }
 .container-fluid .content {
   background: #ffffff;
-  padding: 3rem 6rem 5rem 6rem;
+  padding: 0;
+  margin: 0;
 }
 .container-fluid .right-content {
   background: #eae9f5;
@@ -101,6 +109,50 @@ a:hover {
   -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
   box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
 }
+.profile-background-edit {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: #0e062b url('../img/profile-bg.png') repeat;
+  background-size: 60%;
+  height: 270px;
+  position: relative;
+}
+.profile-background-edit .dcsic_choose_other_img,
+.profile-background-edit .dcsic_choose_img,
+.profile-background-edit .dcsic_delete_image {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+.profile-background-edit .dcsic_delete_image {
+  position: absolute;
+  bottom: 4rem;
+}
 .dcsic_dialog {
   background: none;
+}
+.form-text-write textarea,
+.markdownx-preview {
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+.form-text-write textarea {
+  width: 100%;
+  margin: 0;
+  background: #0e062b;
+  color: #e5c3ef;
+  font-weight: 400;
+  letter-spacing: .05rem;
+  border: none;
+  font-size: 1.2rem;
+}
+.form-text-write textarea:hover,
+.form-text-write textarea:focus,
+.form-text-write textarea:target,
+.form-text-write textarea:active,
+.form-text-write textarea:visited,
+.form-text-write textarea:focus-visible {
+  border: none;
+  outline: none;
 }

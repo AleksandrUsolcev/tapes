@@ -169,3 +169,10 @@ MARKDOWNIFY = {
         "MARKDOWN_EXTENSIONS": ["markdown.extensions.fenced_code", ]
     }
 }
+
+MARKDOWNX_MEDIA_PATH = 'tapes-imgs/'
+
+MARKDOWNX_IMAGE_MAX_SIZE = {
+    'size': (1200, 800),
+    'quality': 90
+}

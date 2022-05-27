@@ -16,21 +16,12 @@
     {% endif %}
   </h2>
   {{ form.media }}
-  <div class="card-body">
     {% load user_filters %}
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {% for field in form %}
-        <div class="form-group row my-3 p-3">
-          <label for="{{ field.id_for_label }}">
-            {{ field.label }}
-          </label>
-          {{ field|addclass:'form-control' }}
-          <p class="fst-italic fw-lighter">
-            {{ field.help_text }}
-          </p>
-        </div>
-      {% endfor %}
+      <div class="form-text-write">
+        {{ form.text }}
+      </div>
       <div class="col-md-12 text-center">
         <button type="submit" class="btn btn-primary">
           {% if is_edit %}
@@ -41,6 +32,5 @@
         </button>
       </div>
     </form>
-  </div>
 </div>
 {% endblock %}

@@ -1,13 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Редактирование профиля{% endblock %}
-{% block content %}
 {% load user_filters %}
+{% load thumbnail %}
+{% load static %}
+
+{% block before-content %}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-edit">
+      <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+        {{ form.background }}
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+<div class="row profile py-5 pad-1">
+  <div class="col-6 profile-name">
+    {% thumbnail user.avatar "150x150" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+    {% endthumbnail %}
+  </div>
+</div>
+
 <h2>
   Редактировать профиль
 </h2>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form }}
+  {{ form.full_name }}
+  {{ form.show_full_name }}
+  {{ form.about }}
   <button type="submit" class="btn btn-primary">
     Редактировать
   </button>

@@ -8,7 +8,6 @@
 {% if user.background %}
   <div class="row container-fluid profile-top">
     <div class="col-3">
-      {{ user.background }}
     </div>
     <div class="col-6 profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
     </div>
@@ -23,7 +22,7 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="row profile">
+<div class="row profile py-5 pad-1">
   <div class="col-6 profile-name">
     {% thumbnail user.avatar "150x150" as im %}
       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
