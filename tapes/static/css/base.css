@@ -75,7 +75,8 @@ a:hover {
 .profile-counters {
   margin-top: 1rem;
 }
-.profile-avatar {
+.profile-avatar,
+.tape-picture {
   border-radius: 0.7rem;
   border: solid 5px #fff;
   margin-bottom: 1rem;
@@ -83,13 +84,17 @@ a:hover {
   z-index: 100;
   margin-top: -10rem;
 }
+.tape-picture {
+  margin-top: -13rem;
+  border-radius: 2rem;
+}
 .profile-avatar-mini {
   border-radius: .2rem;
   margin-top: -4px;
 }
 .profile-background-img {
   height: 270px;
-  background: #9678c6 url('../img/profile-bg.png') repeat;
+  background: #0e062b url('../img/profile-bg.png') repeat;
   background-size: 60%;
   z-index: 1;
   -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;

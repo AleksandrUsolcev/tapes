@@ -54,4 +54,8 @@ urlpatterns = [
         name='unsubscribe'
     ),
     path('~<str:username>/<slug:slug>', views.tape, name='tape'),
+    path('~<str:username>/<slug:slug>/edit',
+         views.tape_edit,
+         name='tape_edit'
+         ),
 ]

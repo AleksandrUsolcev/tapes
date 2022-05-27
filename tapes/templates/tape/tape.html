@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}
+  Лента
+{% endblock %}
+{% block before-content %}
+{% if tapes.background %}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+      {{ tapes.background }}
+    </div>
+    <div class="col-6 profile-background-img" style="background-image: url('{{ tapes.background.url }}'); background-position: top left; background-size: inherit;">
+    </div>
+  </div>
+{% else %}
+<div class="row container-fluid profile-top">
+  <div class="col-3">
+    {{ tapes.background }}
+  </div>
+  <div class="col-6 profile-background-img" style="background-image: url('{{ author.background.url }}'); background-position: top left; background-size: inherit;">
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="row profile">
+  <div class="col-6 profile-name">
+    {% thumbnail tapes.picture "220x220" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="tape-picture">
+    {% endthumbnail %}
+    <h1 class="fw-bolder">
+      {{ tapes.title }}
+    </h1>
+  </div>
+
+    {% if tapes.description %}
+      <div class="col-12 about-me">
+        {{ tapes.description }}
+      </div>
+    {% endif %}
+
+
+<div class="infinite-container">
+  {% for entry in entries %}
+      {% include '../includes/entry.html' %}
+  {% endfor %}
+</div>
+{% include '../includes/infinite-scroll.html' %}
+{% endblock %}

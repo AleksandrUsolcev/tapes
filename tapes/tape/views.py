@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from tape.forms import CommentForm, EntryForm, TapeForm
+from tape.forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
 from tape.models import Entry, Like, Bookmark, User, Subscribe, Tape
 from tape.utils import pagination
 
@@ -49,19 +49,44 @@ def tape(request, username, slug):
     entries = pagination(request, entries, settings.ENTRIES_COUNT)
     context = {
         'entries': entries,
+        'tapes': tapes,
+        'author': author,
     }
-    return render(request, 'tape/feed.html', context)
+    return render(request, 'tape/tape.html', context)
 
 
 @login_required
 def tape_add(request):
-    form = TapeForm(request.POST or None, files=request.FILES or None, )
+    form = TapeAddForm(request.POST or None, files=request.FILES or None, )
     if form.is_valid():
         form = form.save(commit=False)
         form.author = request.user
         form.save()
         return redirect('tape:profile', username=request.user.username)
     return render(request, 'tape/tape_add.html', {'form': form})
+
+
+@login_required
+def tape_edit(request, username, slug):
+    username.lower()
+    user = request.user
+    tapes = get_object_or_404(Tape, slug=slug, author=user)
+    author = tapes.author
+    form = TapeEditForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=tapes,
+    )
+    if author != request.user:
+        return redirect('tape:tape', slug=slug, username=tapes.author.username)
+    if form.is_valid():
+        form.save()
+        return redirect('tape:tape', slug=slug, username=tapes.author.username)
+    context = {
+        'is_edit': True,
+        'form': form
+    }
+    return render(request, 'tape/tape_add.html', context)
 
 
 @login_required

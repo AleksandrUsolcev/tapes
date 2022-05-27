@@ -23,10 +23,30 @@ class EntryForm(forms.ModelForm):
         self.fields['tape'].queryset = Tape.objects.filter(author=user_id)
 
 
-class TapeForm(forms.ModelForm):
+class TapeAddForm(forms.ModelForm):
     class Meta:
         model = Tape
         fields = ('title', 'slug', 'description', 'picture', 'background')
+        widgets = {
+            'picture': ClientsideCroppingWidget(
+                width=300,
+                height=300,
+                preview_width=200,
+                preview_height=200,
+            ),
+            'background': ClientsideCroppingWidget(
+                width=1000,
+                height=300,
+                preview_width=1000,
+                preview_height=300,
+            )
+        }
+
+
+class TapeEditForm(forms.ModelForm):
+    class Meta:
+        model = Tape
+        fields = ('title', 'description', 'picture', 'background')
         widgets = {
             'picture': ClientsideCroppingWidget(
                 width=300,
