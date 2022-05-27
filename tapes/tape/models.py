@@ -14,7 +14,7 @@ class Tape(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название ленты')
     slug = models.SlugField(
         unique=False,
-        max_length=48,
+        max_length=32,
         verbose_name='Ссылка'
     )
     description = models.TextField(
@@ -23,6 +23,8 @@ class Tape(models.Model):
         max_length=400,
         verbose_name='Описание'
     )
+    picture = models.ImageField(upload_to='tape-pictures/', blank=True)
+    background = models.ImageField(upload_to='tape-backgrounds/', blank=True)
 
     def __str__(self):
         return self.title

@@ -22,6 +22,7 @@ def profile(request, username):
     entries = Entry.objects.filter(author=user)
     entries = pagination(request, entries, settings.ENTRIES_COUNT)
     author = get_object_or_404(User, username=username)
+    tapes = Tape.objects.filter(author=user)
     if request.user.is_authenticated:
         is_sub = Subscribe.objects.filter(
             user=request.user,
@@ -34,6 +35,7 @@ def profile(request, username):
         'author': author,
         'entries': entries,
         'is_sub': is_sub,
+        'tapes': tapes,
     }
     return render(request, 'tape/profile.html', context)
 
@@ -110,7 +112,10 @@ def entry_detail(request, entry_id):
 
 @login_required
 def entry_add(request):
-    form = EntryForm(request.POST or None, files=request.FILES or None, )
+    form = EntryForm(request.POST or None,
+                     files=request.FILES or None,
+                     user_id=request.user
+                     )
     if form.is_valid():
         form = form.save(commit=False)
         form.author = request.user

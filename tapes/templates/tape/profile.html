@@ -93,6 +93,20 @@
     {% endif %}
 
     <div class="col-12 profile-counters">
+      {% if user.tapes.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.tapes.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.tapes.count < 2 %}
+            лента
+          {% elif user.tapes.count < 5 %}
+            ленты
+          {% else %}
+            лент
+          {% endif %}
+        </span>
+      {% endif %}
       {% if user.subs.count > 0 %}
         <span class="fw-bolder">
           {{ user.subs.count }}
@@ -137,6 +151,15 @@
       {% endif %}
     </div>
 </div>
+
+{% if user.tapes %}
+  <div class="tapes-container">
+    {% for tape in tapes %}
+      {{ tape.slug }}
+    {% endfor %}
+
+  </div>
+{% endif %}
 
 
 <div class="infinite-container">
