@@ -23,6 +23,11 @@ class UserEditForm(forms.ModelForm):
         model = CustomUser
         fields = ('full_name', 'show_full_name', 'about', 'avatar',
                   'background')
+        labels = {
+            'full_name': 'Имя или название организации',
+            'show_full_name': 'Отображать имя в постах',
+            'about': 'Обо мне'
+        }
         widgets = {
             'avatar': ClientsideCroppingWidget(
                 width=300,

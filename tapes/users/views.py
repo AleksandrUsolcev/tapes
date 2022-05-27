@@ -23,6 +23,7 @@ def user_create(request):
 
 @login_required
 def user_edit(request):
+    user = request.user
     form = UserEditForm(
         request.POST or None,
         files=request.FILES or None,
@@ -32,6 +33,7 @@ def user_edit(request):
         form.save()
         return redirect('tape:profile', username=request.user.username)
     context = {
-        'form': form
+        'form': form,
+        'user': user,
     }
     return render(request, 'users/profile_edit.html', context)

@@ -5,6 +5,7 @@
 {% load static %}
 
 {% block before-content %}
+<div class="edit-page">
   <div class="row container-fluid profile-top">
     <div class="col-3">
     </div>
@@ -16,22 +17,43 @@
   </div>
 {% endblock %}
 {% block content %}
-<div class="row profile py-5 pad-1">
+<div class="row profile pad-1">
   <div class="col-6 profile-name">
-    {% thumbnail user.avatar "150x150" as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
-    {% endthumbnail %}
+    <div class="profile-avatar">
+     {{ form.avatar }}
+    </div>
+  </div>
+
+  <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
+      <button class="btn btn-lg btn-primary" type="submit" role="button">
+      Сохранить изменения
+      </button>
   </div>
 </div>
 
-<h2>
-  Редактировать профиль
-</h2>
-  {{ form.full_name }}
-  {{ form.show_full_name }}
-  {{ form.about }}
-  <button type="submit" class="btn btn-primary">
-    Редактировать
-  </button>
+  <div class="profile-edit row pad-1 my-4">
+    <div class="mb-3 py-2 col-6">
+      <label class="form-label fw-light">Текущий email</label>
+      <input class="form-control" type="text" placeholder="{{ user.email }}" aria-label="Disabled input example" disabled>
+    </div>
+    <div class="mb-3 py-2 col-6">
+      <label class="form-label fw-light">Никнейм</label>
+      <input class="form-control" type="text" placeholder="Смена никнейма временно недоступна" aria-label="Disabled input example" disabled>
+    </div>
+    <div class="mb-1 py-2">
+      <label class="form-label fw-light">{{ form.full_name.label }}</label>
+      {{ form.full_name|addclass:'form-control' }}
+    </div>
+    <div class="form-check form-switch mb-3 ms-3">
+      {{ form.show_full_name|addclass:'form-check-input' }}
+      <label class="form-check-label fw-light" for="flexSwitchCheckDefault">{{ form.show_full_name.label }}</label>
+    </div>
+    <div class="mb-3 py-2">
+      <label class="form-label fw-light">{{ form.about.label }}</label>
+      {{ form.about|addclass:'form-control' }}
+    </div>
+  </div>
 </form>
+</div>
+
 {% endblock %}

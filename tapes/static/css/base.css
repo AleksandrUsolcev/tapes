@@ -53,8 +53,6 @@ a:hover {
   margin-left: .5rem;
 }
 .profile {
-  margin-bottom: 3rem;
-  padding-bottom: 1.2rem;
   position: relative;
   z-index: 5;
 }
@@ -90,7 +88,15 @@ a:hover {
   margin-bottom: 1rem;
   overflow-wrap: break-word;
   z-index: 100;
-  margin-top: -10rem;
+  margin-top: -6rem;
+  position: relative;
+  box-sizing: content-box;
+}
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  background: #999;
 }
 .tape-picture {
   margin-top: -14rem;
@@ -118,16 +124,23 @@ a:hover {
   height: 270px;
   position: relative;
 }
-.profile-background-edit .dcsic_choose_other_img,
-.profile-background-edit .dcsic_choose_img,
-.profile-background-edit .dcsic_delete_image {
+.edit-page .dcsic_choose_other_img,
+.edit-page .dcsic_choose_img,
+.edit-page .dcsic_delete_image {
+  font-size: 0;
   position: absolute;
   bottom: 1rem;
   right: 1rem;
+  padding: 1rem;
 }
-.profile-background-edit .dcsic_delete_image {
+.edit-page .dcsic_delete_image {
   position: absolute;
   bottom: 4rem;
+  background: url('../svg/trash-fill.svg') no-repeat center #eee;
+}
+.edit-page .dcsic_choose_other_img,
+.edit-page .dcsic_choose_img {
+  background: url('../svg/folder-symlink-fill.svg') no-repeat center #eee;
 }
 .dcsic_dialog {
   background: none;
