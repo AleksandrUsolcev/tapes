@@ -80,6 +80,9 @@ def tape_edit(request, username, slug):
     if author != request.user:
         return redirect('tape:tape', slug=slug, username=tapes.author.username)
     if form.is_valid():
+        if author == request.user and form.cleaned_data["delete_tape"] is True:
+            tapes.delete()
+            return redirect('tape:profile', username=tapes.author.username)
         form.save()
         return redirect('tape:tape', slug=slug, username=tapes.author.username)
     context = {

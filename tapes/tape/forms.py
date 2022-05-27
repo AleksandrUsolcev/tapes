@@ -44,6 +44,8 @@ class TapeAddForm(forms.ModelForm):
 
 
 class TapeEditForm(forms.ModelForm):
+    delete_tape = forms.BooleanField(label='Удалить ленту', required=False)
+
     class Meta:
         model = Tape
         fields = ('description', 'picture', 'background')
