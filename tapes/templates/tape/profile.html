@@ -155,7 +155,9 @@
 {% if user.tapes %}
   <div class="tapes-container">
     {% for tape in tapes %}
+    <a href="{% url 'tape:tape' slug=tape.slug username=user.username %}">
       {{ tape.slug }}
+    </a>
     {% endfor %}
 
   </div>
