@@ -22,11 +22,15 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="row profile py-5 pad-1">
+<div class="row profile pad-1">
   <div class="col-6 profile-name">
-    {% thumbnail user.avatar "150x150" as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
-    {% endthumbnail %}
+    {% if user.avatar %}
+      {% thumbnail user.avatar "150x150" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+      {% endthumbnail %}
+    {% else %}
+      <div class="py-4"></div>
+    {% endif %}
     <h1 class="fw-bolder">
       <span class="tilda">~</span>{% if user.display_username %}{{ user.display_username }}{% else %}{{ user.username }}{% endif %}
       {% if user.username == 'hexen' or user.username == 'russimax' %}

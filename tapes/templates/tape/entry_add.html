@@ -20,7 +20,7 @@
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-text-write">
-        {{ form.text }}
+        {{ form }}
       </div>
       <div class="col-md-12 text-center">
         <button type="submit" class="btn btn-primary">
@@ -33,4 +33,9 @@
       </div>
     </form>
 </div>
+<script>
+var quill = new Quill('#editor', {
+  theme: 'bubble'   // Specify theme in configuration
+});
+</script>
 {% endblock %}

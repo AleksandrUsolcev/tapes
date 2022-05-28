@@ -88,7 +88,7 @@ a:hover {
   margin-bottom: 1rem;
   overflow-wrap: break-word;
   z-index: 100;
-  margin-top: -6rem;
+  margin-top: -7rem;
   position: relative;
   box-sizing: content-box;
 }
@@ -96,7 +96,8 @@ a:hover {
   width: 150px;
   height: 150px;
   overflow: hidden;
-  background: #999;
+  background: #999 url('../img/profile-bg.png') repeat;
+  background-size: 220%;
 }
 .tape-picture {
   margin-top: -14rem;
@@ -136,11 +137,16 @@ a:hover {
 .edit-page .dcsic_delete_image {
   position: absolute;
   bottom: 4rem;
-  background: url('../svg/trash-fill.svg') no-repeat center #eee;
+  background: url('../svg/trash-fill.svg') no-repeat center #0e062b;
 }
 .edit-page .dcsic_choose_other_img,
 .edit-page .dcsic_choose_img {
-  background: url('../svg/folder-symlink-fill.svg') no-repeat center #eee;
+  background: url('../svg/folder-symlink-fill.svg') no-repeat center #0e062b;
+}
+.edit-page .dcsic_choose_other_img:hover,
+.edit-page .dcsic_choose_img:hover,
+.edit-page .dcsic_delete_image:hover {
+  background-color: #9d276d;
 }
 .dcsic_dialog {
   background: none;
@@ -168,4 +174,8 @@ a:hover {
 .form-text-write textarea:focus-visible {
   border: none;
   outline: none;
+}
+.form-check-input:checked {
+    background-color: #9d276d;
+    border-color: #9d276d;
 }

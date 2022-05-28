@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'sorl.thumbnail',
     'client_side_image_cropping',
-    'markdownx',
-    'markdownify',
+    'django_quill',
 ]
 
 MIDDLEWARE = [
@@ -151,28 +150,27 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 APPEND_SLASH = True
 
-MARKDOWNIFY = {
-    "default": {
-        "WHITELIST_TAGS": [
-            "a", "p", "h1", "h2", "img", "src", "a", "image",
-            "src",
-        ],
-        "WHITELIST_ATTRS": [
-            'href',
-            'src',
-            'alt',
-        ]
+QUILL_CONFIGS = {
+    'default': {
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                ['bold', 'italic', 'underline', 'strike',],
+                ['link', 'image'],
+                [{'header': []}],
+            ]
+        }
     },
-
-    "alternative": {
-        "WHITELIST_TAGS": ["a", "p", ],
-        "MARKDOWN_EXTENSIONS": ["markdown.extensions.fenced_code", ]
+    'comment': {
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                ['bold', 'italic', 'underline', 'strike', ],
+                ['link', 'image'],
+                [{'header': []}],
+            ]
+        }
     }
-}
-
-MARKDOWNX_MEDIA_PATH = 'tapes-imgs/'
-
-MARKDOWNX_IMAGE_MAX_SIZE = {
-    'size': (1200, 800),
-    'quality': 90
 }

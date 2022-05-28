@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from markdownx.models import MarkdownxField
+from django_quill.fields import QuillField
 
 User = get_user_model()
 
@@ -39,7 +39,7 @@ class Entry(models.Model):
         null=True,
         verbose_name='Заголовок',
     )
-    text = MarkdownxField()
+    text = QuillField()
     created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         User,
