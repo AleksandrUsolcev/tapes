@@ -70,11 +70,15 @@ a:hover {
   margin-right: 0.3rem;
   font-weight: bold;
 }
-.profile .btn {
+.profile .btn,
+.nav-content .btn {
   font-size: .7rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: .1rem;
+}
+.nav-content .btn {
+  border-radius: .7rem;
 }
 .profile .subscribe {
   padding-bottom: .85rem;

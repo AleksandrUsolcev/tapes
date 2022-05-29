@@ -8,36 +8,38 @@
 
   </div>
   <div class="nav-content container-fluid raw col-6">
-    <div class="user-nav col-6">
+    <div class="user-nav col-8">
       <nav class="navbar navbar-expand-lg navbar-light">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {% if request.user.is_authenticated %}
-                  {% thumbnail user.avatar "36x36" as im %}
-                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
-                  {% endthumbnail %}
-                  {% endif %}
-                  {{ request.user.display_username }}
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
+              <a
+                class="btn btn-lg btn-primary add-content"
+                href="{% url 'tape:entry_add' %}" role="button"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+              </svg>
+              <span class="add-entry">
+                Добавить
+              </span>
+              </a>
+              {% if request.user.is_authenticated %}
+                <li class="nav-item username">
+                  <a class="nav-link" href="{% url 'tape:profile' request.user.username %}">
+                      <span class="tilda">~</span> {{ request.user.display_username }}
+                  </a>
+                </li>
+              {% endif %}
             </ul>
           </div>
       </nav>
     </div>
-    <div class="search-nav col-6">
+    <div class="search-nav col-4">
       <form>
-        <input class="form-control me-2" type="search" placeholder="Поиск по сайту" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
       </form>
     </div>
   </div>

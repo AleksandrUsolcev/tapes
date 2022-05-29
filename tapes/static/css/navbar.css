@@ -1,10 +1,14 @@
 .navbar-main {
-  background: #dbd5df;
+  background: #f6f4f8;
   position: relative;
   z-index: 50;
+  border-bottom: 2px solid #d9cfe3;
+  -webkit-box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
+  -moz-box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
+  box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
 }
 .nav-content input {
-  background: #f3ecf8;
+  background: #e3e1ec;
   border: none;
 }
 .nav-content .navbar,
@@ -12,7 +16,26 @@
   margin: 0;
   padding: 0;
 }
+.nav-content .nav-item.username a {
+  font-size: 1.3rem;
+  color: #000 !important;
+  letter-spacing: .07rem;
+}
+.nav-content .tilda {
+  color: #9d276d !important;;
+  font-weight: bold;
+}
 .profile-avatar-mini {
   display: inline-block !important;
   margin-right: .6rem;
+}
+.btn.add-content {
+  margin-right: .3rem;
+  padding-top: .5rem;
+}
+.btn.add-content svg {
+  margin-top: -.1rem;
+}
+.btn.add-content .add-entry {
+  margin-left: .4rem;
 }
