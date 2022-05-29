@@ -1,4 +1,5 @@
 {% load static %}
+{% load thumbnail %}
 {% block links %}
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 {% endblock %}
@@ -6,9 +7,40 @@
   <div class="col-3">
 
   </div>
-  <div class="container-fluid col-9 ps-2">
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Поиск по сайту" aria-label="Search">
-    </form>
+  <div class="nav-content container-fluid raw col-6">
+    <div class="user-nav col-6">
+      <nav class="navbar navbar-expand-lg navbar-light">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {% if request.user.is_authenticated %}
+                  {% thumbnail user.avatar "36x36" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
+                  {% endthumbnail %}
+                  {% endif %}
+                  {{ request.user.display_username }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </div>
+    <div class="search-nav col-6">
+      <form>
+        <input class="form-control me-2" type="search" placeholder="Поиск по сайту" aria-label="Search">
+      </form>
+    </div>
+  </div>
+  <div class="col-3">
   </div>
 </nav>

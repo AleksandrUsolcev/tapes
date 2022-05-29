@@ -3,6 +3,16 @@
   position: relative;
   z-index: 50;
 }
-.navbar-main .form-control {
-  width: 20rem !important;
+.nav-content input {
+  background: #f3ecf8;
+  border: none;
+}
+.nav-content .navbar,
+.nav-content .nav-link {
+  margin: 0;
+  padding: 0;
+}
+.profile-avatar-mini {
+  display: inline-block !important;
+  margin-right: .6rem;
 }

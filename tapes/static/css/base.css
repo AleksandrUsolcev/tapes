@@ -232,7 +232,7 @@ a:hover {
   font-size: 1rem;
 }
 .ql-editor p {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 .django-quill-widget-container {
   -webkit-box-shadow: 0px 7px 14px -6px rgba(34, 60, 80, 0.1) inset;

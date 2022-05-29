@@ -157,7 +157,7 @@ QUILL_CONFIGS = {
             'syntax': True,
             'toolbar': [
                 ['bold', 'italic', 'underline', 'strike', ],
-                ['video', 'code', 'image'],
+                ['code', 'image'],
             ]
         }
     },
