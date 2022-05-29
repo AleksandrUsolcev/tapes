@@ -11,6 +11,7 @@
     </div>
     <div class="col-6 profile-background-edit">
       <form method="post" enctype="multipart/form-data">
+          {{ form.media }}
           {% csrf_token %}
         {{ form.background }}
     </div>
@@ -31,7 +32,7 @@
   </div>
 </div>
 
-  <div class="profile-edit row pad-1 my-4">
+  <div class="profile-edit row pad-1 my-4 pb-5">
     <div class="mb-3 py-2 col-6">
       <label class="form-label fw-light">Текущий email</label>
       <input class="form-control" type="text" placeholder="{{ user.email }}" aria-label="Disabled input example" disabled>
@@ -50,7 +51,7 @@
     </div>
     <div class="mb-3 py-2">
       <label class="form-label fw-light">{{ form.about.label }}</label>
-      {{ form.about|addclass:'form-control' }}
+      {{ form.about }}
     </div>
   </div>
 </form>

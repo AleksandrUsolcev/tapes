@@ -7,7 +7,7 @@
   {% endif %}
 {% endblock %}
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center entry-add p-5">
   <h2>
     {% if is_edit %}
       Редактирование записи
@@ -19,18 +19,18 @@
     {% load user_filters %}
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="form-text-write">
-        {{ form }}
-      </div>
-      <div class="col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">
-          {% if is_edit %}
-            Сохранить
-          {% else %}
-            Создать
-          {% endif %}
-        </button>
-      </div>
+        {{ form.title }}
+        {{ form.text }}
+        <div class="input-group">
+          {{ form.tape|addclass:'form-select' }}
+          <button type="submit" class="btn btn-outline-secondary" type="button">
+            {% if is_edit %}
+              Сохранить
+            {% else %}
+              Создать
+            {% endif %}
+          </button>
+        </div>
     </form>
 </div>
 <script>

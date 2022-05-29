@@ -156,21 +156,18 @@ QUILL_CONFIGS = {
         'modules': {
             'syntax': True,
             'toolbar': [
-                ['bold', 'italic', 'underline', 'strike',],
-                ['link', 'image'],
-                [{'header': []}],
+                ['bold', 'italic', 'underline', 'strike', ],
+                ['video', 'code', 'image'],
             ]
         }
     },
-    'comment': {
+    'about': {
         'theme': 'snow',
         'modules': {
             'syntax': True,
             'toolbar': [
                 ['bold', 'italic', 'underline', 'strike', ],
-                ['link', 'image'],
-                [{'header': []}],
             ]
         }
-    }
+    },
 }

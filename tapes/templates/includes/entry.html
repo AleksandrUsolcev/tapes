@@ -2,15 +2,10 @@
 {% load thumbnail %}
 <div class="infinite-item">
   <div class="entry-content">
-    <div class="head row py-3 pad-1">
-      {% if entry.title %}
-        <h3>
-          {{ entry.title }}
-        </h3>
-      {% endif %}
+    <div class="head row py-3">
       <div class="col-8 entry-names">
           <a href="{% url 'tape:profile' entry.author.username %}">
-            {% thumbnail entry.author.avatar "24x24" crop="center" as im %}
+            {% thumbnail entry.author.avatar "36x36" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
             {% endthumbnail %}
             <span class="fw-bold">
@@ -44,15 +39,20 @@
         </span>
       </div>
       {% endif %}
+      {% if entry.title %}
+        <h1 class="pt-3">
+          {{ entry.title }}
+        </h1>
+      {% endif %}
     </div>
     {% if entry.text %}
-    <div class="entry-text py-3 pad-1">
-        {{ entry.text.html|safe }}
+    <div class="entry-text">
+        {{ entry.text.html|safe|urlize }}
     </div>
     {% endif %}
 
 
-    <div class="footer-icons pad-1">
+    <div class="footer-icons">
 
       <div class="pb-5" id='comments'>
         <a href="{% url 'tape:entry_detail' entry.id %}#comments" class="text-decoration-none me-4">

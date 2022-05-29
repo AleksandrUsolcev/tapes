@@ -30,12 +30,22 @@ def profile(request, username):
         ).exists()
     else:
         is_sub = False
+    form = EntryForm(request.POST or None,
+                     files=request.FILES or None,
+                     user_id=request.user
+                     )
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = request.user
+        form.save()
+        return redirect('tape:profile', username=request.user.username)
     context = {
         'user': user,
         'author': author,
         'entries': entries,
         'is_sub': is_sub,
         'tapes': tapes,
+        'form': form,
     }
     return render(request, 'tape/profile.html', context)
 
@@ -155,11 +165,11 @@ def entry_add(request):
 @login_required
 def entry_edit(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
-    form = EntryForm(
-        request.POST or None,
-        files=request.FILES or None,
-        instance=entry
-    )
+    form = EntryForm(request.POST or None,
+                     files=request.FILES or None,
+                     user_id=request.user,
+                     instance=entry
+                     )
     if entry.author != request.user:
         return redirect('tape:entry_detail', entry_id=entry_id)
     if form.is_valid():

@@ -3,6 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django_quill.fields import QuillField
 
 from .fields import LowercaseEmailField, LowercaseCharField
 from .managers import CustomUserManager
@@ -16,7 +17,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         blank=False,
         null=False
     )
-    about = models.TextField(max_length=200, blank=True, null=True)
+    about = QuillField()
     display_username = models.CharField(max_length=24, blank=True, null=True)
     full_name = models.CharField(max_length=48, blank=True, null=True)
     show_full_name = models.BooleanField(default=True)

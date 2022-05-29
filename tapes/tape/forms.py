@@ -13,7 +13,7 @@ class CommentForm(forms.ModelForm):
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ('text',)
+        fields = ('text', 'title')
 
     tape = forms.ModelChoiceField(label='', queryset=Tape.objects.none())
 

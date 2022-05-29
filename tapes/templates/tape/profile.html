@@ -89,9 +89,9 @@
       </div>
     {% endif %}
 
-    {% if user.about %}
+    {% if user.about.html and user.about.plain != '' %}
       <div class="col-12 about-me">
-        {{ user.about }}
+        {{ user.about.html|safe|urlize }}
       </div>
     {% endif %}
 
@@ -155,7 +155,7 @@
     </div>
 </div>
 
-{% if user.tapes %}
+{% if user.tapes.count == 10 %}
   <div class="tapes-container">
     {% for tape in tapes %}
     <a href="{% url 'tape:tape' slug=tape.slug username=user.username %}">
@@ -167,7 +167,32 @@
 {% endif %}
 
 
-<div class="infinite-container">
+<div class="add-entry pad-1 py-4">
+  {{ form.media }}
+    {% load user_filters %}
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="mb-3 py-2">
+          <label class="form-label fw-light">Заголовок (не обязательно)</label>
+          {{ form.title|addclass:'form-control' }}
+        </div>
+        {{ form.text }}
+        <div class="input-group pb-4">
+          {{ form.tape|addclass:'form-select' }}
+          <button type="submit" class="btn btn-outline-secondary" type="button">
+            {% if is_edit %}
+              Сохранить
+            {% else %}
+              Отправить
+            {% endif %}
+          </button>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="infinite-container pad-1">
   {% for entry in entries %}
       {% include '../includes/entry.html' %}
   {% endfor %}
