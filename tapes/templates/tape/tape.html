@@ -5,11 +5,11 @@
   тайтл
 {% endblock %}
 {% block before-content %}
-{% if user.background %}
+{% if tapes.background %}
   <div class="row container-fluid profile-top">
     <div class="col-3">
     </div>
-    <div class="col-6 profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
+    <div class="col-6 profile-background-img" style="background-image: url('{{ tapes.background.url }}'); background-position: top left; background-size: inherit;">
     </div>
   </div>
 {% else %}
@@ -81,11 +81,7 @@
       </div>
     {% endif %}
 
-{% for entry in entries  %}
-  {{ entry.title }}
-{% endfor %}
-
-<div class="infinite-container pad-1">
+<div class="infinite-container">
   {% for entry in entries %}
       {% include '../includes/entry.html' %}
   {% endfor %}

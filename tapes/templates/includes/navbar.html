@@ -29,7 +29,12 @@
               {% if request.user.is_authenticated %}
                 <li class="nav-item username">
                   <a class="nav-link" href="{% url 'tape:profile' request.user.username %}">
-                      <span class="tilda">~</span> {{ request.user.display_username }}
+                      <span class="tilda">~</span>
+                      {% if request.user.display_username %}
+                      {{ request.user.display_username }}
+                      {% else %}
+                      {{ request.user.username }}
+                      {% endif %}
                       {% thumbnail request.user.avatar "32x32" crop="center" as im %}
                         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
                       {% endthumbnail %}

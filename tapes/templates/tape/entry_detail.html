@@ -25,7 +25,7 @@
       <div class="media mb-4 comment-list infinite-item">
         <div class="media-body">
           <span class="fw-bold username">
-            <a href="{% url 'tape:profile' entry.author %}">~{{ comment.author }}</a>
+            <a href="{% url 'tape:profile' entry.author %}">~{{ comment.author.display_username }}</a>
           </span>
           {% if comment.author.get_full_name %}
             <span class="fw-light">он же</span>
