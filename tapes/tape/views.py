@@ -75,7 +75,11 @@ def tape_add(request):
         form = form.save(commit=False)
         form.author = request.user
         form.save()
-        return redirect('tape:profile', username=request.user.username)
+        return redirect(
+            'tape:tape',
+            username=request.user.username,
+            slug=form.slug,
+        )
     return render(request, 'tape/tape_add.html', {'form': form})
 
 

@@ -59,7 +59,7 @@ class Entry(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return self.text[:30]
+        return self.text.plain[:30]
 
 
 class Comment(models.Model):
