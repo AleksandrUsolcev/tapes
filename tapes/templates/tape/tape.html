@@ -2,38 +2,39 @@
 {% load thumbnail %}
 {% load static %}
 {% block title %}
-  Лента
+  тайтл
 {% endblock %}
 {% block before-content %}
-{% if tapes.background %}
+{% if user.background %}
   <div class="row container-fluid profile-top">
     <div class="col-3">
-      {{ tapes.background }}
     </div>
-    <div class="col-6 profile-background-img" style="background-image: url('{{ tapes.background.url }}'); background-position: top left; background-size: inherit;">
+    <div class="col-6 profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
     </div>
   </div>
 {% else %}
-<div class="row container-fluid profile-top">
-  <div class="col-3">
-    {{ tapes.background }}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-img">
+    </div>
   </div>
-  <div class="col-6 profile-background-img">
-  </div>
-</div>
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="row profile">
+<div class="row profile pad-1">
   <div class="col-6 profile-name">
-    {% thumbnail tapes.picture "220x220" as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="tape-picture">
-    {% endthumbnail %}
+    {% if tapes.picture %}
+      {% thumbnail tapes.picture "150x150" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+      {% endthumbnail %}
+    {% else %}
+      <div class="py-4"></div>
+    {% endif %}
     <h1 class="fw-bolder">
-      {{ tapes.title }}
+      <span class="tilda">~</span>{% if user.display_username %}{{ tapes.title }}{% else %}{{ tapes.title }}{% endif %}
     </h1>
   </div>
-
   <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
     {% if request.user.is_staff and request.user != author %}
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
@@ -51,14 +52,14 @@
           class="btn btn-lg btn-light sub-true"
           href="{% url 'tape:unsubscribe' author.username %}" role="button"
         >
-          Вы подписаны
+          В читаемом
         </a>
       {% else %}
           <a
             class="btn btn-lg btn-primary"
             href="{% url 'tape:subscribe' author.username %}" role="button"
           >
-            Подписаться
+            Читать
           </a>
        {% endif %}
     {% else %}
@@ -67,22 +68,20 @@
       </svg>
       <a
         class="btn btn-lg btn-primary"
-        href="{% url 'tape:tape_edit' slug=tapes.slug username=request.user.username %}" role="button"
+        href="{% url 'tape:tape_edit' username=tapes.author.display_username slug=tapes.slug %}" role="button"
       >
         Редактировать
       </a>
     {% endif %}
   </div>
 
-
-    {% if tapes.description %}
+    {% if tapes.description and tapes.description.plain != '' %}
       <div class="col-12 about-me">
-        {{ tapes.description }}
+        {{ tapes.description.html|safe|urlize }}
       </div>
     {% endif %}
 
-
-<div class="infinite-container">
+<div class="infinite-container pad-1">
   {% for entry in entries %}
       {% include '../includes/entry.html' %}
   {% endfor %}

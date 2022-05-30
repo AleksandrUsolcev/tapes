@@ -48,7 +48,7 @@ class TapeEditForm(forms.ModelForm):
 
     class Meta:
         model = Tape
-        fields = ('description', 'picture', 'background')
+        fields = ('description', 'picture', 'background', 'slug', 'title')
         widgets = {
             'picture': ClientsideCroppingWidget(
                 width=300,

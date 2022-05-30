@@ -1,45 +1,50 @@
-{% extends 'base.html' %}
-{% block title %}
-  {% if is_edit %}
-    Редактирование ленты
-  {% else %}
-    Новая лента
-  {% endif %}
+{% extends "base.html" %}
+{% block title %}Редактирование ленты{% endblock %}
+{% load user_filters %}
+{% load thumbnail %}
+{% load static %}
+
+{% block before-content %}
+<div class="edit-page">
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-edit">
+      <form method="post" enctype="multipart/form-data">
+          {{ form.media }}
+          {% csrf_token %}
+        {{ form.background }}
+    </div>
+  </div>
 {% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-  <h2>
-    {% if is_edit %}
-      Редактирование ленты
-    {% else %}
-      Новая лента
-    {% endif %}
-  </h2>
-  <div class="card-body">
-    {% load user_filters %}
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="form-group row my-3 p-3">
-          <label for="{{ field.id_for_label }}">
-            {{ field.label }}
-          </label>
-          {{ field|addclass:'form-control' }}
-          <p class="fst-italic fw-lighter">
-            {{ field.help_text }}
-          </p>
-        </div>
-      {% endfor %}
-      <div class="col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">
-          {% if is_edit %}
-            Сохранить
-          {% else %}
-            Создать
-          {% endif %}
-        </button>
-      </div>
-    </form>
+<div class="row profile pad-1">
+  <div class="col-6 profile-name">
+    <div class="profile-avatar">
+     {{ form.picture }}
+    </div>
+  </div>
+
+  <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
+      <button class="btn btn-lg btn-primary" type="submit" role="button">
+      Сохранить изменения
+      </button>
   </div>
 </div>
+
+<div class="profile-edit row pad-1 my-4 pb-5">
+  <div class="mb-3 py-2 col-6">
+    <label class="form-label fw-light">Название</label>
+    {{ form.title|addclass:'form-control' }}
+  </div>
+  <div class="mb-3 py-2 col-6">
+    <label class="form-label fw-light">Ссылка на ленту</label>
+    {{ form.slug|addclass:'form-control' }}
+  </div>
+  <div class="mb-3 py-2">
+    <label class="form-label fw-light">Описание</label>
+    {{ form.description }}
+  </div>
+</div>
+
 {% endblock %}

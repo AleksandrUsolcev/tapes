@@ -19,7 +19,7 @@ class Tape(models.Model):
         max_length=32,
         verbose_name='Ссылка'
     )
-    description = models.TextField(
+    description = QuillField(
         blank=True,
         null=True,
         max_length=400,
