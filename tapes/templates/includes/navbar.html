@@ -30,6 +30,9 @@
                 <li class="nav-item username">
                   <a class="nav-link" href="{% url 'tape:profile' request.user.username %}">
                       <span class="tilda">~</span> {{ request.user.display_username }}
+                      {% thumbnail request.user.avatar "32x32" crop="center" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
+                      {% endthumbnail %}
                   </a>
                 </li>
               {% endif %}

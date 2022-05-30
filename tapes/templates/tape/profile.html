@@ -166,7 +166,7 @@
   </div>
 {% endif %}
 
-
+{% if request.user.is_authenticated %}
 <div class="add-entry pad-1 py-4">
   {{ form.media }}
     {% load user_filters %}
@@ -189,7 +189,7 @@
         </div>
     </form>
 </div>
-
+{% endif %}
 
 
 <div class="infinite-container pad-1">

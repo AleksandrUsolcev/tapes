@@ -8,7 +8,6 @@ class CustomUserAdmin(admin.ModelAdmin):
         'id',
         'email',
         'username',
-        'display_username',
     )
 
 

@@ -17,10 +17,10 @@ class LowercaseEmailField(models.EmailField):
         return value
 
 
-class LowercaseCharField(models.CharField):
+class LowercaseSlugField(models.SlugField):
 
     def to_python(self, value):
-        value = super(LowercaseCharField, self).to_python(value)
+        value = super(LowercaseSlugField, self).to_python(value)
         if isinstance(value, str):
             return value.lower()
         return value

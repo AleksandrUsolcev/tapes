@@ -30,15 +30,18 @@ def profile(request, username):
         ).exists()
     else:
         is_sub = False
-    form = EntryForm(request.POST or None,
-                     files=request.FILES or None,
-                     user_id=request.user
-                     )
-    if form.is_valid():
-        form = form.save(commit=False)
-        form.author = request.user
-        form.save()
-        return redirect('tape:profile', username=request.user.username)
+    if request.user.is_authenticated:
+        form = EntryForm(request.POST or None,
+                         files=request.FILES or None,
+                         user_id=request.user
+                         )
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.author = request.user
+            form.save()
+            return redirect('tape:profile', username=request.user.username)
+    else:
+        form = False
     context = {
         'user': user,
         'author': author,

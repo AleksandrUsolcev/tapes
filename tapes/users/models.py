@@ -5,19 +5,19 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_quill.fields import QuillField
 
-from .fields import LowercaseEmailField, LowercaseCharField
+from .fields import LowercaseEmailField, LowercaseSlugField
 from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = LowercaseEmailField(_('email address'), unique=True)
-    username = LowercaseCharField(
+    username = LowercaseSlugField(
         unique=True,
         max_length=24,
         blank=False,
         null=False
     )
-    about = QuillField()
+    about = QuillField(blank=True, null=True)
     display_username = models.CharField(max_length=24, blank=True, null=True)
     full_name = models.CharField(max_length=48, blank=True, null=True)
     show_full_name = models.BooleanField(default=True)
