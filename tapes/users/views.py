@@ -1,8 +1,11 @@
+from bootstrap_modal_forms.generic import BSModalLoginView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 
-from .forms import CustomUserCreationForm, UserEditForm
 from tape.models import User
+from .forms import CustomUserCreationForm, UserEditForm, \
+    CustomAuthenticationForm
 
 
 def user_create(request):
@@ -37,3 +40,10 @@ def user_edit(request):
         'user': user,
     }
     return render(request, 'users/profile_edit.html', context)
+
+
+class CustomLoginView(BSModalLoginView):
+    authentication_form = CustomAuthenticationForm
+    template_name = 'users/login.html'
+    success_message = 'Success: You were successfully logged in.'
+    extra_context = dict(success_url=reverse_lazy('tape:index'))

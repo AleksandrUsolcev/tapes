@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'client_side_image_cropping',
     'django_quill',
+    'widget_tweaks',
+    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [

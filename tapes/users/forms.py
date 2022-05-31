@@ -1,12 +1,14 @@
-from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
+from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from client_side_image_cropping import ClientsideCroppingWidget
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, \
+    AuthenticationForm
 
 from .models import CustomUser
 
 
-class CustomUserCreationForm(UserCreationForm):
+class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
+                             UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
         fields = ('username', 'email',)
@@ -16,6 +18,12 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email',)
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'password']
 
 
 class UserEditForm(forms.ModelForm):

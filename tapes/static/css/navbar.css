@@ -22,11 +22,11 @@
 .nav-content .nav-item {
   padding-top: .1rem;
 }
-.nav-content .nav-item.username a {
+.nav-content .nav-item.nav-link a {
   font-size: 1.2rem;
   color: #9d276d !important;
 }
-.nav-content .nav-item.username a:hover {
+.nav-content .nav-item.nav-link a:hover {
   color: #0e062b !important;
 }
 .nav-content .tilda {

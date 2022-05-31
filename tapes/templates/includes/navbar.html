@@ -27,7 +27,7 @@
               </span>
               </a>
               {% if request.user.is_authenticated %}
-                <li class="nav-item username">
+                <li class="nav-item nav-link">
                   <a class="nav-link" href="{% url 'tape:profile' request.user.username %}">
                       <span class="tilda">~</span>
                       {% if request.user.display_username %}
@@ -38,6 +38,17 @@
                       {% thumbnail request.user.avatar "32x32" crop="center" as im %}
                         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
                       {% endthumbnail %}
+                  </a>
+                </li>
+              {% else %}
+                <li class="nav-item nav-link">
+                  <a id="login-url" class="nav-link" href="#">
+                      Вход
+                  </a>
+                </li>
+                <li class="nav-item nav-link">
+                  <a id="signup-url" class="nav-link" href="#">
+                      Регистрация
                   </a>
                 </li>
               {% endif %}
@@ -54,3 +65,21 @@
   <div class="col-3">
   </div>
 </nav>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content px-5"></div>
+  </div>
+</div>
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<script type="text/javascript">
+  $(function () {
+    $("#login-url").modalForm({
+        formURL: "{% url 'users:login' %}"
+    });
+    $("#signup-url").modalForm({
+        formURL: "{% url 'users:signup' %}"
+    });
+  });
+</script>
