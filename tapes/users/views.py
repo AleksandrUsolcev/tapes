@@ -11,13 +11,16 @@ class SignUpView(BSModalCreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/signup.html'
     success_message = 'Вы успешно зарегистрировались'
-    success_url = reverse_lazy('tape:index')
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
         form.save(commit=False).display_username = username
         form.save(commit=True)
         return super().form_valid(form)
+
+    def get_success_url(self):
+        success_url = reverse_lazy('tape:index')
+        return success_url
 
 
 @login_required

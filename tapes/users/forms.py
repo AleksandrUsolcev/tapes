@@ -12,6 +12,7 @@ class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
     class Meta(UserCreationForm):
         model = CustomUser
         fields = ('username', 'email', 'display_username')
+        widgets = {'display_username': forms.HiddenInput()}
 
 
 class CustomUserChangeForm(UserChangeForm):
