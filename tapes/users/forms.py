@@ -11,7 +11,7 @@ class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('username', 'email',)
+        fields = ('username', 'email', 'display_username')
 
 
 class CustomUserChangeForm(UserChangeForm):

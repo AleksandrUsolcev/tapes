@@ -1,27 +1,23 @@
-from bootstrap_modal_forms.generic import BSModalLoginView
+from bootstrap_modal_forms.generic import BSModalLoginView, BSModalCreateView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
-from tape.models import User
 from .forms import CustomUserCreationForm, UserEditForm, \
     CustomAuthenticationForm
 
 
-def user_create(request):
-    form = CustomUserCreationForm(request.POST or None)
-    if form.is_valid():
+class SignUpView(BSModalCreateView):
+    form_class = CustomUserCreationForm
+    template_name = 'users/signup.html'
+    success_message = 'Вы успешно зарегистрировались'
+    success_url = reverse_lazy('tape:index')
+
+    def form_valid(self, form):
         username = form.cleaned_data['username']
-        form.save()
-        new_user = User.objects.get(username=username.lower())
-        if new_user:
-            new_user.display_username = username
-            new_user.save()
-        return redirect('tape:index')
-    context = {
-        'form': form
-    }
-    return render(request, 'users/signup.html', context)
+        form.save(commit=False).display_username = username
+        form.save(commit=True)
+        return super().form_valid(form)
 
 
 @login_required
@@ -45,5 +41,5 @@ def user_edit(request):
 class CustomLoginView(BSModalLoginView):
     authentication_form = CustomAuthenticationForm
     template_name = 'users/login.html'
-    success_message = 'Success: You were successfully logged in.'
+    success_message = 'Вы успешно вошли в учетную запись'
     extra_context = dict(success_url=reverse_lazy('tape:index'))
