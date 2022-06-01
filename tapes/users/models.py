@@ -15,7 +15,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         unique=True,
         max_length=24,
         blank=False,
-        null=False
+        null=False,
+        verbose_name='Имя пользователя',
     )
     about = QuillField(blank=True, null=True)
     display_username = models.CharField(max_length=24, blank=True, null=True)
@@ -33,3 +34,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'

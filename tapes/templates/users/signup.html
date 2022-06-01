@@ -3,11 +3,7 @@
 <form method="post" action="">
   {% csrf_token %}
 
-  <div class="modal-header">
-    <h3 class="modal-title">Регистрация</h3>
-  </div>
-
-  <div class="modal-body">
+  <div class="modal-body pt-5">
 
     <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">
       {% for error in form.non_field_errors %}
@@ -28,7 +24,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    <button type="submit" class="btn btn-primary">Регистрация</button>
   </div>
 
 </form>

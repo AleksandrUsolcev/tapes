@@ -19,7 +19,7 @@ class SignUpView(BSModalCreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        success_url = reverse_lazy('tape:index')
+        success_url = reverse_lazy('users:user_edit')
         return success_url
 
 
