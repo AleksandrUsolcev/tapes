@@ -41,8 +41,15 @@ a:hover {
 .btn {
   background-color: #9d276d;
   border: none;
-  font-size: 1rem;
   color: #fff;
+  border-radius: .7rem;
+  font-size: .7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+}
+.btn:hover {
+  background: #0e062b;
 }
 .btn.sub-true {
   background-color: #aaa;
@@ -69,13 +76,6 @@ a:hover {
   color: #9d276d;
   margin-right: 0.3rem;
   font-weight: bold;
-}
-.profile .btn,
-.nav-content .btn {
-  font-size: .7rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: .1rem;
 }
 .nav-content .btn {
   border-radius: .7rem;
@@ -258,4 +258,8 @@ a:hover {
   -webkit-box-shadow: 0px 5px 28px 0px rgba(34, 60, 80, 0.35);
   -moz-box-shadow: 0px 5px 28px 0px rgba(34, 60, 80, 0.35);
   box-shadow: 0px 5px 28px 0px rgba(34, 60, 80, 0.35);
+}
+.modal-footer,
+.modal-header {
+  border: none;
 }

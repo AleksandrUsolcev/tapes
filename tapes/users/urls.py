@@ -1,4 +1,5 @@
 from django.contrib.auth.views import (LogoutView,
+                                       LoginView,
                                        PasswordChangeDoneView,
                                        PasswordChangeView,
                                        PasswordResetCompleteView,
@@ -17,12 +18,17 @@ urlpatterns = [
         LogoutView.as_view(template_name='users/logged_out.html'),
         name='logout'
     ),
-    path('signup/',
+    path('signup_modal/',
          views.SignUpView.as_view(),
-         name='signup'),
+         name='signup_modal'),
+    path(
+        'login-modal/',
+        views.CustomLoginView.as_view(),
+        name='login_modal'
+    ),
     path(
         'login/',
-        views.CustomLoginView.as_view(),
+        LoginView.as_view(template_name='users/login.html'),
         name='login'
     ),
     path(

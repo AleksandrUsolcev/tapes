@@ -40,7 +40,7 @@
                       {% endthumbnail %}
                   </a>
                 </li>
-              {% else %}
+              {% elif 'login' not in request.path %}
                 <li class="nav-item nav-link">
                   <a id="login-url" class="nav-link" href="#">
                       Вход
@@ -68,7 +68,7 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modal">
   <div class="modal-dialog" role="document">
-    <div class="modal-content px-5"></div>
+    <div class="modal-content"></div>
   </div>
 </div>
 
@@ -76,10 +76,10 @@
 <script type="text/javascript">
   $(function () {
     $("#login-url").modalForm({
-        formURL: "{% url 'users:login' %}"
+        formURL: "{% url 'users:login_modal' %}"
     });
     $("#signup-url").modalForm({
-        formURL: "{% url 'users:signup' %}"
+        formURL: "{% url 'users:signup_modal' %}"
     });
   });
 </script>

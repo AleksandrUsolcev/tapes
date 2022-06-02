@@ -9,7 +9,7 @@ from .forms import CustomUserCreationForm, UserEditForm, \
 
 class SignUpView(BSModalCreateView):
     form_class = CustomUserCreationForm
-    template_name = 'users/signup.html'
+    template_name = 'users/signup_modal.html'
     success_message = 'Вы успешно зарегистрировались'
 
     def form_valid(self, form):
@@ -43,6 +43,6 @@ def user_edit(request):
 
 class CustomLoginView(BSModalLoginView):
     authentication_form = CustomAuthenticationForm
-    template_name = 'users/login.html'
+    template_name = 'users/login-modal.html'
     success_message = 'Вы успешно вошли в учетную запись'
     extra_context = dict(success_url=reverse_lazy('tape:index'))
