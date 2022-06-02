@@ -5,7 +5,7 @@
 <div class="row pad-1">
     <h1 class="col-12 mt-5 pt-5">Вход на сайт</h1>
     <div class="col-6 pb-5">
-      <form method="post" action="">
+      <form method="post">
         {% csrf_token %}
 
         <div class="modal-body pt-5">
@@ -27,8 +27,6 @@
             </div>
           {% endfor %}
 
-          <!-- Hidden input field for custom redirection after successful login -->
-          <input type="hidden" name="next" value="{{ success_url }}">
         </div>
 
         <div class="modal-footer pt-0">
