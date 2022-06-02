@@ -22,18 +22,11 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="row profile pad-1">
+<div class="row profile pad-1 mt-4">
   <div class="col-6 profile-name">
-    {% if tapes.picture %}
-      {% thumbnail tapes.picture "150x150" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
-      {% endthumbnail %}
-    {% else %}
-      <div class="py-4"></div>
-    {% endif %}
-    <h1 class="fw-bolder">
-      <span class="tilda">~</span>{% if user.display_username %}{{ tapes.title }}{% else %}{{ tapes.title }}{% endif %}
-    </h1>
+    <h2 class="fw-bolder">
+      {{ tapes.title }}
+    </h2>
   </div>
   <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
     {% if request.user.is_staff and request.user != author %}
@@ -81,7 +74,7 @@
       </div>
     {% endif %}
 
-<div class="infinite-container">
+<div class="infinite-container mb-5">
   {% for entry in entries %}
       {% include '../includes/entry.html' %}
   {% endfor %}

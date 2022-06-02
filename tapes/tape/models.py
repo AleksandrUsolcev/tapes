@@ -25,7 +25,6 @@ class Tape(models.Model):
         max_length=400,
         verbose_name='Описание'
     )
-    picture = models.ImageField(upload_to='tape-pictures/', blank=True)
     background = models.ImageField(upload_to='tape-backgrounds/', blank=True)
 
     def __str__(self):

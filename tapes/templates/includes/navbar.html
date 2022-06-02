@@ -29,33 +29,43 @@
                 </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="{% url 'tape:tape_add' %}">Ленту</a></li>
-                <li><a class="dropdown-item" href="{% url 'tape:entry_add' %}">Запись</a></li>
+                  <li><a class="dropdown-item" href="{% url 'tape:tape_add' %}">Ленту</a></li>
+                  <li><a class="dropdown-item" href="{% url 'tape:entry_add' %}">Запись</a></li>
                 </ul>
               </div>
 
               {% if request.user.is_authenticated %}
                 <li class="nav-item nav-link">
-                  <a href="{% url 'tape:profile' request.user.username %}">
-                      <span class="tilda">~</span>
-                      {% if request.user.display_username %}
-                      {{ request.user.display_username }}
-                      {% else %}
-                      {{ request.user.username }}
-                      {% endif %}
-                      {% thumbnail request.user.avatar "32x32" crop="center" as im %}
-                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
-                      {% endthumbnail %}
-                  </a>
+                  <div class="dropdown">
+                    <a class="dropdown-toggle profile-link" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"
+                    href="{% url 'tape:profile' request.user.username %}">
+                        <span class="tilda">~</span>
+                        {% if request.user.display_username %}
+                        {{ request.user.display_username }}
+                        {% else %}
+                        {{ request.user.username }}
+                        {% endif %}
+                        {% thumbnail request.user.avatar "32x32" crop="center" as im %}
+                          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
+                        {% endthumbnail %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                      <li><a class="dropdown-item" href="{% url 'tape:profile' username=request.user.username %}">Мой профиль</a></li>
+                      <li><a class="dropdown-item" href="{% url 'users:user_edit' %}">Редактировать</a></li>
+                      <li><a class="dropdown-item" href="{% url 'tape:entry_add' %}">Смена пароля</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a></li>
+                    </ul>
+                  </div>
                 </li>
               {% elif 'login' not in request.path %}
                 <li class="nav-item nav-link">
-                  <a id="login-url" class="nav-link" href="#">
+                  <a id="login-url" class="nav-link profile-link" href="#">
                       Вход
                   </a>
                 </li>
                 <li class="nav-item nav-link">
-                  <a id="signup-url" class="nav-link" href="#">
+                  <a id="signup-url" class="nav-link profile-link" href="#">
                       Регистрация
                   </a>
                 </li>

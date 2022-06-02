@@ -25,11 +25,11 @@
 .nav-content .nav-item {
   padding-top: .1rem;
 }
-.nav-content .nav-item.nav-link a {
+.nav-content .nav-item .profile-link {
   font-size: 1.2rem;
   color: #9d276d !important;
 }
-.nav-content .nav-item.nav-link a:hover {
+.nav-content .nav-item .profile-link:hover {
   color: #0e062b !important;
 }
 .nav-content .tilda {

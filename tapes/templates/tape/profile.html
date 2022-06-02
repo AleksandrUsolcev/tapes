@@ -22,7 +22,7 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="row profile pad-1">
+<div class="row profile pad-1 mb-5">
   <div class="col-6 profile-name">
     {% if user.avatar %}
       {% thumbnail user.avatar "150x150" as im %}
@@ -192,7 +192,7 @@
 {% endif %}
 
 
-<div class="infinite-container pad-1">
+<div class="infinite-container pad-1 mb-5">
   {% for entry in entries %}
       {% include '../includes/entry.html' %}
   {% endfor %}

@@ -26,14 +26,8 @@ class EntryForm(forms.ModelForm):
 class TapeAddForm(forms.ModelForm):
     class Meta:
         model = Tape
-        fields = ('title', 'slug', 'description', 'picture', 'background')
+        fields = ('title', 'slug', 'description', 'background')
         widgets = {
-            'picture': ClientsideCroppingWidget(
-                width=300,
-                height=300,
-                preview_width=200,
-                preview_height=200,
-            ),
             'background': ClientsideCroppingWidget(
                 width=1000,
                 height=300,
@@ -48,14 +42,8 @@ class TapeEditForm(forms.ModelForm):
 
     class Meta:
         model = Tape
-        fields = ('description', 'picture', 'background', 'slug', 'title')
+        fields = ('description', 'background', 'slug', 'title')
         widgets = {
-            'picture': ClientsideCroppingWidget(
-                width=300,
-                height=300,
-                preview_width=200,
-                preview_height=200,
-            ),
             'background': ClientsideCroppingWidget(
                 width=1000,
                 height=300,

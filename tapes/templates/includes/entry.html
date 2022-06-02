@@ -31,19 +31,15 @@
             {% endif %}
           </span>
       </div>
-      {% if entry.tape %}
-      <div class="col-12 tape">
-        <span class="fw-bolder">
-          <a href="{% url 'tape:tape' entry.author.username entry.tape.slug %}">
-          {{ entry.tape.title }}</a>
-        </span>
-      </div>
-      {% endif %}
-      {% if entry.title %}
-        <h1 class="pt-3">
+        <h1 class="pt-3 pb-0 mb-1">
+          {% if entry.tape %}
+          <a href="{% url 'tape:tape' entry.author.username entry.tape.slug %}" class="me-2">
+          #{{ entry.tape.title }}</a>
+          {% endif %}
+          {% if entry.title %}
           {{ entry.title }}
+          {% endif %}
         </h1>
-      {% endif %}
     </div>
     {% if entry.text %}
     <div class="entry-text">
