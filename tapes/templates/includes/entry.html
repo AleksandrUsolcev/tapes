@@ -21,6 +21,10 @@
         {% if entry.author.full_name and entry.author.show_full_name %}
           <span class="fw-bold full-name">{{ entry.author.full_name }}</span>
         {% endif %}
+        {% if entry.tape %}
+        <a href="{% url 'tape:tape' entry.author.username entry.tape.slug %}" class="me-2">
+        ~ {{ entry.tape.title }}</a>
+        {% endif %}
       </div>
       <div class="col-4 text-end text-align-center">
           <span class="fw-light">
@@ -31,15 +35,11 @@
             {% endif %}
           </span>
       </div>
+        {% if entry.title %}
         <h1 class="pt-3 pb-0 mb-1">
-          {% if entry.tape %}
-          <a href="{% url 'tape:tape' entry.author.username entry.tape.slug %}" class="me-2">
-          ~ {{ entry.tape.title }}</a>
-          {% endif %}
-          {% if entry.title %}
           {{ entry.title }}
-          {% endif %}
         </h1>
+        {% endif %}
     </div>
     {% if entry.text %}
     <div class="entry-text">
