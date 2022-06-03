@@ -24,24 +24,14 @@ urlpatterns = [
         name='comment_add'
     ),
     path(
-        'entries/<int:entry_id>/like',
-        views.like_add,
-        name='like_add'
+        'entries/<int:entry_id>/like_entry',
+        views.like_entry,
+        name='like_entry'
     ),
     path(
-        'entries/<int:entry_id>/dislike',
-        views.dislike,
-        name='dislike'
-    ),
-    path(
-        'entries/<int:entry_id>/mark',
-        views.mark_add,
-        name='mark_add'
-    ),
-    path(
-        'entries/<int:entry_id>/unmark',
-        views.unmark,
-        name='unmark'
+        'entries/<int:entry_id>/mark_entry',
+        views.mark_entry,
+        name='mark_entry'
     ),
     path(
         '~<str:username>/subscribe',

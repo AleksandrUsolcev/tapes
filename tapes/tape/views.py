@@ -208,35 +208,29 @@ def comment_add(request, entry_id):
 
 
 @login_required
-def like_add(request, entry_id):
+def like_entry(request, entry_id):
     user = request.user
     entry = get_object_or_404(Entry, id=entry_id)
-    Like.objects.get_or_create(user=user, entry=entry)
-    return redirect('tape:index')
+    instance = Like.objects.filter(user=user, entry=entry)
+    if not instance:
+        Like.objects.get_or_create(user=user, entry=entry)
+    else:
+        Like.objects.filter(user=user, entry=entry).delete()
+    return render(request, 'htmx/like-area.html',
+                  context={'entry': entry})
 
 
 @login_required
-def dislike(request, entry_id):
+def mark_entry(request, entry_id):
     user = request.user
     entry = get_object_or_404(Entry, id=entry_id)
-    Like.objects.filter(user=user, entry=entry).delete()
-    return redirect('tape:index')
-
-
-@login_required
-def mark_add(request, entry_id):
-    user = request.user
-    entry = get_object_or_404(Entry, id=entry_id)
-    Bookmark.objects.get_or_create(user=user, entry=entry)
-    return redirect('tape:index')
-
-
-@login_required
-def unmark(request, entry_id):
-    user = request.user
-    entry = get_object_or_404(Entry, id=entry_id)
-    Bookmark.objects.filter(user=user, entry=entry).delete()
-    return redirect('tape:index')
+    instance = Bookmark.objects.filter(user=user, entry=entry)
+    if not instance:
+        Bookmark.objects.get_or_create(user=user, entry=entry)
+    else:
+        Bookmark.objects.filter(user=user, entry=entry).delete()
+    return render(request, 'htmx/mark-area.html',
+                  context={'entry': entry})
 
 
 @login_required

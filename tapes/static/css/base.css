@@ -16,6 +16,9 @@ input {
   display: inline-block;
   height: auto;
 }
+.pointer {
+  cursor: pointer;
+}
 .container-fluid.main,
 .container-fluid.profile-top {
   margin: 0;
