@@ -209,15 +209,16 @@ def comment_add(request, entry_id):
 
 @login_required
 def like_entry(request, entry_id):
-    user = request.user
-    entry = get_object_or_404(Entry, id=entry_id)
-    instance = Like.objects.filter(user=user, entry=entry)
-    if not instance:
-        Like.objects.get_or_create(user=user, entry=entry)
-    else:
-        Like.objects.filter(user=user, entry=entry).delete()
-    return render(request, 'htmx/like-area.html',
-                  context={'entry': entry})
+    if request.method == 'POST':
+        user = request.user
+        entry = get_object_or_404(Entry, id=entry_id)
+        instance = Like.objects.filter(user=user, entry=entry)
+        if not instance:
+            Like.objects.get_or_create(user=user, entry=entry)
+        else:
+            Like.objects.filter(user=user, entry=entry).delete()
+        return render(request, 'htmx/like-area.html',
+                      context={'entry': entry})
 
 
 @login_required
