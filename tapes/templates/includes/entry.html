@@ -70,7 +70,7 @@
         {% include "htmx/like-area.html" %}
       </div>
 
-      <div class="share-area dropdown d-inline me-4">
+      <div class="share-area dropend d-inline me-4">
         <a
           class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" href="" role="button"
         >
@@ -80,6 +80,7 @@
         </svg>
         </a>
         <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <li><a class="dropdown-item disabled fw-light" href="{% url 'tape:tape_add' %}">Поделиться</a></li>
           <li><a class="dropdown-item" href="{% url 'tape:tape_add' %}">Telegram</a></li>
           <li><a class="dropdown-item" href="{% url 'tape:entry_add' %}">VK</a></li>
         </ul>
