@@ -4,12 +4,7 @@
   Сохраненное
 {% endblock %}
 {% block content %}
-<div class="pad-1 py-5 mt-5">
-  <div class="infinite-container">
-    {% for entry in entries %}
-        {% include '../includes/entry.html' %}
-    {% endfor %}
+  <div class="infinite-container pad-1 py-5 mt-5">
+    {% include '../includes/entry_list.html' %}
   </div>
-  {% include '../includes/infinite-scroll.html' %}
-</div>
 {% endblock %}

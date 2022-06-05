@@ -192,10 +192,7 @@
 {% endif %}
 
 
-<div class="infinite-container pad-1 mb-5">
-  {% for entry in entries %}
-      {% include '../includes/entry.html' %}
-  {% endfor %}
-</div>
-{% include '../includes/infinite-scroll.html' %}
+  <div class="infinite-container pad-1 py-5 mt-5">
+    {% include '../includes/entry_list.html' %}
+  </div>
 {% endblock %}

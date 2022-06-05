@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_quill',
     'widget_tweaks',
     'bootstrap_modal_forms',
+    "django_htmx",
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'tapes.urls'

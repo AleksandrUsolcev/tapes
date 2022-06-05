@@ -13,6 +13,8 @@ def index(request):
     context = {
         'entries': entries,
     }
+    if request.htmx:
+        return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/index.html', context)
 
 
@@ -50,6 +52,8 @@ def profile(request, username):
         'tapes': tapes,
         'form': form,
     }
+    if request.htmx:
+        return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/profile.html', context)
 
 
@@ -65,6 +69,8 @@ def tape(request, username, slug):
         'tapes': tapes,
         'author': author,
     }
+    if request.htmx:
+        return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/tape.html', context)
 
 
@@ -117,6 +123,8 @@ def feed(request):
     context = {
         'entries': entries,
     }
+    if request.htmx:
+        return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/feed.html', context)
 
 
@@ -128,6 +136,8 @@ def saved(request):
     context = {
         'entries': entries,
     }
+    if request.htmx:
+        return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/saved.html', context)
 
 
@@ -139,6 +149,8 @@ def liked(request):
     context = {
         'entries': entries,
     }
+    if request.htmx:
+        return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/liked.html', context)
 
 
