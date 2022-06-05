@@ -266,6 +266,9 @@ a:hover {
 .modal-header {
   border: none;
 }
+.modal-body input {
+  font-weight: bold;
+}
 .dropdown-menu {
   border-radius: .7rem;
   border: none;
