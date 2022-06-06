@@ -13,6 +13,9 @@ def index(request):
     context = {
         'entries': entries,
     }
+    if request.user.is_authenticated and request.user.is_newbie:
+        request.user.is_newbie = False
+        request.user.save()
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
     return render(request, 'tape/index.html', context)

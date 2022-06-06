@@ -33,6 +33,14 @@
 </div>
 
   <div class="profile-edit row pad-1 my-4 pb-5">
+    {% if request.user.is_newbie  %}
+    <div class="col-12">
+      <div class="alert alert-success" role="alert">
+        <p>Добро пожаловать <span class="fw-bold">{{ request.user.display_username }}</span>!</p>
+        <p>Отредактируйте свой профиль - загрузите фон и аватар, или отложите на потом :)</p>
+      </div>
+    </div>
+    {% endif %}
     <div class="mb-3 py-2 col-6">
       <label class="form-label fw-light">Текущий email</label>
       <input class="form-control" type="text" placeholder="{{ user.email }}" aria-label="Disabled input example" disabled>

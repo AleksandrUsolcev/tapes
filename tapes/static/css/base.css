@@ -5,7 +5,8 @@ p {
    font-family: Helvetica, serif;
    letter-spacing: .04rem;
 }
-input {
+input,
+.alert {
   border-radius: .7rem !important;
 }
 .pad-1 {
