@@ -12,12 +12,6 @@ class SignUpView(BSModalCreateView):
     template_name = 'users/signup_modal.html'
     success_message = 'Вы успешно зарегистрировались'
 
-    def form_valid(self, form):
-        username = form.cleaned_data['username']
-        form.save(commit=False).display_username = username
-        form.save(commit=True)
-        return super().form_valid(form)
-
     def get_success_url(self):
         success_url = reverse_lazy('users:user_edit')
         return success_url
