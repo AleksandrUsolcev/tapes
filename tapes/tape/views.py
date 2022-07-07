@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from tape.forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
 from tape.models import Entry, Like, Bookmark, User, Subscribe, Tape
-from tape.utils import pagination
+from tape.utils import pagination, htmx_login_required
 
 
 def index(request):
@@ -222,7 +222,7 @@ def comment_add(request, entry_id):
     return render(request, 'tape/entry_detail.html', context)
 
 
-@login_required
+@htmx_login_required
 def like_entry(request, entry_id):
     if request.method == 'POST':
         user = request.user
@@ -236,7 +236,7 @@ def like_entry(request, entry_id):
                       context={'entry': entry})
 
 
-@login_required
+@htmx_login_required
 def mark_entry(request, entry_id):
     user = request.user
     entry = get_object_or_404(Entry, id=entry_id)
