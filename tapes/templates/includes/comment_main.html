@@ -1,38 +1,33 @@
 {% load humanize %}
 {% if not comment.reply %}
-<div class="media mb-4 comment-list infinite-item">
-  <div class="media-body">
-    <span class="fw-bold username">
-      <a href="{% url 'tape:profile' comment.author.username %}">~{{ comment.author.display_username }}</a>
-    </span>
-    {% if comment.author.get_full_name %}
-      <span class="fw-light">он же</span>
-      <span class="fw-bold full_name">{{ comment.author.get_full_name }}</span>
-    {% endif %}
-    <span class="fw-light">
-      {% if today_time == comment.created.date %}
-        {{ comment.created|naturaltime }}:
-      {% else %}
-        {{ comment.created|naturalday }}:
+  <div class="media mb-4 comment-list infinite-item">
+    <div class="media-body">
+      <span class="fw-bold username">
+        <a href="{% url 'tape:profile' comment.author.username %}">~{{ comment.author.display_username }}</a>
+      </span>
+      {% if comment.author.get_full_name %}
+        <span class="fw-light">он же</span>
+        <span class="fw-bold full_name">{{ comment.author.get_full_name }}</span>
       {% endif %}
-    </span>
-      <p>
-        <a href="{% url 'tape:comment_detail' comment.id %}">перейти к каменту</a>
-      </p>
-      <p>
-       {{ comment.text }}
-      </p>
+      <span class="fw-light">
+        {% if today_time == comment.created.date %}
+          {{ comment.created|naturaltime }}:
+        {% else %}
+          {{ comment.created|naturalday }}:
+        {% endif %}
+      </span>
+        <p>
+          <a href="{% url 'tape:comment_detail' comment.id %}">перейти к каменту</a>
+        </p>
+        <p>
+         {{ comment.text }}
+        </p>
+      </div>
     </div>
-  </div>
   {% if user.is_authenticated %}
-    <form method="post" action="{% url 'tape:comment_reply' entry.id comment.id %}">
-      {{ form.media }}
-      {% csrf_token %}
-        <div class="form-group mb-2">
-          {{ form.text }}
-        </div>
-      <button type="submit" class="btn btn-primary">Ответить</button>
-    </form>
+    <button class='btn' hx-get="{% url 'tape:comment_reply' entry.id comment.id %}" hx-target="this" hx-swap="outerHTML">
+         Ответить
+    </button>
   {% endif %}
   {% if comment.replies.count > 0 %}
     <a hx-get="{% url 'tape:comment_detail' comment.id %}" hx-target="this" hx-swap="outerHTML">

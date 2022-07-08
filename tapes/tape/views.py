@@ -256,9 +256,10 @@ def comment_reply(request, entry_id, comment_id):
         return redirect('tape:entry_detail', entry_id=entry_id)
     context = {
         'entry': entry,
-        'form': form
+        'form': form,
+        'comment': comment
     }
-    return render(request, 'tape/entry_detail.html', context)
+    return render(request, 'includes/comment_reply_form.html', context)
 
 
 @htmx_login_required
