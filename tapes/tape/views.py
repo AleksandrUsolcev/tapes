@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from tape.forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
-from tape.models import Entry, Like, Bookmark, User, Subscribe, Tape
+from tape.models import Entry, Like, Bookmark, User, Subscribe, Tape, Comment
 from tape.utils import pagination, htmx_login_required
 
 
@@ -167,6 +167,8 @@ def entry_detail(request, entry_id):
         'form': form,
         'comments': comments,
     }
+    if request.htmx:
+        return render(request, 'includes/comment_list.html', context)
     return render(request, 'tape/entry_detail.html', context)
 
 
@@ -205,6 +207,24 @@ def entry_edit(request, entry_id):
     return render(request, 'tape/entry_add.html', context)
 
 
+def comment_detail(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    form = CommentForm()
+    replies = comment.replies.all()
+    replies = pagination(
+        request, replies,
+        settings.COMMENTS_COUNT
+    )
+    context = {
+        'comment': comment,
+        'form': form,
+        'replies': replies
+    }
+    if request.htmx:
+        return render(request, 'includes/comment_detail_list.html', context)
+    return render(request, 'includes/comment_detail.html', context)
+
+
 @login_required
 def comment_add(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
@@ -213,6 +233,25 @@ def comment_add(request, entry_id):
         form = form.save(commit=False)
         form.author = request.user
         form.entry = entry
+        form.save()
+        return redirect('tape:entry_detail', entry_id=entry_id)
+    context = {
+        'entry': entry,
+        'form': form
+    }
+    return render(request, 'tape/entry_detail.html', context)
+
+
+@login_required
+def comment_reply(request, entry_id, comment_id):
+    entry = get_object_or_404(Entry, id=entry_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = request.user
+        form.entry = entry
+        form.reply = comment
         form.save()
         return redirect('tape:entry_detail', entry_id=entry_id)
     context = {

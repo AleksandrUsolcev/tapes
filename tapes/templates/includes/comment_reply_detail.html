@@ -1,0 +1,6 @@
+<div class="ms-5">
+  <span class="fw-bold username">
+    <a href="{% url 'tape:profile' comment.author.username %}">~{{ comment.author.display_username }}</a>
+  </span>
+  <p>{{ reply.text }}</p>
+</div>
