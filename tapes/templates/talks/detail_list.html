@@ -1,0 +1,8 @@
+{% for reply in replies %}
+  {% include 'talks/reply_detail.html' %}
+{% endfor %}
+{% if replies.has_next %}
+  <button class='btn' hx-get="{% url 'talks:talk_detail' talk.id %}?page={{ replies.next_page_number|add:1 }}" hx-target="this" hx-swap="outerHTML">
+    Еще ответы
+  </button>
+{% endif %}

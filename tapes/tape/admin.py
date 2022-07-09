@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from tape.models import Tape, Entry, Comment, Subscribe, Like, Bookmark
+from talks.models import Talk
+from tape.models import Tape, Entry, Subscribe, Like, Bookmark
 
 
 class TapeAdmin(admin.ModelAdmin):
@@ -16,7 +17,7 @@ class EntryAdmin(admin.ModelAdmin):
     pass
 
 
-class CommentAdmin(admin.ModelAdmin):
+class TalkAdmin(admin.ModelAdmin):
     pass
 
 
@@ -34,7 +35,7 @@ class BookmarkAdmin(admin.ModelAdmin):
 
 admin.site.register(Tape, TapeAdmin)
 admin.site.register(Entry, EntryAdmin)
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Talk, TalkAdmin)
 admin.site.register(Subscribe, SubscribeAdmin)
 admin.site.register(Like, LikeAdmin)
 admin.site.register(Bookmark, BookmarkAdmin)

@@ -1,0 +1,37 @@
+{% load humanize %}
+{% if not talk.reply %}
+  <div class="media mb-4 talk-list infinite-item">
+    <div class="media-body">
+      <span class="fw-bold username">
+        <a href="{% url 'tape:profile' talk.author.username %}">~{{ talk.author.display_username }}</a>
+      </span>
+      {% if talk.author.get_full_name %}
+        <span class="fw-light">он же</span>
+        <span class="fw-bold full_name">{{ talk.author.get_full_name }}</span>
+      {% endif %}
+      <span class="fw-light">
+        {% if today_time == talk.created.date %}
+          {{ talk.created|naturaltime }}:
+        {% else %}
+          {{ talk.created|naturalday }}:
+        {% endif %}
+      </span>
+        <p>
+          <a href="{% url 'talks:talk_detail' talk.id %}">перейти к каменту</a>
+        </p>
+        <p>
+         {{ talk.text }}
+        </p>
+      </div>
+    </div>
+  {% if user.is_authenticated %}
+    <button class='btn' hx-get="{% url 'talks:talk_reply' entry.id talk.id %}" hx-target="this" hx-swap="outerHTML">
+         Ответить
+    </button>
+  {% endif %}
+  {% if talk.replies.count > 0 %}
+    <a hx-get="{% url 'talks:talk_detail' talk.id %}" hx-target="this" hx-swap="outerHTML">
+      {{ talk.replies.count }} ответов
+    </a>
+  {% endif %}
+{% endif %}

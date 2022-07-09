@@ -61,34 +61,6 @@ class Entry(models.Model):
         return self.text.plain[:30]
 
 
-class Comment(models.Model):
-    entry = models.ForeignKey(
-        Entry,
-        on_delete=models.CASCADE,
-        related_name='comments'
-    )
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='comments'
-    )
-    text = models.TextField()
-    reply = models.ForeignKey(
-        'self',
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name='replies'
-    )
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['created']
-
-    def __str__(self):
-        return self.text[:30]
-
-
 class Subscribe(models.Model):
     user = models.ForeignKey(
         User,

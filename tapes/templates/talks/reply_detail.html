@@ -15,7 +15,7 @@
   </span>
   <p>{{ reply.text }}</p>
   {% if user.is_authenticated %}
-    <a id="comment_reply_form" hx-get="{% url 'tape:comment_reply' comment.entry.id comment.id %}" hx-target="this" classes="toggle faded:1s" hx-swap="outerHTML" hx-trigger="click">
+    <a id="reply_form" hx-get="{% url 'talks:talk_reply' talk.entry.id talk.id %}" hx-target="this" classes="toggle faded:1s" hx-swap="outerHTML" hx-trigger="click">
          Ответить
     </a>
   {% endif %}

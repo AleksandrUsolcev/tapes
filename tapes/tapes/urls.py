@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('', include('django.contrib.auth.urls')),
     path('', include('tape.urls', namespace='tape')),
+    path('', include('talks.urls', namespace='talks')),
 ]
 
 handler400 = 'core.views.bad_request'

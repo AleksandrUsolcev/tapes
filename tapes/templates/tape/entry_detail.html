@@ -10,7 +10,7 @@
 
     {% load user_filters %}
     {% if user.is_authenticated %}
-          <form method="post" action="{% url 'tape:comment_add' entry.id %}">
+          <form method="post" action="{% url 'talks:talk_add' entry.id %}">
             {{ form.media }}
             {% csrf_token %}
               <div class="form-group mb-2">
@@ -21,7 +21,7 @@
     {% endif %}
 
     <div class="infinite-container py-4">
-        {% include '../includes/comment_list.html' %}
+        {% include '../talks/list.html' %}
     </div>
   </div>
 

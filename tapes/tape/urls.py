@@ -19,21 +19,6 @@ urlpatterns = [
     ),
     path('entries/<int:entry_id>/edit', views.entry_edit, name='entry_edit'),
     path(
-        'entries/<int:entry_id>/comment',
-        views.comment_add,
-        name='comment_add'
-    ),
-    path(
-        'entries/comments/<int:comment_id>/detail',
-        views.comment_detail,
-        name='comment_detail'
-    ),
-    path(
-        'entries/<int:entry_id>/comment/<int:comment_id>/reply',
-        views.comment_reply,
-        name='comment_reply'
-    ),
-    path(
         'entries/<int:entry_id>/like_entry',
         views.like_entry,
         name='like_entry'

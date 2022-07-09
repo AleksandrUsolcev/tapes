@@ -138,14 +138,14 @@
           {% endif %}
         </span>
       {% endif %}
-      {% if user.comments.count > 0 %}
+      {% if user.talks.count > 0 %}
         <span class="fw-bolder">
-          {{ user.comments.count }}
+          {{ user.talks.count }}
         </span>
         <span class="fw-light pe-4">
-          {% if user.comments.count < 2 %}
+          {% if user.talks.count < 2 %}
             комментарий
-          {% elif user.comments.count < 5 %}
+          {% elif user.talks.count < 5 %}
             комментария
           {% else %}
             комментариев

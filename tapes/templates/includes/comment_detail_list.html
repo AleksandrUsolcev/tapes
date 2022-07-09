@@ -1,8 +1,0 @@
-{% for reply in replies %}
-  {% include '../includes/comment_reply_detail.html' %}
-{% endfor %}
-{% if replies.has_next %}
-  <button class='btn' hx-get="{% url 'tape:comment_detail' comment.id %}?page={{ replies.next_page_number|add:1 }}" hx-target="this" hx-swap="outerHTML">
-    Еще ответы
-  </button>
-{% endif %}

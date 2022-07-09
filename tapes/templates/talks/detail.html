@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  {{ entry.text|slice:":30" }}
+{% endblock %}
+{% block content %}
+{% load humanize %}
+{% if not talk.reply %}
+<div class="media mb-4 mt-5 pt-5 talk-list infinite-item">
+  <div class="media-body">
+    <span class="fw-bold username">
+      <a href="{% url 'tape:profile' talk.author.username %}">~{{ talk.author.display_username }}</a>
+    </span>
+    {% if talk.author.get_full_name %}
+      <span class="fw-light">он же</span>
+      <span class="fw-bold full_name">{{ talk.author.get_full_name }}</span>
+    {% endif %}
+    <span class="fw-light">
+      {% if today_time == talk.created.date %}
+        {{ talk.created|naturaltime }}:
+      {% else %}
+        {{ talk.created|naturalday }}:
+      {% endif %}
+    </span>
+      <p>
+       {{ talk.text }}
+      </p>
+    </div>
+  </div>
+    {% include 'talks/detail_list.html' %}
+{% endif %}
+{% endblock %}

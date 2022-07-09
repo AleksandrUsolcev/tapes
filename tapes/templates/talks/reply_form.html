@@ -1,4 +1,4 @@
-<form method="post" action="{% url 'tape:comment_reply' entry.id comment.id %}">
+<form method="post" action="{% url 'talks:talk_reply' entry.id talk.id %}">
   {{ form.media }}
   {% csrf_token %}
     <div class="form-group mb-2">
