@@ -52,7 +52,7 @@
                     <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
                       <li><a class="dropdown-item" href="{% url 'tape:profile' username=request.user.username %}">Мой профиль</a></li>
                       <li><a class="dropdown-item" href="{% url 'users:user_edit' %}">Редактировать</a></li>
-                      <li><a class="dropdown-item" href="{% url 'tape:entry_add' %}">Смена пароля</a></li>
+                      <li><a class="dropdown-item" href="#">Смена пароля</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a></li>
                     </ul>

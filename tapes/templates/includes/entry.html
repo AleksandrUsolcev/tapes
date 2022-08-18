@@ -22,7 +22,7 @@
           <span class="fw-bold full-name">{{ entry.author.full_name }}</span>
         {% endif %}
         {% if entry.tape %}
-        <a href="{% url 'tape:tape' entry.author.display_username entry.tape.slug %}" class="me-2">
+        <a href="{% url 'tape:tape' entry.author.username entry.tape.slug %}" class="me-2">
         ~ {{ entry.tape.title }}</a>
         {% endif %}
       </div>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Редактирование ленты{% endblock %}
+{% block title %}{% if is_edit %}Редактирование ленты{% else %}Добавить ленту{% endif %}{% endblock %}
 {% load user_filters %}
 {% load thumbnail %}
 {% load static %}
