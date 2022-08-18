@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}
+  ~ {{ user.display_username }}
+{% endblock %}
+{% block before-content %}
+{% if user.background %}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
+    </div>
+  </div>
+{% else %}
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-img">
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="row profile pad-1 mb-3">
+  <div class="col-6 profile-name">
+    {% if user.avatar %}
+      {% thumbnail user.avatar "150x150" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+      {% endthumbnail %}
+    {% else %}
+      <div class="py-4"></div>
+    {% endif %}
+    <h1 class="fw-bolder">
+      <span class="tilda">~</span>{% if user.display_username %}{{ user.display_username }}{% else %}{{ user.username }}{% endif %}
+      {% if user.is_verified %}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+          <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+        </svg>
+      {% endif %}
+    </h1>
+  </div>
+  <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
+    {% if request.user.is_staff and request.user != author %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+      </svg>
+    {% endif %}
+    {% if request.user != author %}
+      {% if is_sub %}
+        <a href="#" class="notice">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-broadcast" viewBox="0 0 16 16">
+            <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707zm2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 1 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708zm5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708zm2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+          </svg>
+        </a>
+        <a
+          class="btn btn-lg btn-light sub-true"
+          href="{% url 'tape:unsubscribe' author.username %}" role="button"
+        >
+          Вы подписаны
+        </a>
+      {% else %}
+          <a
+            class="btn btn-lg btn-primary"
+            href="{% url 'tape:subscribe' author.username %}" role="button"
+          >
+            Подписаться
+          </a>
+       {% endif %}
+    {% else %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+      </svg>
+      <a
+        class="btn btn-lg btn-primary"
+        href="{% url 'users:user_edit' %}" role="button"
+      >
+        Редактировать
+      </a>
+    {% endif %}
+  </div>
+    {% if user.full_name %}
+      <div class="col-12">
+        <h4>
+          <span class="full-name">
+            {{ user.full_name }}
+          </span>
+        </h4>
+      </div>
+    {% endif %}
+
+    {% if user.about.html and user.about.plain != '' %}
+      <div class="col-12 about-me">
+        {{ user.about.html|safe|urlize }}
+      </div>
+    {% endif %}
+
+    <div class="col-12 profile-counters">
+      {% if user.tapes.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.tapes.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.tapes.count < 2 %}
+            лента
+          {% elif user.tapes.count < 5 %}
+            ленты
+          {% else %}
+            лент
+          {% endif %}
+        </span>
+      {% endif %}
+      {% if user.subs.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.subs.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.subs.count < 2 %}
+            подписчик
+          {% elif user.subs.count < 5 %}
+            подписчика
+          {% else %}
+            подписчиков
+          {% endif %}
+        </span>
+      {% endif %}
+      {% if user.entries.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.entries.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.entries.count < 2 %}
+            запись
+          {% elif user.entries.count < 5 %}
+            записи
+          {% else %}
+            записей
+          {% endif %}
+        </span>
+      {% endif %}
+      {% if user.comments.count > 0 %}
+        <span class="fw-bolder">
+          {{ user.comments.count }}
+        </span>
+        <span class="fw-light pe-4">
+          {% if user.comments.count < 2 %}
+            комментарий
+          {% elif user.comments.count < 5 %}
+            комментария
+          {% else %}
+            комментариев
+          {% endif %}
+        </span>
+      {% endif %}
+    </div>
+</div>
+
+{% if user.tapes.count == 10 %}
+  <div class="tapes-container">
+    {% for tape in tapes %}
+    <a href="{% url 'tape:tape' slug=tape.slug username=user.username %}">
+      {{ tape.slug }}
+    </a>
+    {% endfor %}
+
+  </div>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+<div class="add-entry pad-1 py-4">
+  {{ form.media }}
+    {% load user_filters %}
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="mb-3 py-2">
+          <label class="form-label fw-light">Заголовок (не обязательно)</label>
+          {{ form.title|addclass:'form-control' }}
+        </div>
+        {{ form.text }}
+        <div class="input-group pb-4">
+          {{ form.tape|addclass:'form-select' }}
+          <button type="submit" class="btn btn-outline-secondary" type="button">
+            {% if is_edit %}
+              Сохранить
+            {% else %}
+              Отправить
+            {% endif %}
+          </button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+
+  <div class="infinite-container pad-1 py-5">
+    {% include '../includes/entry_list.html' %}
+  </div>
+{% endblock %}

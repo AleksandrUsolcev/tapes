@@ -1,0 +1,67 @@
+.navbar-main {
+  background: #f6f4f8;
+  position: relative;
+  z-index: 50;
+  border-bottom: 3px solid #d9cfe3;
+  -webkit-box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
+  -moz-box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
+  box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
+}
+.nav-content input {
+  background: #e3e1ec;
+  border: none;
+  -webkit-box-shadow: 0px 4px 9px 0px rgba(34, 60, 80, 0.1) inset;
+  -moz-box-shadow: 0px 4px 9px 0px rgba(34, 60, 80, 0.1) inset;
+  box-shadow: 0px 4px 9px 0px rgba(34, 60, 80, 0.1) inset;
+}
+.nav-content .dropdown-toggle::after {
+  display: none;
+}
+.nav-content .navbar,
+.nav-content .nav-link {
+  margin: 0;
+  padding: 0;
+}
+.nav-content .nav-item {
+  padding-top: .1rem;
+}
+.nav-content .nav-item .profile-link {
+  font-size: 1.2rem;
+  color: #9d276d !important;
+}
+.nav-content .nav-item .profile-link:hover {
+  color: #0e062b !important;
+}
+.nav-content .tilda {
+  color: #9d276d !important;
+  font-weight: bold;
+}
+.nav-content .profile-avatar-mini {
+  display: inline-block !important;
+  margin-left: .6rem;
+  border-radius: 3rem;
+}
+.btn.add-content {
+  margin-right: .3rem;
+  padding-top: .5rem;
+  background: rgb(157,39,109);
+  background: -moz-linear-gradient(173deg, rgba(157,39,109,1) 24%, rgba(52,27,103,1) 100%);
+  background: -webkit-linear-gradient(173deg, rgba(157,39,109,1) 24%, rgba(52,27,103,1) 100%);
+  background: linear-gradient(173deg, rgba(157,39,109,1) 24%, rgba(52,27,103,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9d276d",endColorstr="#341b67",GradientType=1);
+  transition: 1s;
+}
+.btn.add-content:hover {
+  background: rgb(52,27,103);
+  background: -moz-linear-gradient(173deg, rgba(52,27,103,1) 33%, rgba(157,39,109,1) 93%);
+  background: -webkit-linear-gradient(173deg, rgba(52,27,103,1) 33%, rgba(157,39,109,1) 93%);
+  background: linear-gradient(173deg, rgba(52,27,103,1) 33%, rgba(157,39,109,1) 93%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#341b67",endColorstr="#9d276d",GradientType=1);
+  transition: 1s;
+}
+.btn.add-content svg {
+  margin-top: -.1rem;
+}
+.btn.add-content .add-entry {
+  margin-left: .4rem;
+}

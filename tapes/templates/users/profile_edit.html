@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Редактирование профиля{% endblock %}
+{% load user_filters %}
+{% load thumbnail %}
+{% load static %}
+
+{% block before-content %}
+<div class="edit-page">
+  <div class="row container-fluid profile-top">
+    <div class="col-3">
+    </div>
+    <div class="col-6 profile-background-edit">
+      <form method="post" enctype="multipart/form-data">
+          {{ form.media }}
+          {% csrf_token %}
+        {{ form.background }}
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+<div class="row profile pad-1">
+  <div class="col-6 profile-name">
+    <div class="profile-avatar">
+     {{ form.avatar }}
+    </div>
+  </div>
+
+  <div class="col-6 subscribe text-end ms-auto mt-auto mb-0">
+      <button class="btn btn-lg btn-primary" type="submit" role="button">
+      Сохранить изменения
+      </button>
+  </div>
+</div>
+
+  <div class="profile-edit row pad-1 my-4 pb-5">
+    {% if request.user.is_newbie  %}
+    <div class="col-12">
+      <div class="alert alert-success" role="alert">
+        <p>Добро пожаловать <span class="fw-bold">{{ request.user.display_username }}</span>!</p>
+        <p>Отредактируйте свой профиль - загрузите фон и аватар, или отложите на потом :)</p>
+      </div>
+    </div>
+    {% endif %}
+    <div class="mb-3 py-2 col-6">
+      <label class="form-label fw-light">Текущий email</label>
+      <input class="form-control" type="text" placeholder="{{ user.email }}" aria-label="Disabled input example" disabled>
+    </div>
+    <div class="mb-3 py-2 col-6">
+      <label class="form-label fw-light">Никнейм</label>
+      <input class="form-control" type="text" placeholder="Смена никнейма временно недоступна" aria-label="Disabled input example" disabled>
+    </div>
+    <div class="mb-1 py-2">
+      <label class="form-label fw-light">{{ form.full_name.label }}</label>
+      {{ form.full_name|addclass:'form-control' }}
+    </div>
+    <div class="form-check form-switch mb-3 ms-3">
+      {{ form.show_full_name|addclass:'form-check-input' }}
+      <label class="form-check-label fw-light" for="flexSwitchCheckDefault">{{ form.show_full_name.label }}</label>
+    </div>
+    <div class="mb-3 py-2">
+      <label class="form-label fw-light">{{ form.about.label }}</label>
+      {{ form.about }}
+    </div>
+  </div>
+</form>
+</div>
+
+{% endblock %}
