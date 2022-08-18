@@ -1,2 +1,0 @@
-# tapes
-simple social network

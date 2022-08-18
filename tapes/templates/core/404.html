@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% block title %}Error 404{% endblock %}
-{% block content %}
-  <h1>Error 404</h1>
-  <p>Страницы с адресом {{ path }} не существует</p>
-  <a href="{% url 'tape:index' %}">Вернуться на главную</a>
-{% endblock %}
