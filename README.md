@@ -16,11 +16,11 @@
 Клонировать репозиторий, установить и активировать виртуальное окружение
 
 ```
-python3 -m venv venv
-
 # mac/linux
+python3 -m venv venv
 source venv/bin/activate 
 # win
+py -m venv venv
 source venv/Scripts/activate 
 ``` 
 
