@@ -1,7 +1,7 @@
 from client_side_image_cropping import ClientsideCroppingWidget
 from django import forms
 
-from tape.models import Comment, Entry, Tape
+from .models import Comment, Entry, Tape
 
 
 class CommentForm(forms.ModelForm):

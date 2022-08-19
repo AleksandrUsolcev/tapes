@@ -4,18 +4,18 @@
 {% endfor %}
 {% if entries.has_next %}
   <div hx-get="
-  {% if view_name  == 'tape:index' %}
-    {% url 'tape:index' %}?page={{ entries.number|add:1 }}
-  {% elif view_name  == 'tape:feed' %}
-    {% url 'tape:feed' %}?page={{ entries.number|add:1 }}
-  {% elif view_name  == 'tape:saved' %}
-    {% url 'tape:saved' %}?page={{ entries.number|add:1 }}
-  {% elif view_name  == 'tape:liked' %}
-    {% url 'tape:liked' %}?page={{ entries.number|add:1 }}
-  {% elif view_name  == 'tape:profile' %}
-    {% url 'tape:profile' user.display_username %}?page={{ entries.number|add:1 }}
-  {% elif view_name  == 'tape:tape' %}
-    {% url 'tape:tape' tapes.author.display_username tapes.slug %}?page={{ entries.number|add:1 }}
+  {% if view_name  == 'entries:index' %}
+    {% url 'entries:index' %}?page={{ entries.number|add:1 }}
+  {% elif view_name  == 'entries:feed' %}
+    {% url 'entries:feed' %}?page={{ entries.number|add:1 }}
+  {% elif view_name  == 'entries:saved' %}
+    {% url 'entries:saved' %}?page={{ entries.number|add:1 }}
+  {% elif view_name  == 'entries:liked' %}
+    {% url 'entries:liked' %}?page={{ entries.number|add:1 }}
+  {% elif view_name  == 'entries:profile' %}
+    {% url 'entries:profile' user.display_username %}?page={{ entries.number|add:1 }}
+  {% elif view_name  == 'entries:tape' %}
+    {% url 'entries:tape' tapes.author.display_username tapes.slug %}?page={{ entries.number|add:1 }}
   {% endif %}
   " hx-trigger="revealed" hx-swap="afterend" hx-target="this">
 {% endif %}

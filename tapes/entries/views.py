@@ -2,9 +2,9 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from tape.forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
-from tape.models import Entry, Like, Bookmark, User, Subscribe, Tape
-from tape.utils import pagination, htmx_login_required
+from .forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
+from .models import Entry, Like, Bookmark, User, Subscribe, Tape
+from .utils import pagination, htmx_login_required
 
 
 def index(request):
@@ -18,7 +18,7 @@ def index(request):
         request.user.save()
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
-    return render(request, 'tape/index.html', context)
+    return render(request, 'entries/index.html', context)
 
 
 def profile(request, username):
@@ -44,7 +44,7 @@ def profile(request, username):
             form = form.save(commit=False)
             form.author = request.user
             form.save()
-            return redirect('tape:profile', username=request.user.username)
+            return redirect('entries:profile', username=request.user.username)
     else:
         form = False
     context = {
@@ -57,7 +57,7 @@ def profile(request, username):
     }
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
-    return render(request, 'tape/profile.html', context)
+    return render(request, 'entries/profile.html', context)
 
 
 def tape(request, username, slug):
@@ -74,7 +74,7 @@ def tape(request, username, slug):
     }
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
-    return render(request, 'tape/tape.html', context)
+    return render(request, 'entries/tape.html', context)
 
 
 @login_required
@@ -85,11 +85,11 @@ def tape_add(request):
         form.author = request.user
         form.save()
         return redirect(
-            'tape:tape',
+            'entries:tape',
             username=request.user.username,
             slug=form.slug,
         )
-    return render(request, 'tape/tape_add.html', {'form': form})
+    return render(request, 'entries/tape_add.html', {'form': form})
 
 
 @login_required
@@ -104,18 +104,20 @@ def tape_edit(request, username, slug):
         instance=tapes,
     )
     if author != request.user:
-        return redirect('tape:tape', slug=slug, username=tapes.author.username)
+        return redirect('entries:tape', slug=slug,
+                        username=tapes.author.username)
     if form.is_valid():
         if author == request.user and form.cleaned_data["delete_tape"] is True:
             tapes.delete()
-            return redirect('tape:profile', username=tapes.author.username)
+            return redirect('entries:profile', username=tapes.author.username)
         form.save()
-        return redirect('tape:tape', slug=slug, username=tapes.author.username)
+        return redirect('entries:tape', slug=slug,
+                        username=tapes.author.username)
     context = {
         'is_edit': True,
         'form': form
     }
-    return render(request, 'tape/tape_add.html', context)
+    return render(request, 'entries/tape_add.html', context)
 
 
 @login_required
@@ -128,7 +130,7 @@ def feed(request):
     }
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
-    return render(request, 'tape/feed.html', context)
+    return render(request, 'entries/feed.html', context)
 
 
 @login_required
@@ -141,7 +143,7 @@ def saved(request):
     }
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
-    return render(request, 'tape/saved.html', context)
+    return render(request, 'entries/saved.html', context)
 
 
 @login_required
@@ -154,7 +156,7 @@ def liked(request):
     }
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
-    return render(request, 'tape/liked.html', context)
+    return render(request, 'entries/liked.html', context)
 
 
 def entry_detail(request, entry_id):
@@ -167,7 +169,7 @@ def entry_detail(request, entry_id):
         'form': form,
         'comments': comments,
     }
-    return render(request, 'tape/entry_detail.html', context)
+    return render(request, 'entries/entry_detail.html', context)
 
 
 @login_required
@@ -180,8 +182,8 @@ def entry_add(request):
         form = form.save(commit=False)
         form.author = request.user
         form.save()
-        return redirect('tape:profile', username=request.user.username)
-    return render(request, 'tape/entry_add.html', {'form': form})
+        return redirect('entries:profile', username=request.user.username)
+    return render(request, 'entries/entry_add.html', {'form': form})
 
 
 @login_required
@@ -193,16 +195,16 @@ def entry_edit(request, entry_id):
                      instance=entry
                      )
     if entry.author != request.user:
-        return redirect('tape:entry_detail', entry_id=entry_id)
+        return redirect('entries:entry_detail', entry_id=entry_id)
     if form.is_valid():
         form.save()
-        return redirect('tape:entry_detail', entry_id=entry_id)
+        return redirect('entries:entry_detail', entry_id=entry_id)
     context = {
         'is_edit': True,
         'entry': entry,
         'form': form,
     }
-    return render(request, 'tape/entry_add.html', context)
+    return render(request, 'entries/entry_add.html', context)
 
 
 @login_required
@@ -214,12 +216,12 @@ def comment_add(request, entry_id):
         form.author = request.user
         form.entry = entry
         form.save()
-        return redirect('tape:entry_detail', entry_id=entry_id)
+        return redirect('entries:entry_detail', entry_id=entry_id)
     context = {
         'entry': entry,
         'form': form
     }
-    return render(request, 'tape/entry_detail.html', context)
+    return render(request, 'entries/entry_detail.html', context)
 
 
 @htmx_login_required
@@ -255,7 +257,7 @@ def subscribe(request, username):
     author = get_object_or_404(User, username=username)
     if user != author:
         Subscribe.objects.get_or_create(user=user, author=author)
-    return redirect('tape:profile', username)
+    return redirect('entries:profile', username)
 
 
 @login_required
@@ -263,4 +265,4 @@ def unsubscribe(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
     Subscribe.objects.filter(user=user, author=author).delete()
-    return redirect('tape:profile', username)
+    return redirect('entries:profile', username)

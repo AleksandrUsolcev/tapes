@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tape.models import Tape, Entry, Comment, Subscribe, Like, Bookmark
+from .models import Tape, Entry, Comment, Subscribe, Like, Bookmark
 
 
 class TapeAdmin(admin.ModelAdmin):

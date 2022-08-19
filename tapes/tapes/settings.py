@@ -15,7 +15,7 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
-    'tape.apps.TapeConfig',
+    'entries.apps.EntriesConfig',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -112,7 +112,7 @@ ENTRIES_COUNT = 5
 COMMENTS_COUNT = 10
 
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'tape:index'
+LOGIN_REDIRECT_URL = 'entries:index'
 
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 

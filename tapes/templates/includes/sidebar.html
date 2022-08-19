@@ -4,7 +4,7 @@
 {% endblock %}
 <div class="sidebar raw position-fixed h-100 pe-4 ps-4 col-2">
     <div class="logo">
-      <a href="{% url 'tape:index' %}">
+      <a href="{% url 'entries:index' %}">
         <span class="tilda">~</span><span class="logo-text">tapes</span>
       </a>
     </div>
@@ -18,7 +18,7 @@
           </svg>
         </div>
         <div class="col-11 nav-txt">
-          <a class="nav-link" href="{% url 'tape:feed' %}">Подписки</a>
+          <a class="nav-link" href="{% url 'entries:feed' %}">Подписки</a>
         </div>
       </li>
       <li class="nav-item row">
@@ -59,7 +59,7 @@
           </svg>
         </div>
         <div class="col-11 nav-txt">
-          <a class="nav-link" href="{% url 'tape:saved' %}">Сохраненное</a>
+          <a class="nav-link" href="{% url 'entries:saved' %}">Сохраненное</a>
         </div>
       </li>
       <li class="nav-item row">
@@ -69,7 +69,7 @@
           </svg>
         </div>
         <div class="col-11 nav-txt">
-          <a class="nav-link" href="{% url 'tape:liked' %}">Понравившееся</a>
+          <a class="nav-link" href="{% url 'entries:liked' %}">Понравившееся</a>
         </div>
       </li>
       <li class="nav-item row">

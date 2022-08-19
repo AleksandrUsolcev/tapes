@@ -7,7 +7,7 @@ urlpatterns = [
     path('project-admin/', admin.site.urls),
     path('', include('users.urls')),
     path('', include('django.contrib.auth.urls')),
-    path('', include('tape.urls', namespace='tape')),
+    path('', include('entries.urls', namespace='entries')),
 ]
 
 handler400 = 'core.views.bad_request'

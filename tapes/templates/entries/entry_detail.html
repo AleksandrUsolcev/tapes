@@ -10,7 +10,7 @@
 
     {% load user_filters %}
     {% if user.is_authenticated %}
-          <form method="post" action="{% url 'tape:comment_add' entry.id %}">
+          <form method="post" action="{% url 'entries:comment_add' entry.id %}">
             {{ form.media }}
             {% csrf_token %}
               <div class="form-group mb-2">
@@ -25,7 +25,7 @@
       <div class="media mb-4 comment-list infinite-item">
         <div class="media-body">
           <span class="fw-bold username">
-            <a href="{% url 'tape:profile' entry.author %}">~{{ comment.author.display_username }}</a>
+            <a href="{% url 'entries:profile' entry.author.username %}">~{{ comment.author.display_username }}</a>
           </span>
           {% if comment.author.get_full_name %}
             <span class="fw-light">он же</span>

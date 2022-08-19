@@ -27,7 +27,7 @@ def user_edit(request):
     )
     if form.is_valid():
         form.save()
-        return redirect('tape:profile', username=request.user.username)
+        return redirect('entries:profile', username=request.user.username)
     context = {
         'form': form,
         'user': user,
@@ -39,4 +39,4 @@ class CustomLoginView(BSModalLoginView):
     authentication_form = CustomAuthenticationForm
     template_name = 'users/login-modal.html'
     success_message = 'Вы успешно вошли в учетную запись'
-    extra_context = dict(success_url=reverse_lazy('tape:index'))
+    extra_context = dict(success_url=reverse_lazy('entries:index'))

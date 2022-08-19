@@ -1,4 +1,4 @@
-from tape.models import Like, Bookmark
+from entries.models import Like, Bookmark
 
 
 def liked(request):

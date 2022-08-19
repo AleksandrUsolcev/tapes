@@ -19,7 +19,7 @@
               <div class="dropdown">
                 <a
                   class="btn btn-lg btn-primary add-content dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"
-                  href="{% url 'tape:entry_add' %}" role="button"
+                  href="{% url 'entries:entry_add' %}" role="button"
                 >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" stroke="#9d276d" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
@@ -29,8 +29,8 @@
                 </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                  <li><a class="dropdown-item" href="{% url 'tape:tape_add' %}">Ленту</a></li>
-                  <li><a class="dropdown-item" href="{% url 'tape:entry_add' %}">Запись</a></li>
+                  <li><a class="dropdown-item" href="{% url 'entries:tape_add' %}">Ленту</a></li>
+                  <li><a class="dropdown-item" href="{% url 'entries:entry_add' %}">Запись</a></li>
                 </ul>
               </div>
 
@@ -38,7 +38,7 @@
                 <li class="nav-item nav-link">
                   <div class="dropdown">
                     <a class="dropdown-toggle profile-link" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"
-                    href="{% url 'tape:profile' request.user.username %}">
+                    href="{% url 'entries:profile' request.user.username %}">
                         <span class="tilda">~</span>
                         {% if request.user.display_username %}
                         {{ request.user.display_username }}
@@ -50,7 +50,7 @@
                         {% endthumbnail %}
                     </a>
                     <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                      <li><a class="dropdown-item" href="{% url 'tape:profile' username=request.user.username %}">Мой профиль</a></li>
+                      <li><a class="dropdown-item" href="{% url 'entries:profile' username=request.user.username %}">Мой профиль</a></li>
                       <li><a class="dropdown-item" href="{% url 'users:user_edit' %}">Редактировать</a></li>
                       <li><a class="dropdown-item" href="#">Смена пароля</a></li>
                       <li><hr class="dropdown-divider"></li>

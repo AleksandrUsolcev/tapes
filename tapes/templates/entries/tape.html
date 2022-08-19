@@ -43,14 +43,14 @@
         </a>
         <a
           class="btn btn-lg btn-light sub-true"
-          href="{% url 'tape:unsubscribe' author.username %}" role="button"
+          href="{% url 'entries:unsubscribe' author.username %}" role="button"
         >
           В читаемом
         </a>
       {% else %}
           <a
             class="btn btn-lg btn-primary"
-            href="{% url 'tape:subscribe' author.username %}" role="button"
+            href="{% url 'entries:subscribe' author.username %}" role="button"
           >
             Читать
           </a>
@@ -61,7 +61,7 @@
       </svg>
       <a
         class="btn btn-lg btn-primary"
-        href="{% url 'tape:tape_edit' username=tapes.author.display_username slug=tapes.slug %}" role="button"
+        href="{% url 'entries:tape_edit' username=tapes.author.display_username slug=tapes.slug %}" role="button"
       >
         Редактировать
       </a>
