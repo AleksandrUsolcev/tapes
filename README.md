@@ -33,6 +33,7 @@ pip install -r requirements.txt
 Выполнить миграции и запустить проект
 
 ```
+cd tapes
 python3 manage.py migrate
 python3 manage.py runserver
 ``` 
