@@ -8,34 +8,39 @@
 {% endblock %}
 {% block content %}
 <div class="row justify-content-center entry-add p-5">
-  <h2>
-    {% if is_edit %}
-      Редактирование записи
-    {% else %}
-      Новая запись
-    {% endif %}
-  </h2>
-  {{ form.media }}
     {% load user_filters %}
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-        {{ form.title }}
-        {{ form.text }}
-        <div class="input-group">
-          {{ form.tape|addclass:'form-select' }}
-          <button type="submit" class="btn btn-outline-secondary" type="button">
-            {% if is_edit %}
-              Сохранить
-            {% else %}
-              Создать
-            {% endif %}
-          </button>
-        </div>
-    </form>
+    <div class="add-entry pad-1 py-4">
+      <h2>
+        {% if is_edit %}
+          Редактирование записи
+        {% else %}
+          Новая запись
+        {% endif %}
+      </h2>
+      {{ form.media }}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="mb-3 py-2">
+              <label class="form-label fw-light">Заголовок (не обязательно)</label>
+              {{ form.title|addclass:'form-control' }}
+            </div>
+            {{ form.text }}
+            <div class="input-group pb-4">
+              {{ form.tape|addclass:'form-select' }}
+              <button type="submit" class="btn btn-outline-secondary" type="button">
+                {% if is_edit %}
+                  Сохранить
+                {% else %}
+                  Отправить
+                {% endif %}
+              </button>
+            </div>
+        </form>
+    </div>
 </div>
 <script>
 var quill = new Quill('#editor', {
-  theme: 'bubble'   // Specify theme in configuration
+  theme: 'bubble'
 });
 </script>
 {% endblock %}

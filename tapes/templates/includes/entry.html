@@ -4,12 +4,12 @@
   <div class="entry-content">
     <div class="head row py-3">
       <div class="col-8 entry-names">
-          <a href="{% url 'entries:profile' entry.author.username %}">
+          <a href="{% url 'users:profile' entry.author.username %}">
             {% thumbnail entry.author.avatar "36x36" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
             {% endthumbnail %}
             <span class="fw-bold ms-1">
-              {% if entry.author.display_username %}{{ entry.author.display_username }}{% else %}{{ entry.author.username }}{% endif %}
+              {{ entry.author.username }}
             </span>
             {% if entry.author.is_verified %}
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">

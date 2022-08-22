@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
-from .models import Entry, Like, Bookmark, User, Subscribe, Tape
-from .utils import pagination, htmx_login_required
+from .models import Bookmark, Entry, Like, Subscribe, Tape, User
+from .utils import htmx_login_required, pagination
 
 
 def index(request):
@@ -21,20 +21,13 @@ def index(request):
     return render(request, 'entries/index.html', context)
 
 
-def profile(request, username):
+def tape(request, username, slug):
     username.lower()
-    user = get_object_or_404(User, username=username)
-    entries = Entry.objects.filter(author=user)
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
+    slug.lower()
     author = get_object_or_404(User, username=username)
-    tapes = Tape.objects.filter(author=user)
-    if request.user.is_authenticated:
-        is_sub = Subscribe.objects.filter(
-            user=request.user,
-            author=author
-        ).exists()
-    else:
-        is_sub = False
+    tapes = get_object_or_404(Tape, slug=slug, author=author)
+    entries = tapes.entries.all()
+    entries = pagination(request, entries, settings.ENTRIES_COUNT)
     if request.user.is_authenticated:
         form = EntryForm(request.POST or None,
                          files=request.FILES or None,
@@ -44,33 +37,14 @@ def profile(request, username):
             form = form.save(commit=False)
             form.author = request.user
             form.save()
-            return redirect('entries:profile', username=request.user.username)
+            return redirect('users:profile', username=request.user.username)
     else:
         form = False
     context = {
-        'user': user,
-        'author': author,
         'entries': entries,
-        'is_sub': is_sub,
         'tapes': tapes,
+        'author': author,
         'form': form,
-    }
-    if request.htmx:
-        return render(request, 'includes/entry_list.html', context)
-    return render(request, 'entries/profile.html', context)
-
-
-def tape(request, username, slug):
-    username.lower()
-    slug.lower()
-    author = get_object_or_404(User, username=username)
-    tapes = get_object_or_404(Tape, slug=slug, author=author)
-    entries = tapes.entries.all()
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
-    context = {
-        'entries': entries,
-        'tapes': tapes,
-        'author': author,
     }
     if request.htmx:
         return render(request, 'includes/entry_list.html', context)
@@ -109,7 +83,7 @@ def tape_edit(request, username, slug):
     if form.is_valid():
         if author == request.user and form.cleaned_data["delete_tape"] is True:
             tapes.delete()
-            return redirect('entries:profile', username=tapes.author.username)
+            return redirect('users:profile', username=tapes.author.username)
         form.save()
         return redirect('entries:tape', slug=slug,
                         username=tapes.author.username)
@@ -182,7 +156,7 @@ def entry_add(request):
         form = form.save(commit=False)
         form.author = request.user
         form.save()
-        return redirect('entries:profile', username=request.user.username)
+        return redirect('users:profile', username=request.user.username)
     return render(request, 'entries/entry_add.html', {'form': form})
 
 
@@ -257,7 +231,7 @@ def subscribe(request, username):
     author = get_object_or_404(User, username=username)
     if user != author:
         Subscribe.objects.get_or_create(user=user, author=author)
-    return redirect('entries:profile', username)
+    return redirect('users:profile', username)
 
 
 @login_required
@@ -265,4 +239,4 @@ def unsubscribe(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
     Subscribe.objects.filter(user=user, author=author).delete()
-    return redirect('entries:profile', username)
+    return redirect('users:profile', username)
