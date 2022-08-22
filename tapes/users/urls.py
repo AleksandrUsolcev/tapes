@@ -1,12 +1,11 @@
-from django.contrib.auth.views import (LogoutView,
-                                       LoginView,
+from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeDoneView,
                                        PasswordChangeView,
                                        PasswordResetCompleteView,
                                        PasswordResetConfirmView,
                                        PasswordResetDoneView,
                                        PasswordResetView)
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -67,10 +66,10 @@ urlpatterns = [
             template_name='users/password_change_done.html'),
         name='password_change_done'
     ),
-    path('~<str:username>',
-         views.profile,
-         name='profile'
-         ),
+    re_path(r'^~(?P<username>\w+)/$',
+            views.profile,
+            name='profile'
+            ),
     path('edit/',
          views.user_edit,
          name='user_edit'),
