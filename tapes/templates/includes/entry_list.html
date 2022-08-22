@@ -12,10 +12,10 @@
     {% url 'entries:saved' %}?page={{ entries.number|add:1 }}
   {% elif view_name  == 'entries:liked' %}
     {% url 'entries:liked' %}?page={{ entries.number|add:1 }}
-  {% elif view_name  == 'entries:profile' %}
-    {% url 'entries:profile' user.display_username %}?page={{ entries.number|add:1 }}
+  {% elif view_name  == 'users:profile' %}
+    {% url 'users:profile' user.username %}?page={{ entries.number|add:1 }}
   {% elif view_name  == 'entries:tape' %}
-    {% url 'entries:tape' tapes.author.display_username tapes.slug %}?page={{ entries.number|add:1 }}
+    {% url 'entries:tape' tapes.author.username tapes.slug %}?page={{ entries.number|add:1 }}
   {% endif %}
   " hx-trigger="revealed" hx-swap="afterend" hx-target="this">
 {% endif %}

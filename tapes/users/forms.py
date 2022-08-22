@@ -1,31 +1,31 @@
-from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
+from bootstrap_modal_forms.mixins import CreateUpdateAjaxMixin, PopRequestMixin
 from client_side_image_cropping import ClientsideCroppingWidget
 from django import forms
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, \
-    AuthenticationForm
+from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
+                                       UserCreationForm)
 
-from .models import CustomUser
+from .models import User
 
 
 class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm):
     class Meta(UserCreationForm):
-        model = CustomUser
-        fields = ('username', 'email', 'display_username')
-        widgets = {'display_username': forms.HiddenInput()}
+        model = User
+        fields = ('username', 'email')
+        widgets = {'username_lower': forms.HiddenInput()}
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        username = self.cleaned_data['username']
-        email = self.cleaned_data['email']
-        if CustomUser.objects.filter(username=username):
+        username = self.cleaned_data['username'].lower()
+        email = self.cleaned_data['email'].lower()
+        if User.objects.filter(username_lower=username).exists():
             raise forms.ValidationError('Пользователь с таким именем уже '
                                         'существует')
-        if CustomUser.objects.filter(email=email):
+        if User.objects.filter(email=email).exists():
             raise forms.ValidationError('Пользователь с таким email адресом '
                                         'уже существует')
-        self.cleaned_data['display_username'] = username
+        self.cleaned_data['username_lower'] = username
         return cleaned_data
 
     def save(self, commit=True):
@@ -39,19 +39,19 @@ class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ('username', 'email',)
 
 
 class CustomAuthenticationForm(AuthenticationForm):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['username', 'password']
 
 
 class UserEditForm(forms.ModelForm):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ('full_name', 'show_full_name', 'about', 'avatar',
                   'background')
         labels = {

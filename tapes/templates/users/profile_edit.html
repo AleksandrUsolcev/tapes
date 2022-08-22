@@ -36,7 +36,7 @@
     {% if request.user.is_newbie  %}
     <div class="col-12">
       <div class="alert alert-success" role="alert">
-        <p>Добро пожаловать <span class="fw-bold">{{ request.user.display_username }}</span>!</p>
+        <p>Добро пожаловать <span class="fw-bold">{{ request.user.username }}</span>!</p>
         <p>Отредактируйте свой профиль - загрузите фон и аватар, или отложите на потом :)</p>
       </div>
     </div>

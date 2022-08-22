@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CustomUser
+from .models import User
 
 
 class CustomUserAdmin(admin.ModelAdmin):
@@ -8,7 +8,9 @@ class CustomUserAdmin(admin.ModelAdmin):
         'id',
         'email',
         'username',
+        'full_name',
+        'date_joined'
     )
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(User, CustomUserAdmin)
