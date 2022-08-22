@@ -1,4 +1,5 @@
 # tapes
+![Python version](https://img.shields.io/badge/python-3.7-brightgreen) ![Django version](https://img.shields.io/badge/django-3.2-brightgreen)
 
 Микроблог/соцсетка, песочница написанная в учебных целях которая будет периодически обрастать "мясом" из новых функций. В текущем виде прикручен редактор профиля, можно создавать тематические ленты, добавлять в закладки/лайкать/комментировать посты, фолловить авторов.
 
@@ -33,6 +34,7 @@ pip install -r requirements.txt
 Выполнить миграции и запустить проект
 
 ```
-python3 manage.py migrate
-python3 manage.py runserver
+cd tapes
+py manage.py migrate
+py manage.py runserver
 ``` 
