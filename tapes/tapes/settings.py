@@ -1,9 +1,15 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-jvxh09$w184g0&mw-*arp8(i#ybs8@x-ni*-^vqo_#w2^0dw8q'
+SECRET_KEY = os.getenv(
+    'DJANGO_SECRET_KEY',
+    default='django-insecure-jvxh09$w184g0&mw-*arp8(i#ybs8@x-ni*-^vqo_#w2^0dw8q')
 
 DEBUG = True
 
@@ -77,18 +83,11 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', }, ]
 
 LANGUAGE_CODE = 'ru'
 
