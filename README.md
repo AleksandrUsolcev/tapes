@@ -34,10 +34,6 @@ pip install -r requirements.txt
 
 ```
 cd tapes
-# mac/linux
-python3 manage.py migrate
-python3 manage.py runserver
-# win
-py manage.py migrate
-py manage.py runserver
+python manage.py migrate
+python manage.py runserver
 ``` 
