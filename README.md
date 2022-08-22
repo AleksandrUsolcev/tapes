@@ -1,5 +1,5 @@
 # tapes
-![Python version](https://img.shields.io/badge/python-3.7-green) ![Django version](https://img.shields.io/badge/django-3.2-green)
+![Python version](https://img.shields.io/badge/python-3.7-brightgreen) ![Django version](https://img.shields.io/badge/django-3.2-brightgreen)
 
 Микроблог/соцсетка, песочница написанная в учебных целях которая будет периодически обрастать "мясом" из новых функций. В текущем виде прикручен редактор профиля, можно создавать тематические ленты, добавлять в закладки/лайкать/комментировать посты, фолловить авторов.
 
