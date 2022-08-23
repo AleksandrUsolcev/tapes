@@ -67,10 +67,10 @@ urlpatterns = [
         name='password_change_done'
     ),
     re_path(r'^~(?P<username>\w+)/$',
-            views.profile,
+            views.UserProfileView.as_view(),
             name='profile'
             ),
-    path('edit/',
-         views.user_edit,
+    path('edit-profile/',
+         views.UserEditView.as_view(),
          name='user_edit'),
 ]
