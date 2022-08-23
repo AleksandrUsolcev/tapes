@@ -1,7 +1,6 @@
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalLoginView
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from entries.models import Entry, Subscribe
@@ -24,7 +23,6 @@ class SignUpView(BSModalCreateView):
 class CustomLoginView(BSModalLoginView):
     authentication_form = CustomAuthenticationForm
     template_name = 'users/login_modal.html'
-    extra_context = dict(success_url=reverse_lazy('entries:index'))
 
 
 class UserProfileView(DetailView):
@@ -46,7 +44,6 @@ class UserProfileView(DetailView):
         else:
             is_sub = False
         extra_context = {
-            'author': author,
             'entries': entries,
             'is_sub': is_sub,
         }
@@ -62,16 +59,4 @@ class UserEditView(LoginRequiredMixin, UpdateView):
     template_name = 'users/profile_edit.html'
 
     def get_object(self, queryset=None):
-        username = self.request.user.username
-        obj = self.model.objects.get(username=username)
-        return obj
-
-    def dispatch(self, request, *args, **kwargs):
-        if self.get_object() != self.request.user:
-            return HttpResponseNotFound()
-        return super(UserEditView, self).dispatch(request, *args, **kwargs)
-
-    def get_success_url(self):
-        user = self.request.user.username
-        success_url = reverse_lazy('users:profile', kwargs={'username': user})
-        return success_url
+        return self.model.objects.get(username=self.request.user.username)

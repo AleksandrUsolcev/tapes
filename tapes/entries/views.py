@@ -1,12 +1,11 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .forms import CommentForm, EntryForm, TapeForm
+from .mixins import UserOwnershipMixin
 from .models import Bookmark, Entry, Like, Subscribe, Tape, User
 from .utils import htmx_login_required, pagination
 
@@ -28,24 +27,21 @@ class FeedView(LoginRequiredMixin, EntriesListView):
     template_name = 'entries/feed.html'
 
     def get_queryset(self):
-        user = self.request.user
-        return Entry.objects.filter(author__subs__user=user)
+        return Entry.objects.filter(author__subs__user=self.request.user)
 
 
 class SavedView(LoginRequiredMixin, EntriesListView):
     template_name = 'entries/saved.html'
 
     def get_queryset(self):
-        user = self.request.user
-        return Entry.objects.filter(marked__user=user)
+        return Entry.objects.filter(marked__user=self.request.user)
 
 
 class LikedView(LoginRequiredMixin, EntriesListView):
     template_name = 'entries/liked.html'
 
     def get_queryset(self):
-        user = self.request.user
-        return Entry.objects.filter(liked__user=user)
+        return Entry.objects.filter(liked__user=self.request.user)
 
 
 class TapeView(EntriesListView):
@@ -83,27 +79,14 @@ class TapeAddView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        self.form_slug = form.instance.slug
         return super().form_valid(form)
 
-    def get_success_url(self):
-        username = self.request.user.username
-        slug = self.form_slug
-        success_url = reverse_lazy('entries:tape', kwargs={
-                                   'username': username, 'slug': slug})
-        return success_url
 
-
-class TapeUpdateView(LoginRequiredMixin, UpdateView):
+class TapeUpdateView(LoginRequiredMixin, UserOwnershipMixin, UpdateView):
     model = Tape
     form_class = TapeForm
     template_name = 'entries/tape_add.html'
     extra_context = {'is_edit': True}
-
-    def dispatch(self, request, *args, **kwargs):
-        if self.kwargs['username'] != self.request.user.username:
-            return HttpResponseNotFound()
-        return super(TapeUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(TapeUpdateView, self).get_form_kwargs()
@@ -112,15 +95,7 @@ class TapeUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        self.form_slug = form.instance.slug
         return super().form_valid(form)
-
-    def get_success_url(self):
-        username = self.kwargs['username']
-        slug = self.form_slug
-        success_url = reverse_lazy('entries:tape', kwargs={
-                                   'username': username, 'slug': slug})
-        return success_url
 
 
 class EntryDetailView(DetailView):
@@ -131,9 +106,8 @@ class EntryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        entry = self.object
         form = CommentForm()
-        comments = entry.comments.all()
+        comments = self.object.comments.all()
         comments = pagination(self.request, comments, settings.COMMENTS_COUNT)
         extra_context = {
             'form': form,
@@ -156,14 +130,8 @@ class EntryAddView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-    def get_success_url(self):
-        username = self.request.user.username
-        success_url = reverse_lazy('users:profile', kwargs={
-                                   'username': username})
-        return success_url
 
-
-class EntryUpdateView(LoginRequiredMixin, UpdateView):
+class EntryUpdateView(LoginRequiredMixin, UserOwnershipMixin, UpdateView):
     model = Entry
     form_class = EntryForm
     template_name = 'entries/entry_add.html'
@@ -175,17 +143,6 @@ class EntryUpdateView(LoginRequiredMixin, UpdateView):
         kwargs = super(EntryUpdateView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
-
-    def dispatch(self, request, *args, **kwargs):
-        if self.get_object().author != self.request.user:
-            return HttpResponseNotFound()
-        return super(EntryUpdateView, self).dispatch(request, *args, **kwargs)
-
-    def get_success_url(self):
-        entry_id = self.kwargs['entry_id']
-        success_url = reverse_lazy('entries:entry_detail', kwargs={
-                                   'entry_id': entry_id})
-        return success_url
 
 
 class CommentAddView(LoginRequiredMixin, CreateView):
@@ -199,12 +156,6 @@ class CommentAddView(LoginRequiredMixin, CreateView):
         form.instance.entry = get_object_or_404(
             Entry, id=self.kwargs['entry_id'])
         return super().form_valid(form)
-
-    def get_success_url(self):
-        entry_id = self.kwargs['entry_id']
-        success_url = reverse_lazy('entries:entry_detail', kwargs={
-                                   'entry_id': entry_id})
-        return success_url
 
 
 @htmx_login_required

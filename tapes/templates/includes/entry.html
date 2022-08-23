@@ -6,9 +6,9 @@
       <div class="col-8 entry-names">
           <a href="{% url 'users:profile' entry.author.username %}">
             {% thumbnail entry.author.avatar "36x36" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini">
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar-mini me-1">
             {% endthumbnail %}
-            <span class="fw-bold ms-1">
+            <span class="fw-bold">
               {{ entry.author.username }}
             </span>
             {% if entry.author.is_verified %}
