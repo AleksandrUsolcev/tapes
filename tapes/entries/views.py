@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
@@ -75,7 +75,23 @@ class TapeView(EntriesListView):
 class TapeAddView(LoginRequiredMixin, CreateView):
     form_class = TapeForm
     template_name = 'entries/tape_add.html'
-    # add get_success_url method
+
+    def get_form_kwargs(self):
+        kwargs = super(TapeAddView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user, 'is_add': True})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        self.form_slug = form.instance.slug
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        username = self.request.user.username
+        slug = self.form_slug
+        success_url = reverse_lazy('entries:tape', kwargs={
+                                   'username': username, 'slug': slug})
+        return success_url
 
 
 class TapeUpdateView(LoginRequiredMixin, UpdateView):
@@ -86,12 +102,22 @@ class TapeUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if self.kwargs['username'] != self.request.user.username:
-            return HttpResponseForbidden()
+            return HttpResponseNotFound()
         return super(TapeUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(TapeUpdateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        self.form_slug = form.instance.slug
+        return super().form_valid(form)
 
     def get_success_url(self):
         username = self.kwargs['username']
-        slug = self.kwargs['slug']
+        slug = self.form_slug
         success_url = reverse_lazy('entries:tape', kwargs={
                                    'username': username, 'slug': slug})
         return success_url
@@ -120,12 +146,21 @@ class EntryDetailView(DetailView):
 class EntryAddView(LoginRequiredMixin, CreateView):
     form_class = EntryForm
     template_name = 'entries/entry_add.html'
-    # add get_success_url method
 
     def get_form_kwargs(self):
         kwargs = super(EntryAddView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        username = self.request.user.username
+        success_url = reverse_lazy('users:profile', kwargs={
+                                   'username': username})
+        return success_url
 
 
 class EntryUpdateView(LoginRequiredMixin, UpdateView):
@@ -143,7 +178,7 @@ class EntryUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if self.get_object().author != self.request.user:
-            return HttpResponseForbidden()
+            return HttpResponseNotFound()
         return super(EntryUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):

@@ -1,7 +1,7 @@
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalLoginView
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from entries.models import Entry, Subscribe
@@ -68,7 +68,7 @@ class UserEditView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if self.get_object() != self.request.user:
-            return HttpResponseForbidden()
+            return HttpResponseNotFound()
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):

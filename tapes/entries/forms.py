@@ -35,3 +35,17 @@ class TapeForm(forms.ModelForm):
                 preview_height=300,
             )
         }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.is_add = kwargs.pop('is_add', None)
+        super(TapeForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        slug = self.cleaned_data['slug'].lower()
+        created = Tape.objects.filter(author=self.user, slug=slug).exists()
+        if self.is_add and created:
+            raise forms.ValidationError('У вас уже есть лента с указанной'
+                                        ' ссылкой')
+        return cleaned_data

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{% if is_edit %}Редактирование ленты{% else %}Добавить ленту{% endif %}{% endblock %}
 {% load user_filters %}
+{% load widget_tweaks %}
 {% load thumbnail %}
 {% load static %}
 
@@ -27,6 +28,11 @@
 </div>
 
 <div class="profile-edit row pad-1 my-4 pb-5">
+  <div class="{% if form.non_field_errors %}invalid{% endif %} mb-3 text-secondary">
+    {% for error in form.non_field_errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
   <div class="mb-3 py-2 col-6">
     <label class="form-label fw-light">Название</label>
     {{ form.title|addclass:'form-control' }}
