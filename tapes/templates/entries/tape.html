@@ -53,33 +53,6 @@
   </div>
 {% endif %}
 
-
-{% if request.user.is_authenticated and request.user == author %}
-
-<div class="add-entry">
-  {{ form.media }}
-  {% load user_filters %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-      <div class="mb-3 py-2">
-        <label class="form-label fw-light">Заголовок (не обязательно)</label>
-        {{ form.title|addclass:'form-control' }}
-      </div>
-      {{ form.text }}
-      <div class="input-group pb-4">
-        {{ form.tape|addclass:'form-select' }}
-        <button type="submit" class="btn btn-outline-secondary" type="button">
-          {% if is_edit %}
-            Сохранить
-          {% else %}
-            Отправить
-          {% endif %}
-        </button>
-      </div>
-  </form>
-</div>
-{% endif %}
-
 <div class="my-5">
   {% include '../includes/entry_list.html' %}
 </div>
