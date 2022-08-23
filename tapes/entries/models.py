@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 from django_quill.fields import QuillField
 
 User = get_user_model()
@@ -36,6 +37,12 @@ class Tape(models.Model):
         self.slug = self.slug.lower()
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        username = self.author.username
+        slug = self.slug
+        return reverse(
+            'entries:tape', kwargs={'username': username, 'slug': slug})
+
 
 class Entry(models.Model):
     title = models.CharField(
@@ -66,6 +73,10 @@ class Entry(models.Model):
     def __str__(self):
         return self.text.plain[:30]
 
+    def get_absolute_url(self):
+        return reverse(
+            'entries:entry_detail', kwargs={'entry_id': self.id})
+
 
 class Comment(models.Model):
     entry = models.ForeignKey(
@@ -83,6 +94,10 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created']
+
+    def get_absolute_url(self):
+        return reverse(
+            'entries:entry_detail', kwargs={'entry_id': self.entry.id})
 
 
 class Subscribe(models.Model):

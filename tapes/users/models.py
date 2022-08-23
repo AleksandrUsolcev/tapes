@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django_quill.fields import QuillField
 
@@ -88,3 +89,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.username_lower = self.username.lower()
         self.email = self.email.lower()
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('users:profile', kwargs={'username': self.username})
