@@ -5,21 +5,23 @@ from . import views
 app_name = 'entries'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('feed', views.feed, name='feed'),
-    path('new-tape', views.tape_add, name='tape_add'),
-    path('new', views.entry_add, name='entry_add'),
-    path('saved', views.saved, name='saved'),
-    path('liked', views.liked, name='liked'),
+    path('', views.EntriesListView.as_view(), name='index'),
+    path('feed', views.FeedView.as_view(), name='feed'),
+    path('new', views.EntryAddView.as_view(), name='entry_add'),
+    path('saved', views.SavedView.as_view(), name='saved'),
+    path('liked', views.LikedView.as_view(), name='liked'),
     path(
         'entries/<int:entry_id>',
-        views.entry_detail,
+        views.EntryDetailView.as_view(),
         name='entry_detail'
     ),
-    path('entries/<int:entry_id>/edit', views.entry_edit, name='entry_edit'),
+    path('entries/<int:entry_id>/edit',
+         views.EntryUpdateView.as_view(),
+         name='entry_edit'
+         ),
     path(
         'entries/<int:entry_id>/comment',
-        views.comment_add,
+        views.CommentAddView.as_view(),
         name='comment_add'
     ),
     path(
@@ -33,18 +35,21 @@ urlpatterns = [
         name='mark_entry'
     ),
     path(
-        '~<str:username>/subscribe',
+        '~<slug:username>/subscribe',
         views.subscribe,
         name='subscribe'
     ),
     path(
-        '~<str:username>/unsubscribe',
+        '~<slug:username>/unsubscribe',
         views.unsubscribe,
         name='unsubscribe'
     ),
-    path('~<str:username>/<slug:slug>', views.tape, name='tape'),
-    path('~<str:username>/<slug:slug>/edit',
-         views.tape_edit,
+    path('~<slug:username>/<slug:slug>',
+         views.TapeView.as_view(),
+         name='tape'),
+    path('new-tape', views.TapeAddView.as_view(), name='tape_add'),
+    path('~<slug:username>/<slug:slug>/edit',
+         views.TapeUpdateView.as_view(),
          name='tape_edit'
          ),
 ]

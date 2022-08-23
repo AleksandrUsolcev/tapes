@@ -1,201 +1,210 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import CommentForm, EntryForm, TapeAddForm, TapeEditForm
+from .forms import CommentForm, EntryForm, TapeForm
 from .models import Bookmark, Entry, Like, Subscribe, Tape, User
 from .utils import htmx_login_required, pagination
 
 
-def index(request):
-    entries = Entry.objects.all()
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
-    context = {
-        'entries': entries,
-    }
-    if request.user.is_authenticated and request.user.is_newbie:
-        request.user.is_newbie = False
-        request.user.save()
-    if request.htmx:
-        return render(request, 'includes/entry_list.html', context)
-    return render(request, 'entries/index.html', context)
+class EntriesListView(ListView):
+    model = Entry
+    template_name = 'entries/index.html'
+    context_object_name = 'entries'
+    paginate_by = settings.ENTRIES_COUNT
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.htmx:
+            self.template_name = 'includes/entry_list.html'
+        return context
 
 
-def tape(request, username, slug):
-    username.lower()
-    slug.lower()
-    author = get_object_or_404(User, username=username)
-    tapes = get_object_or_404(Tape, slug=slug, author=author)
-    entries = tapes.entries.all()
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
-    if request.user.is_authenticated:
-        form = EntryForm(request.POST or None,
-                         files=request.FILES or None,
-                         user_id=request.user
-                         )
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.author = request.user
-            form.save()
-            return redirect('users:profile', username=request.user.username)
-    else:
-        form = False
-    context = {
-        'entries': entries,
-        'tapes': tapes,
-        'author': author,
-        'form': form,
-    }
-    if request.htmx:
-        return render(request, 'includes/entry_list.html', context)
-    return render(request, 'entries/tape.html', context)
+class FeedView(LoginRequiredMixin, EntriesListView):
+    template_name = 'entries/feed.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Entry.objects.filter(author__subs__user=user)
 
 
-@login_required
-def tape_add(request):
-    form = TapeAddForm(request.POST or None, files=request.FILES or None, )
-    if form.is_valid():
-        form = form.save(commit=False)
-        form.author = request.user
-        form.save()
-        return redirect(
-            'entries:tape',
-            username=request.user.username,
-            slug=form.slug,
-        )
-    return render(request, 'entries/tape_add.html', {'form': form})
+class SavedView(LoginRequiredMixin, EntriesListView):
+    template_name = 'entries/saved.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Entry.objects.filter(marked__user=user)
 
 
-@login_required
-def tape_edit(request, username, slug):
-    username.lower()
-    user = request.user
-    tapes = get_object_or_404(Tape, slug=slug, author=user)
-    author = tapes.author
-    form = TapeEditForm(
-        request.POST or None,
-        files=request.FILES or None,
-        instance=tapes,
-    )
-    if author != request.user:
-        return redirect('entries:tape', slug=slug,
-                        username=tapes.author.username)
-    if form.is_valid():
-        if author == request.user and form.cleaned_data["delete_tape"] is True:
-            tapes.delete()
-            return redirect('users:profile', username=tapes.author.username)
-        form.save()
-        return redirect('entries:tape', slug=slug,
-                        username=tapes.author.username)
-    context = {
-        'is_edit': True,
-        'form': form
-    }
-    return render(request, 'entries/tape_add.html', context)
+class LikedView(LoginRequiredMixin, EntriesListView):
+    template_name = 'entries/liked.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Entry.objects.filter(liked__user=user)
 
 
-@login_required
-def feed(request):
-    user = request.user
-    entries = Entry.objects.filter(author__subs__user=user)
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
-    context = {
-        'entries': entries,
-    }
-    if request.htmx:
-        return render(request, 'includes/entry_list.html', context)
-    return render(request, 'entries/feed.html', context)
+class TapeView(EntriesListView):
+    template_name = 'entries/tape.html'
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        slug = self.kwargs['slug']
+        author = get_object_or_404(User, username=username)
+        tapes = get_object_or_404(Tape, slug=slug, author=author)
+        return tapes.entries.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.kwargs['username']
+        slug = self.kwargs['slug']
+        author = get_object_or_404(User, username=username)
+        tapes = get_object_or_404(Tape, slug=slug, author=author)
+        extra_context = {
+            'tapes': tapes,
+            'author': author,
+        }
+        context.update(extra_context)
+        return context
 
 
-@login_required
-def saved(request):
-    user = request.user
-    entries = Entry.objects.filter(marked__user=user)
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
-    context = {
-        'entries': entries,
-    }
-    if request.htmx:
-        return render(request, 'includes/entry_list.html', context)
-    return render(request, 'entries/saved.html', context)
+class TapeAddView(LoginRequiredMixin, CreateView):
+    form_class = TapeForm
+    template_name = 'entries/tape_add.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(TapeAddView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user, 'is_add': True})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        self.form_slug = form.instance.slug
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        username = self.request.user.username
+        slug = self.form_slug
+        success_url = reverse_lazy('entries:tape', kwargs={
+                                   'username': username, 'slug': slug})
+        return success_url
 
 
-@login_required
-def liked(request):
-    user = request.user
-    entries = Entry.objects.filter(liked__user=user)
-    entries = pagination(request, entries, settings.ENTRIES_COUNT)
-    context = {
-        'entries': entries,
-    }
-    if request.htmx:
-        return render(request, 'includes/entry_list.html', context)
-    return render(request, 'entries/liked.html', context)
+class TapeUpdateView(LoginRequiredMixin, UpdateView):
+    model = Tape
+    form_class = TapeForm
+    template_name = 'entries/tape_add.html'
+    extra_context = {'is_edit': True}
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.kwargs['username'] != self.request.user.username:
+            return HttpResponseNotFound()
+        return super(TapeUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(TapeUpdateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        self.form_slug = form.instance.slug
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        username = self.kwargs['username']
+        slug = self.form_slug
+        success_url = reverse_lazy('entries:tape', kwargs={
+                                   'username': username, 'slug': slug})
+        return success_url
 
 
-def entry_detail(request, entry_id):
-    entry = get_object_or_404(Entry, id=entry_id)
-    form = CommentForm()
-    comments = entry.comments.all()
-    comments = pagination(request, comments, settings.COMMENTS_COUNT)
-    context = {
-        'entry': entry,
-        'form': form,
-        'comments': comments,
-    }
-    return render(request, 'entries/entry_detail.html', context)
+class EntryDetailView(DetailView):
+    model = Entry
+    template_name = 'entries/entry_detail.html'
+    pk_field = 'entry_id'
+    pk_url_kwarg = 'entry_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        entry = self.object
+        form = CommentForm()
+        comments = entry.comments.all()
+        comments = pagination(self.request, comments, settings.COMMENTS_COUNT)
+        extra_context = {
+            'form': form,
+            'comments': comments,
+        }
+        context.update(extra_context)
+        return context
 
 
-@login_required
-def entry_add(request):
-    form = EntryForm(request.POST or None,
-                     files=request.FILES or None,
-                     user_id=request.user
-                     )
-    if form.is_valid():
-        form = form.save(commit=False)
-        form.author = request.user
-        form.save()
-        return redirect('users:profile', username=request.user.username)
-    return render(request, 'entries/entry_add.html', {'form': form})
+class EntryAddView(LoginRequiredMixin, CreateView):
+    form_class = EntryForm
+    template_name = 'entries/entry_add.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(EntryAddView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        username = self.request.user.username
+        success_url = reverse_lazy('users:profile', kwargs={
+                                   'username': username})
+        return success_url
 
 
-@login_required
-def entry_edit(request, entry_id):
-    entry = get_object_or_404(Entry, id=entry_id)
-    form = EntryForm(request.POST or None,
-                     files=request.FILES or None,
-                     user_id=request.user,
-                     instance=entry
-                     )
-    if entry.author != request.user:
-        return redirect('entries:entry_detail', entry_id=entry_id)
-    if form.is_valid():
-        form.save()
-        return redirect('entries:entry_detail', entry_id=entry_id)
-    context = {
-        'is_edit': True,
-        'entry': entry,
-        'form': form,
-    }
-    return render(request, 'entries/entry_add.html', context)
+class EntryUpdateView(LoginRequiredMixin, UpdateView):
+    model = Entry
+    form_class = EntryForm
+    template_name = 'entries/entry_add.html'
+    extra_context = {'is_edit': True}
+    pk_field = 'entry_id'
+    pk_url_kwarg = 'entry_id'
+
+    def get_form_kwargs(self):
+        kwargs = super(EntryUpdateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object().author != self.request.user:
+            return HttpResponseNotFound()
+        return super(EntryUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        entry_id = self.kwargs['entry_id']
+        success_url = reverse_lazy('entries:entry_detail', kwargs={
+                                   'entry_id': entry_id})
+        return success_url
 
 
-@login_required
-def comment_add(request, entry_id):
-    entry = get_object_or_404(Entry, id=entry_id)
-    form = CommentForm(request.POST or None)
-    if form.is_valid():
-        form = form.save(commit=False)
-        form.author = request.user
-        form.entry = entry
-        form.save()
-        return redirect('entries:entry_detail', entry_id=entry_id)
-    context = {
-        'entry': entry,
-        'form': form
-    }
-    return render(request, 'entries/entry_detail.html', context)
+class CommentAddView(LoginRequiredMixin, CreateView):
+    form_class = CommentForm
+    template_name = 'entries/entry_add.html'
+    pk_field = 'entry_id'
+    pk_url_kwarg = 'entry_id'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.entry = get_object_or_404(
+            Entry, id=self.kwargs['entry_id'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        entry_id = self.kwargs['entry_id']
+        success_url = reverse_lazy('entries:entry_detail', kwargs={
+                                   'entry_id': entry_id})
+        return success_url
 
 
 @htmx_login_required
