@@ -280,3 +280,12 @@ a:hover {
 .share-area .dropdown-toggle::after {
   display: none;
 }
+.bi-small {
+  font-size: 16px;
+}
+.bi-ms {
+  font-size: 17px;
+}
+.bi-medium {
+  font-size: 24px;
+}
