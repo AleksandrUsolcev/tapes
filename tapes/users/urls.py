@@ -73,4 +73,9 @@ urlpatterns = [
     path('edit-profile/',
          views.UserEditView.as_view(),
          name='user_edit'),
+    path(
+        '~<slug:username>/subscribe',
+        views.SubscribeView.as_view(),
+        name='subscribe'
+    ),
 ]

@@ -1,13 +1,14 @@
 from bootstrap_modal_forms.generic import BSModalCreateView, BSModalLoginView
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView
-from entries.models import Entry, Subscribe
+from django.views.generic import DetailView, UpdateView, View
+from entries.models import Entry
 
 from .forms import (CustomAuthenticationForm, CustomUserCreationForm,
                     UserEditForm)
-from .models import User
+from .models import Subscribe, User
 from .utils import pagination
 
 
@@ -60,3 +61,17 @@ class UserEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.model.objects.get(username=self.request.user.username)
+
+
+class SubscribeView(LoginRequiredMixin, View):
+    def get(self, request, **kwargs):
+        user = request.user
+        username = self.kwargs['username']
+        author = get_object_or_404(User, username=username)
+        instance = Subscribe.objects.filter(user=user, author=author)
+        if user != author:
+            if not instance:
+                Subscribe.objects.get_or_create(user=user, author=author)
+            else:
+                Subscribe.objects.filter(user=user, author=author).delete()
+        return redirect('users:profile', username)
