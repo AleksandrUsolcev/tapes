@@ -1,13 +1,13 @@
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
+                                  View)
 
 from .forms import CommentForm, EntryForm, TapeForm
 from .mixins import UserOwnershipMixin
-from .models import Bookmark, Entry, Like, Subscribe, Tape, User
-from .utils import htmx_login_required, pagination
+from .models import Bookmark, Entry, Like, Tape, User
+from .utils import pagination
 
 
 class EntriesListView(ListView):
@@ -72,11 +72,6 @@ class TapeAddView(LoginRequiredMixin, CreateView):
     form_class = TapeForm
     template_name = 'entries/tape_add.html'
 
-    def get_form_kwargs(self):
-        kwargs = super(TapeAddView, self).get_form_kwargs()
-        kwargs.update({'user': self.request.user, 'is_add': True})
-        return kwargs
-
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -87,11 +82,6 @@ class TapeUpdateView(LoginRequiredMixin, UserOwnershipMixin, UpdateView):
     form_class = TapeForm
     template_name = 'entries/tape_add.html'
     extra_context = {'is_edit': True}
-
-    def get_form_kwargs(self):
-        kwargs = super(TapeUpdateView, self).get_form_kwargs()
-        kwargs.update({'user': self.request.user})
-        return kwargs
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -158,45 +148,22 @@ class CommentAddView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-@htmx_login_required
-def like_entry(request, entry_id):
-    if request.method == 'POST':
+class LikeEntryView(LoginRequiredMixin, View):
+    model = Like
+    template_name = 'htmx/like-area.html'
+
+    def post(self, request, **kwargs):
         user = request.user
+        entry_id = self.kwargs['entry_id']
         entry = get_object_or_404(Entry, id=entry_id)
-        instance = Like.objects.filter(user=user, entry=entry)
+        instance = self.model.objects.filter(user=user, entry=entry)
         if not instance:
-            Like.objects.get_or_create(user=user, entry=entry)
+            self.model.objects.get_or_create(user=user, entry=entry)
         else:
-            Like.objects.filter(user=user, entry=entry).delete()
-        return render(request, 'htmx/like-area.html',
-                      context={'entry': entry})
+            self.model.objects.filter(user=user, entry=entry).delete()
+        return render(request, self.template_name, context={'entry': entry})
 
 
-@htmx_login_required
-def mark_entry(request, entry_id):
-    user = request.user
-    entry = get_object_or_404(Entry, id=entry_id)
-    instance = Bookmark.objects.filter(user=user, entry=entry)
-    if not instance:
-        Bookmark.objects.get_or_create(user=user, entry=entry)
-    else:
-        Bookmark.objects.filter(user=user, entry=entry).delete()
-    return render(request, 'htmx/mark-area.html',
-                  context={'entry': entry})
-
-
-@login_required
-def subscribe(request, username):
-    user = request.user
-    author = get_object_or_404(User, username=username)
-    if user != author:
-        Subscribe.objects.get_or_create(user=user, author=author)
-    return redirect('users:profile', username)
-
-
-@login_required
-def unsubscribe(request, username):
-    user = request.user
-    author = get_object_or_404(User, username=username)
-    Subscribe.objects.filter(user=user, author=author).delete()
-    return redirect('users:profile', username)
+class MarkEntryView(LikeEntryView):
+    model = Bookmark
+    template_name = 'htmx/mark-area.html'

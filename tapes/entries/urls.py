@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .utils import htmx_login_required
 
 app_name = 'entries'
 
@@ -26,23 +27,13 @@ urlpatterns = [
     ),
     path(
         'entries/<int:entry_id>/like_entry',
-        views.like_entry,
+        htmx_login_required(views.LikeEntryView.as_view()),
         name='like_entry'
     ),
     path(
         'entries/<int:entry_id>/mark_entry',
-        views.mark_entry,
+        htmx_login_required(views.MarkEntryView.as_view()),
         name='mark_entry'
-    ),
-    path(
-        '~<slug:username>/subscribe',
-        views.subscribe,
-        name='subscribe'
-    ),
-    path(
-        '~<slug:username>/unsubscribe',
-        views.unsubscribe,
-        name='unsubscribe'
     ),
     path('~<slug:username>/<slug:slug>',
          views.TapeView.as_view(),
