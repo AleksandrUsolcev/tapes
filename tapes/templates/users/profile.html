@@ -4,34 +4,27 @@
 {% block title %}
   ~ {{ user.username }}
 {% endblock %}
-{% block before-content %}
+{% block content %}
 {% if user.background %}
-  <div class="row container-fluid profile-top">
-    <div class="col-3">
-    </div>
-    <div class="col-6 profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
-    </div>
-  </div>
-{% else %}
-  <div class="row container-fluid profile-top">
-    <div class="col-3">
-    </div>
-    <div class="col-6 profile-background-img">
-    </div>
+  <div class="profile-background-img" style="background-image: url('{{ user.background.url }}'); background-position: top left; background-size: inherit;">
   </div>
 {% endif %}
-{% endblock %}
-{% block content %}
-<div class="row profile pad-1 mb-3">
+<div class="row profile pb-4">
   <div class="col-6 profile-name">
-    {% if user.avatar %}
+    {% if user.avatar and user.background %}
       {% thumbnail user.avatar "150x150" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+        <a href="{% url 'users:profile' user.username %}">
+          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar">
+        </a>
       {% endthumbnail %}
-    {% else %}
-      <div class="py-4"></div>
+    {% elif user.avatar %}
+      {% thumbnail user.avatar "150x150" as im %}
+        <a href="{% url 'users:profile' user.username %}">
+          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="profile-avatar mt-0">
+        </a>
+      {% endthumbnail %}
     {% endif %}
-    <h1 class="fw-bolder">
+    <h1 class="fw-bolder pt-3">
       <span class="tilda">~</span>{{ user.username }}
       {% if user.is_verified %}
         <i class="bi bi-patch-check-fill bi-medium"></i>
@@ -133,9 +126,5 @@
       {% endif %}
     </div>
 </div>
-
-<div class="infinite-container pad-1 py-5">
-  {% include '../includes/entry_list.html' %}
-</div>
-
+{% include '../includes/entry_list.html' %}
 {% endblock %}
