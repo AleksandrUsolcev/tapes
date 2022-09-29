@@ -1,4 +1,4 @@
-{% if entry.id in liked %}
+{% if liked %}
   <a class="text-decoration-none pointer" hx-post="{% url 'entries:like_entry' entry.id %}">
       <i class="bi bi-heart-fill bi-small"></i>
     <span class="fw-light ms-1">{{ entry.liked.count }}</span>
