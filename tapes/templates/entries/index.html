@@ -4,12 +4,10 @@
   tape Your life ~
 {% endblock %}
 {% block content %}
-  <div class="infinite-container pad-1 py-5 mt-5">
     {% if not entries %}
       <h2>Привет! :)</h2>
       <p>Данная запись пропадет после добавления первого же поста, а пока зарегистрируйся, настрой профиль, создай ленту и добавь в неё свой первый пост</p>
       <p>Больше подробностей в readme файле репозитория</p>
     {% endif %}
     {% include '../includes/entry_list.html' %}
-  </div>
 {% endblock %}

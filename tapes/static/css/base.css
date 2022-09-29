@@ -1,6 +1,20 @@
 body {
   background: #eae9f5;
 }
+.main-container {
+  padding-top: 100px;
+}
+.content {
+  margin: 0 auto;
+  width: 800px;
+  background: #fff;
+  padding: 50px;
+  border-radius: 2rem;
+  position: relative;
+  -webkit-box-shadow: 0px 0px 24px -6px rgba(34, 60, 80, 0.45);
+  -moz-box-shadow: 0px 0px 24px -6px rgba(34, 60, 80, 0.45);
+  box-shadow: 0px 0px 24px -6px rgba(34, 60, 80, 0.45);
+}
 p {
    font-family: Helvetica, serif;
    letter-spacing: .04rem;
@@ -8,14 +22,6 @@ p {
 input,
 .alert {
   border-radius: .7rem !important;
-}
-.pad-1 {
-  padding: 0 7rem 0 7rem;
-}
-.pad-1 p img {
-  margin: 0 -7rem 0 -7rem;
-  display: inline-block;
-  height: auto;
 }
 .pointer {
   cursor: pointer;
@@ -100,9 +106,8 @@ a:hover {
 }
 .profile-avatar,
 .tape-picture {
-  border-radius: 1rem;
+  border-radius: 2rem;
   border: solid 5px #fff;
-  margin-bottom: 1rem;
   overflow-wrap: break-word;
   z-index: 100;
   margin-top: -7rem;
@@ -121,26 +126,31 @@ a:hover {
   border-radius: 2rem;
 }
 .profile-avatar-mini {
-  border-radius: .2rem;
+  border-radius: .5rem;
   margin-top: -4px;
 }
 .profile-background-img {
+  overflow: hidden;
   height: 270px;
   background: #0e062b url('../img/profile-bg.png') repeat;
   background-size: 60%;
   z-index: 1;
-  -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
-  -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
-  box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.55) inset;
 }
 .profile-background-edit {
   overflow: hidden;
-  margin: 0;
-  padding: 0;
   background: #0e062b url('../img/profile-bg.png') repeat;
   background-size: 60%;
   height: 270px;
   position: relative;
+}
+.profile-background-img,
+.profile-background-edit {
+  margin: 0 -50px;
+  margin-top: -50px;
+  border-radius: 2rem;
+  -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.35) inset;
+  -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.35) inset;
+  box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.35) inset;
 }
 .edit-page .dcsic_choose_other_img,
 .edit-page .dcsic_choose_img,

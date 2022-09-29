@@ -29,9 +29,9 @@ class TapeForm(forms.ModelForm):
         fields = ('title', 'slug', 'description', 'background')
         widgets = {
             'background': ClientsideCroppingWidget(
-                width=1000,
+                width=800,
                 height=300,
-                preview_width=1000,
+                preview_width=800,
                 preview_height=300,
             )
         }

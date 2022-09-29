@@ -4,23 +4,17 @@
 {% load thumbnail %}
 {% load static %}
 
-{% block before-content %}
-<div class="edit-page">
-  <div class="row container-fluid profile-top">
-    <div class="col-3">
-    </div>
-    <div class="col-6 profile-background-edit">
-      <form method="post" enctype="multipart/form-data">
-          {{ form.media }}
-          {% csrf_token %}
-        {{ form.background }}
-    </div>
-  </div>
-{% endblock %}
 {% block content %}
-<div class="row profile pad-1">
+<div class="edit-page">
+  <div class="profile-background-edit">
+    <form method="post" enctype="multipart/form-data">
+        {{ form.media }}
+        {% csrf_token %}
+      {{ form.background }}
+  </div>
+<div class="row profile">
   <div class="col-6 profile-name">
-    <div class="profile-avatar">
+    <div class="profile-avatar mb-3">
      {{ form.avatar }}
     </div>
   </div>
@@ -32,7 +26,7 @@
   </div>
 </div>
 
-  <div class="profile-edit row pad-1 my-4 pb-5">
+  <div class="profile-edit row">
     <div class="mb-3 py-2 col-6">
       <label class="form-label fw-light">Текущий email</label>
       <input class="form-control" type="text" placeholder="{{ user.email }}" aria-label="Disabled input example" disabled>
