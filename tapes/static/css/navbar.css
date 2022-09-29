@@ -7,6 +7,11 @@
   -moz-box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
   box-shadow: 0px 4px 3px 0px rgba(34, 60, 80, 0.15);
 }
+.nav-content {
+  width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
 .nav-content input {
   background: #e3e1ec;
   border: none;

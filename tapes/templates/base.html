@@ -25,11 +25,14 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-      <!-- {% include 'includes/navbar.html' %} -->
+      {% include 'includes/navbar.html' %}
+      {% include 'includes/sidebar.html' %}
     <main>
+      <div class="main-container">
         <div class="content">
           {% block content %}{% endblock %}
         </div>
+      </div>
     </main>
     {% include 'includes/footer.html' %}
     {% block javascript %}

@@ -1,8 +1,11 @@
 body {
   background: #eae9f5;
 }
+.main-container {
+  padding-top: 100px;
+}
 .content {
-  margin: 40px auto;
+  margin: 0 auto;
   width: 800px;
   background: #fff;
   padding: 50px;
@@ -103,7 +106,7 @@ a:hover {
 }
 .profile-avatar,
 .tape-picture {
-  border-radius: 1rem;
+  border-radius: 2rem;
   border: solid 5px #fff;
   overflow-wrap: break-word;
   z-index: 100;
@@ -123,7 +126,7 @@ a:hover {
   border-radius: 2rem;
 }
 .profile-avatar-mini {
-  border-radius: .2rem;
+  border-radius: .5rem;
   margin-top: -4px;
 }
 .profile-background-img {
@@ -144,7 +147,7 @@ a:hover {
 .profile-background-edit {
   margin: 0 -50px;
   margin-top: -50px;
-  border-radius: 2rem 2rem 1rem 1rem;
+  border-radius: 2rem;
   -webkit-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.35) inset;
   -moz-box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.35) inset;
   box-shadow: 0px -7px 8px 0px rgba(34, 60, 80, 0.35) inset;
