@@ -5,14 +5,14 @@
 
 Пока что адаптивность верстки отсутствует, некоторые элементы фронта могут иметь проблемы, рекомендуемое разрешение >= 1920х1080, что так же будет исправлено.
 
-### Сторонние расширения Django
+## Сторонние расширения Django
 
 - [django-htmx](https://github.com/adamchainz/django-htmx)
 - [django-client-side-image-cropping](https://github.com/koendewit/django-client-side-image-cropping)
 - [django-quill-editor](https://github.com/LeeHanYeong/django-quill-editor)
 - [django-bootstrap-modal-forms](https://github.com/trco/django-bootstrap-modal-forms)
 
-### Запуск проекта
+## Запуск проекта
 
 Клонировать репозиторий, установить и активировать виртуальное окружение
 
