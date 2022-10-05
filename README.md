@@ -5,7 +5,7 @@
 
 Пока что адаптивность верстки отсутствует, некоторые элементы фронта могут иметь проблемы, рекомендуемое разрешение >= 1920х1080, что так же будет исправлено.
 
-### Используемые расширения
+### Сторонние расширения Django
 
 - [django-htmx](https://github.com/adamchainz/django-htmx)
 - [django-client-side-image-cropping](https://github.com/koendewit/django-client-side-image-cropping)
